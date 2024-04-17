@@ -3,17 +3,10 @@
 
 export default function Navbar() {
   return (
-    <nav className="fixed z-50 w-full py-2.5 dark:bg-gray-900">
+    <nav className="fixed  z-50 w-full py-2.5 bg-black opacity-80">
       <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
-        <a href="#" className="flex items-center">
-          <img
-            src="https://www.svgrepo.com/show/499962/music.svg"
-            className="h-6 mr-3 sm:h-9"
-            alt="Landwind Logo"
-          />
-          <span className="self-center text-xl font-semibold whitespace-nowrap">
-            GogoTravel
-          </span>
+        <a href="/" className="flex items-center">
+          <img src="/logo.png" className="h-6 mr-3 sm:h-9" alt="Logo" />
         </a>
         <div className="flex items-center lg:order-2">
           <div className="hidden mt-2 mr-4 sm:inline-block">
@@ -70,7 +63,7 @@ export default function Navbar() {
                 className="block py-2 pl-3 pr-4 text-white bg-emerald-700 rounded lg:bg-transparent lg:text-emerald-700 lg:p-0 dark:text-white"
                 aria-current="page"
               >
-                Home
+                Tours
               </a>
             </li>
             <li>
@@ -78,7 +71,7 @@ export default function Navbar() {
                 href="#"
                 className="block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-emerald-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
               >
-                Company
+                Điểm đến
               </a>
             </li>
             <li>
@@ -86,7 +79,7 @@ export default function Navbar() {
                 href="#"
                 className="block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-emerald-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
               >
-                Marketplace
+                Gợi ý
               </a>
             </li>
             <li>
@@ -94,7 +87,7 @@ export default function Navbar() {
                 href="#"
                 className="block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-emerald-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
               >
-                Features
+                Bản đồ
               </a>
             </li>
             <li>
@@ -102,7 +95,7 @@ export default function Navbar() {
                 href="#"
                 className="block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-emerald-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
               >
-                Team
+                Liên hệ
               </a>
             </li>
             <li>
@@ -110,7 +103,7 @@ export default function Navbar() {
                 href="#"
                 className="block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-emerald-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
               >
-                Contact
+                Yêu thích
               </a>
             </li>
           </ul>

@@ -9,31 +9,36 @@ export default function Navbar() {
           <img
             className="object-cover object-center rounded"
             alt="hero"
-            src="https://www.svgrepo.com/show/490900/hot-air-balloon.svg"
+            src="/suggest.png"
           />
         </div>
-        <div className="lg:flex-grow mt-5 md:mt-0   md:w-1.5/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+        <div className="lg:flex-grow mt-5 md:mt-0  ml-10 md:w-1.5/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+          <b className="text-emerald-700 text-lg">Tầm nhìn giá trị</b>
           <h1 className="text-2xl font-extrabold leading-9 tracking-tight mb-3 text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-normal">
-            Title of Project
+            Cùng khám phá những điều tuyệt vời
           </h1>
           <p className="mb-8 md:pl-0  pl-2 pr-2 leading-relaxed dark:text-gray-300">
             Short description here, Short description here Short description
             here Short description here Short description here Short description
             here.
           </p>
-          <div className="flex justify-center">
-            <a
-              href="#"
-              className="inline-flex text-white bg-emerald-600 border-0 py-2 px-6 focus:outline-none hover:bg-emerald-600 rounded text-lg"
-            >
-              Start Exploring
-            </a>
-            <a
-              href="#"
-              className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg"
-            >
-              Read articles
-            </a>
+          <div className="flex flex-wrap w-full">
+            <div className="p-2 sm:w-1/2 ">
+              <p className="text-xl font-bold text-emerald-800">50+</p>
+              <p>Tours</p>
+            </div>
+            <div className="p-2 sm:w-1/2 w-full">
+              <p className="text-xl font-bold text-emerald-800">100+</p>
+              <p>Điểm đến</p>
+            </div>
+            <div className="p-2 sm:w-1/2 w-full">
+              <p className="text-xl font-bold text-emerald-800">68</p>
+              <p>Elite Transportation</p>
+            </div>
+            <div className="p-2 sm:w-1/2 w-full">
+              <p className="text-xl font-bold text-emerald-800">32M+</p>
+              <p>we help to find your dream place</p>
+            </div>
           </div>
         </div>
       </div>
