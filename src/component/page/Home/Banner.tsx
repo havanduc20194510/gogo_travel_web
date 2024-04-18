@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { DatePicker } from "./ui/Datepicker";
+import { DatePicker } from "@/component/ui/Datepicker";
 
 export default function Banner() {
   return (
