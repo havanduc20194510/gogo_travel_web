@@ -29,7 +29,7 @@ export default function PopularTours() {
               <div>
                 <span className="font-bold text-lg text-white">
                   1000.000vnđ
-                </span>{" "}
+                </span>
                 <span className="text-emerald-500 font-bold text-xs">
                   Price stars from
                 </span>
@@ -51,7 +51,7 @@ export default function PopularTours() {
               <div>
                 <span className="font-bold text-lg text-white">
                   1000.000vnđ
-                </span>{" "}
+                </span>
                 <span className="text-emerald-500 font-bold text-xs">
                   Price stars from
                 </span>
@@ -98,7 +98,7 @@ export default function PopularTours() {
               <div>
                 <span className="font-bold text-lg text-white">
                   1000.000vnđ
-                </span>{" "}
+                </span>
                 <span className="text-emerald-500 font-bold text-xs">
                   Price stars from
                 </span>
@@ -120,7 +120,7 @@ export default function PopularTours() {
               <div>
                 <span className="font-bold text-lg text-white">
                   1000.000vnđ
-                </span>{" "}
+                </span>
                 <span className="text-emerald-500 font-bold text-xs">
                   Price stars from
                 </span>

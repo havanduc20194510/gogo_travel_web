@@ -1,16 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import { DatePicker } from "./ui/Datepicker";
+
 export default function Banner() {
   return (
-    <div className="relative bg-gradient-to-r from-purple-600 to-blue-600 h-screen text-white overflow-hidden">
-      <div className="absolute inset-0">
-        <img
-          src="/banner.png"
-          alt="banner"
-          className="object-cover object-center w-full h-full"
-        />
-      </div>
+    <div className=" bg-[url('/banner.png')] bg-no-repeat	width-full  h-screen text-white bg-cover">
       <div className="relative z-10 flex flex-col justify-center h-full text-center">
         <h1 className="text-5xl font-bold leading-tight mb-4">
           Vùng đất mới con người mới
@@ -19,10 +14,9 @@ export default function Banner() {
           Đón bình minh ở một nơi xa, cảm nhận sự bình yên của đát trời. <br />
           Cuộc sống bình yên là vậy, thư giản, giao lưu và trải nghiệm
         </p>
-
         <form>
           <label
-            className="mx-auto mt-8 relative bg-white min-w-sm max-w-2xl flex flex-col md:flex-row items-center justify-center border py-2 px-2 rounded-2xl gap-2 shadow-2xl focus-within:border-gray-300"
+            className="mx-auto mt-8 relative bg-white min-w-sm max-w-3xl flex flex-col md:flex-row items-center justify-center border py-2 px-2 rounded-2xl gap-2 shadow-2xl focus-within:border-gray-300"
             htmlFor="search-bar"
           >
             <img
@@ -34,16 +28,40 @@ export default function Banner() {
             />
             <input
               id="search-bar"
-              placeholder="Điểm đến"
+              placeholder="Bạn muốn đi đâu"
               name="q"
-              className="px-6 py-2 w-full flex-1 outline-none bg-white text-black border-r border-black"
+              className="px-6 py-2 w-full flex-1 outline-none bg-white text-black"
+            />
+          </label>
+        </form>
+        <form>
+          <label
+            className="mx-auto mt-8 relative bg-white min-w-sm max-w-3xl flex flex-col md:flex-row items-center justify-center border py-2 px-2 rounded-2xl gap-2 shadow-2xl focus-within:border-gray-300"
+            htmlFor="search-bar"
+          >
+            <img
+              src="/icons/map.svg"
+              alt="map"
+              width={20}
+              height={20}
+              className="ml-5"
             />
             <input
               id="search-bar"
-              placeholder="Số ngày ở"
+              placeholder="Điểm xuất phát"
               name="q"
               className="px-6 py-2 w-full flex-1 outline-none bg-white text-black border-r border-black"
             />
+            {/* <input
+              id="search-bar"
+              placeholder="Ngày khởi hành"
+              name="q"
+              className="px-6 py-2 w-full flex-1 outline-none bg-white text-black border-r border-black"
+            /> */}
+            <div className="z-10">
+              <DatePicker className="px-6 py-2 w-full flex-1 outline-none bg-white text-black border-r border-black" />
+            </div>
+
             <input
               id="search-bar"
               placeholder="Số người"

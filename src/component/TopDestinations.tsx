@@ -14,97 +14,122 @@ export default function TopDestinations() {
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-6 xl:gap-8">
-          <a
-            href="#"
-            className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-80"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1610465299996-30f240ac2b1c?auto=format&q=75&fit=crop&w=1000"
-              loading="lazy"
-              alt="Photo by Martin Sanchez"
-              className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
-            />
-            <span className="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">
-              Dev
-            </span>
-          </a>
+          <div className=" rounded-md overflow-hidden shadow-md hover:shadow-lg">
+            <div className="relative p-4">
+              <img
+                className="w-full"
+                src="/product-card.png"
+                alt="Product Image"
+              />
+            </div>
+            <div className="p-4">
+              <h3 className="text-lg font-medium mb-2">Vịnh hạ long</h3>
+              <div className="flex items-center justify-between">
+                <span className="font-bold">5000.000vnđ</span>
+                <div className="flex items-center">
+                  <img className="m-3" src="/icons/location.svg" alt="" />
+                  <p>7 days for trips</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-          <a
-            href="#"
-            className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-80"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&q=75&fit=crop&w=600"
-              loading="lazy"
-              alt="Photo by Lorenzo Herrera"
-              className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
-            />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50"></div>
-            <span className="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">
-              Retro
-            </span>
-          </a>
-          <a
-            href="#"
-            className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-80"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&q=75&fit=crop&w=600"
-              loading="lazy"
-              alt="Photo by Lorenzo Herrera"
-              className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
-            />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50"></div>
-            <span className="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">
-              Retro
-            </span>
-          </a>
-          <a
-            href="#"
-            className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-80"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1610465299996-30f240ac2b1c?auto=format&q=75&fit=crop&w=1000"
-              loading="lazy"
-              alt="Photo by Martin Sanchez"
-              className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
-            />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50"></div>
-            <span className="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">
-              Dev
-            </span>
-          </a>
+          <div className=" rounded-md overflow-hidden shadow-md hover:shadow-lg">
+            <div className="relative p-4">
+              <img
+                className="w-full"
+                src="/product-card.png"
+                alt="Product Image"
+              />
+            </div>
+            <div className="p-4">
+              <h3 className="text-lg font-medium mb-2">Vịnh hạ long</h3>
+              <div className="flex items-center justify-between">
+                <span className="font-bold">5000.000vnđ</span>
+                <div className="flex items-center">
+                  <img className="m-3" src="/icons/location.svg" alt="" />
+                  <p>7 days for trips</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className=" rounded-md overflow-hidden shadow-md hover:shadow-lg">
+            <div className="relative p-4">
+              <img
+                className="w-full"
+                src="/product-card.png"
+                alt="Product Image"
+              />
+            </div>
+            <div className="p-4">
+              <h3 className="text-lg font-medium mb-2">Vịnh hạ long</h3>
+              <div className="flex items-center justify-between">
+                <span className="font-bold">5000.000vnđ</span>
+                <div className="flex items-center">
+                  <img className="m-3" src="/icons/location.svg" alt="" />
+                  <p>7 days for trips</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className=" rounded-md overflow-hidden shadow-md hover:shadow-lg">
+            <div className="relative p-4">
+              <img
+                className="w-full"
+                src="/product-card.png"
+                alt="Product Image"
+              />
+            </div>
+            <div className="p-4">
+              <h3 className="text-lg font-medium mb-2">Vịnh hạ long</h3>
+              <div className="flex items-center justify-between">
+                <span className="font-bold">5000.000vnđ</span>
+                <div className="flex items-center">
+                  <img className="m-3" src="/icons/location.svg" alt="" />
+                  <p>7 days for trips</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-          <a
-            href="#"
-            className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-80"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&q=75&fit=crop&w=600"
-              loading="lazy"
-              alt="Photo by Lorenzo Herrera"
-              className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
-            />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50"></div>
-            <span className="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">
-              Retro
-            </span>
-          </a>
-          <a
-            href="#"
-            className="group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-80"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&q=75&fit=crop&w=600"
-              loading="lazy"
-              alt="Photo by Lorenzo Herrera"
-              className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
-            />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-800 via-transparent to-transparent opacity-50"></div>
-            <span className="relative ml-4 mb-3 inline-block text-sm text-white md:ml-5 md:text-lg">
-              Retro
-            </span>
-          </a>
+          <div className=" rounded-md overflow-hidden shadow-md hover:shadow-lg">
+            <div className="relative p-4">
+              <img
+                className="w-full"
+                src="/product-card.png"
+                alt="Product Image"
+              />
+            </div>
+            <div className="p-4">
+              <h3 className="text-lg font-medium mb-2">Vịnh hạ long</h3>
+              <div className="flex items-center justify-between">
+                <span className="font-bold">5000.000vnđ</span>
+                <div className="flex items-center">
+                  <img className="m-3" src="/icons/location.svg" alt="" />
+                  <p>7 days for trips</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className=" rounded-md overflow-hidden shadow-md hover:shadow-lg">
+            <div className="relative p-4">
+              <img
+                className="w-full"
+                src="/product-card.png"
+                alt="Product Image"
+              />
+            </div>
+            <div className="p-4">
+              <h3 className="text-lg font-medium mb-2">Vịnh hạ long</h3>
+              <div className="flex items-center justify-between">
+                <span className="font-bold">5000.000vnđ</span>
+                <div className="flex items-center">
+                  <img className="m-3" src="/icons/location.svg" alt="" />
+                  <p>7 days for trips</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@
 
 export default function Navbar() {
   return (
-    <section className="text-gray-600 body-font bg-white dark:bg-slate-900">
+    <div className="text-gray-600 body-font bg-white z-0 relative">
       <div className="container mx-auto flex md:px-24 md:py-10 md:flex-row flex-col items-center">
         <div className="lg:max-w-lg lg:w-full mb-5 md:mb-0 md:w-1/2 w-3/6">
           <img
@@ -42,6 +42,6 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
