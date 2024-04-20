@@ -25,6 +25,21 @@ export default function Card() {
           <img src="/icons/family.svg" alt="" />
           <span>Family Plan</span>
         </div>
+        <div className="flex items-center justify-between text-gray-400 border-t border-gray-300 mt-3 pt-2">
+          <div>
+            <div className="flex items-center mb-2">
+              <img width={20} height={20} src="/icons/star.svg" alt="" />
+              <img width={20} height={20} src="/icons/star.svg" alt="" />
+              <img width={20} height={20} src="/icons/star.svg" alt="" />
+              <img width={20} height={20} src="/icons/star.svg" alt="" />
+            </div>
+            <p>584 reviews</p>
+          </div>
+          <div>
+            <div className="font-bold text-2xl text-emerald-500">$35.00</div>
+            <p>per person</p>
+          </div>
+        </div>
       </div>
     </div>
   );
