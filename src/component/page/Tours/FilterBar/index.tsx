@@ -7,7 +7,7 @@ import TypeTours from "./forms/TypeTours";
 
 export default function FilterBar() {
   return (
-    <div className="">
+    <div className="flex flex-col gap-2">
       <FromTo />
       <TypeTours />
       <NumberOfDays />

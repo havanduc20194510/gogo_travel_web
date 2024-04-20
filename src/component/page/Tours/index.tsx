@@ -2,6 +2,8 @@
 
 import FilterBar from "./FilterBar";
 import Heading from "./Heading";
+import SpecialList from "./SpecialList";
+import TourList from "./TourList";
 
 export default function Tours() {
   return (
@@ -14,8 +16,16 @@ export default function Tours() {
           <div>
             <FilterBar />
           </div>
-          <div className="col-span-3">07</div>
+          <div className="col-span-3">
+            <TourList />
+          </div>
         </div>
+      </div>
+      <div className="content py-5">
+        <h1 className="text-lg font-medium my-5 py-5 border-b border-gray-300">
+          Outside the city specials
+        </h1>
+        <SpecialList />
       </div>
     </div>
   );
