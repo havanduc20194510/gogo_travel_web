@@ -1,5 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
+import Form from "./Form";
 import Steps from "./Steps";
 
 export default function TourPlan() {
@@ -8,7 +10,10 @@ export default function TourPlan() {
       <div className="col-span-3">
         <Steps />
       </div>
-      <div className="col-span-2">234</div>
+      <div className="col-span-2">
+        <Form />
+        <img src="/bg.png" alt="" />
+      </div>
     </div>
   );
 }
