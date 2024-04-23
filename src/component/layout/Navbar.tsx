@@ -1,7 +1,25 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import { useEffect, useState } from "react";
+
 export default function Navbar() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [isShowMenu, setIsShowMenu] = useState(false);
+
+  useEffect(() => {
+    const updateMedia = () => {
+      setIsMobile(window.innerWidth <= 1025);
+    };
+
+    updateMedia();
+
+    window.addEventListener("resize", updateMedia);
+    return () => {
+      window.removeEventListener("resize", updateMedia);
+    };
+  }, []);
+
   return (
     <nav className="fixed  z-50 w-full py-2.5 bg-black opacity-80">
       <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
@@ -19,11 +37,9 @@ export default function Navbar() {
             Login
           </a>
           <button
-            data-collapse-toggle="mobile-menu-2"
             type="button"
             className="inline-flex items-center p-2 ml-1 text-sm text-white rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-            aria-controls="mobile-menu-2"
-            aria-expanded="true"
+            onClick={() => setIsShowMenu(!isShowMenu)}
           >
             <span className="sr-only">Open main menu</span>
             <svg
@@ -52,62 +68,64 @@ export default function Navbar() {
             </svg>
           </button>
         </div>
-        <div
-          className="items-center justify-between w-full lg:flex lg:w-auto lg:order-1"
-          id="mobile-menu-2"
-        >
-          <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-            <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-white bg-emerald-700 rounded lg:bg-transparent lg:text-emerald-700 lg:p-0 dark:text-white"
-                aria-current="page"
-              >
-                Tours
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-emerald-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Điểm đến
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-emerald-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Gợi ý
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-emerald-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Bản đồ
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-emerald-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Liên hệ
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-emerald-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Yêu thích
-              </a>
-            </li>
-          </ul>
-        </div>
+        {(isShowMenu || !isMobile) && (
+          <div
+            className="items-center justify-between w-full lg:flex lg:w-auto lg:order-1"
+            id="mobile-menu-2"
+          >
+            <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+              <li>
+                <a
+                  href="#"
+                  className="block py-2 pl-3 pr-4 text-white bg-emerald-700 rounded lg:bg-transparent lg:text-emerald-700 lg:p-0 "
+                  aria-current="page"
+                >
+                  Tours
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-emerald-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                >
+                  Điểm đến
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-emerald-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                >
+                  Gợi ý
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-emerald-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                >
+                  Bản đồ
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-emerald-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                >
+                  Liên hệ
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-emerald-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                >
+                  Yêu thích
+                </a>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </nav>
   );
