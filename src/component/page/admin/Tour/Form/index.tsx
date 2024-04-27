@@ -60,7 +60,6 @@ const statusOptions = [
 
 type Props = {
   tour?: Tour;
-  //   initialValues?: Store;
   isEdit?: boolean;
 };
 

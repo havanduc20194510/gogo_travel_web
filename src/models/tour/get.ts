@@ -37,34 +37,47 @@ export type Tour = {
       startDate: string;
     }
   ];
-  schedules: [
-    {
+  schedules: Schedule[];
+};
+
+export type Schedule = {
+  id: number;
+  timeInDays: string;
+  title: string;
+  scheduleDetail: ScheduleDetail[];
+  task: {
+    id: number;
+    name: string;
+    description: string;
+    coin: number;
+    reward: string;
+    deadline: string;
+    status: string;
+    taskType: {
       id: number;
-      timeInDays: string;
-      title: string;
-      scheduleDetail: [
-        {
-          id: number;
-          timeLine: string;
-          place: string;
-          activity: string;
-          task: {
-            id: number;
-            name: string;
-            description: string;
-            coin: number;
-            reward: string;
-            deadline: string;
-            status: string;
-            taskType: {
-              id: number;
-              name: string;
-            };
-          };
-        }
-      ];
-    }
-  ];
+      name: string;
+    };
+  };
+};
+
+export type ScheduleDetail = {
+  id: number;
+  timeLine: string;
+  place: string;
+  activity: string;
+  task: {
+    id: number;
+    name: string;
+    description: string;
+    coin: number;
+    reward: string;
+    deadline: string;
+    status: string;
+    taskType: {
+      id: number;
+      name: string;
+    };
+  };
 };
 
 export type TourResponse = {
