@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { Tour } from "@/models/tour";
+import { Tour } from "@/models/tour/get";
 import DestinationItem from "./DestinationItem";
 
 type Props = {

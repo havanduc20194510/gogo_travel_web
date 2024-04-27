@@ -66,3 +66,9 @@ export type Tour = {
     }
   ];
 };
+
+export type TourResponse = {
+  code: number;
+  message: string;
+  data: Tour;
+};

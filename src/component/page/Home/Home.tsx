@@ -7,7 +7,7 @@ import Comments from "@/component/page/Home/Comments";
 import PopularTours from "@/component/page/Home/PopularTours/PopularTours";
 import TopDestinations from "@/component/page/Home/TopDestinations/TopDestinations";
 import Vision from "@/component/page/Home/Vision";
-import { Tour, TourListResponse } from "@/models/tour";
+import { Tour, TourListResponse } from "@/models/tour/get";
 import { getTours } from "@/service/tour";
 import { useCallback, useEffect, useState } from "react";
 
