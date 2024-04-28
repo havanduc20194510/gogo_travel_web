@@ -87,7 +87,7 @@ export default function Profile() {
     <>
       <Navbar />
       {contextHolder}
-      <div className="py-24 grid grid-cols-4 content2">
+      <div className="py-24 grid grid-cols-4 gap-5 content2">
         <div className="max-w-sm mx-auto bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-lg">
           <div className="px-4 pb-6">
             <div className="text-center my-4">
