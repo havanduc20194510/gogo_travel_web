@@ -128,7 +128,7 @@ const Tour: FC = () => {
 
   if (loading) {
     return (
-      <div className="h-full flex items-end justify-center">
+      <div className="h-screen flex items-center justify-center">
         <Spin tip="Loading..." />
       </div>
     );

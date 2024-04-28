@@ -111,8 +111,8 @@ const TourForm: React.FC<Props> = ({ isEdit, tour }) => {
 
   if (loading) {
     return (
-      <div className="h-full flex items-center justify-center">
-        <Spin tip="Loading..." />;
+      <div className="h-screen flex items-center justify-center">
+        <Spin tip="Loading..." />
       </div>
     );
   }

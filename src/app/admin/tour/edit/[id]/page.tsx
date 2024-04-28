@@ -31,9 +31,9 @@ const Page: FC = () => {
     loadTour();
   }, [loadTour]);
 
-  if (loading) {
-    return <Spin tip="Loading..." />;
-  }
+  <div className="h-screen flex items-center justify-center">
+    <Spin tip="Loading..." />
+  </div>;
 
   return (
     <LayoutAdmin>
