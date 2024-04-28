@@ -3,6 +3,7 @@
 
 import { Tour } from "@/models/tour/get";
 import DestinationItem from "./DestinationItem";
+import { Spin } from "antd";
 
 type Props = {
   tourList?: Tour[];
@@ -20,11 +21,17 @@ export default function TopDestinations({ tourList }: Props) {
             </h2>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-6 xl:gap-8">
-          {tourList?.slice(0, 6).map((tour, index) => (
-            <DestinationItem key={index} tour={tour} />
-          ))}
-        </div>
+        {!tourList ? (
+          <div className="flex items-center justify-center w-full">
+            <Spin tip="Loading..." />
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-6 xl:gap-8">
+            {tourList?.slice(0, 6).map((tour, index) => (
+              <DestinationItem key={index} tour={tour} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

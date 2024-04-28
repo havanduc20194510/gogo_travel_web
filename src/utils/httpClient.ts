@@ -1,6 +1,6 @@
-import axios, { AxiosInstance, CancelToken } from "axios";
+import axios, { AxiosHeaders, AxiosInstance, CancelToken } from "axios";
 
-const baseURL = "https://gogotravel-be.onrender.com";
+export const baseURL = "https://gogotravel-be.onrender.com";
 interface ApiRequest {}
 interface ApiResponse {}
 interface ApiParams {
@@ -77,6 +77,9 @@ class httpClient {
       .post(path, request, {
         params: {
           ...options?.params,
+        },
+        headers: {
+          "Content-Type": "application/json",
         },
         cancelToken: options?.cancelToken,
       })

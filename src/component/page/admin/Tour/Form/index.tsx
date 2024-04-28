@@ -1,10 +1,22 @@
 import React, { useCallback, useState } from "react";
-import { Alert, Button, Form, Input, InputNumber, Select, Spin } from "antd";
-import { AddTourRequest, Request } from "@/models/tour/add";
-import { addTour } from "@/service/tour";
+import {
+  Alert,
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  Select,
+  Spin,
+  UploadFile,
+  UploadProps,
+} from "antd";
+import { addTour, uploadTourImage } from "@/service/tour";
 import { Store } from "antd/es/form/interface";
 import Link from "next/link";
 import { Tour, TourResponse } from "@/models/tour/get";
+import UploadImage from "./uploadImage";
+import { AddTourRequest } from "@/models/tour/add";
+import { useRouter } from "next/navigation";
 
 const formItemLayout = {
   labelCol: {
@@ -41,20 +53,16 @@ const tourTypeOptions = [
 
 const statusOptions = [
   {
-    label: "WAITING",
-    value: "WAITING",
+    label: "DELETED",
+    value: "DELETED",
+  },
+  {
+    label: "INACTIVE",
+    value: "INACTIVE",
   },
   {
     label: "ACTIVE",
     value: "ACTIVE",
-  },
-  {
-    label: "PENDING",
-    value: "PENDING",
-  },
-  {
-    label: "SUCCESS",
-    value: "SUCCESS",
   },
 ];
 
@@ -65,33 +73,32 @@ type Props = {
 
 const TourForm: React.FC<Props> = ({ isEdit, tour }) => {
   const [form] = Form.useForm();
-
-  const [tourType, setTourType] = useState<string>(tour?.tourType.name ?? "");
-  const [image, setImage] = useState<string>(tour?.images[0].url ?? "");
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const defaultTourTypeOption = {
-    label: tour?.tourType.name ?? "",
-    value: tour?.tourType.name ?? "",
-  };
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const initialValues: Store = {
     ...tour,
   };
 
+  const handleChangeFile: UploadProps["onChange"] = ({
+    fileList: newFileList,
+  }) => {
+    setFileList(newFileList);
+  };
+
   const onFinish = useCallback(
-    async (values: Request) => {
+    async (values: AddTourRequest) => {
       setLoading(true);
-      const payload: AddTourRequest = {
-        request: values,
-        images: [image],
-        tourType,
-      };
+
       try {
         if (isEdit) {
           // TODO: edit
         } else {
-          await addTour(payload);
+          const response = await addTour(values);
+          await uploadTourImage(response.data.tourId, fileList);
+          router.push("/admin");
         }
       } catch {
         //Do nothing
@@ -99,15 +106,20 @@ const TourForm: React.FC<Props> = ({ isEdit, tour }) => {
         setLoading(false);
       }
     },
-    [image, isEdit, tourType]
+    [fileList, isEdit, router]
   );
 
   if (loading) {
-    return <Spin tip="Loading..." />;
+    return (
+      <div className="h-full flex items-center justify-center">
+        <Spin tip="Loading..." />;
+      </div>
+    );
   }
+
   return (
     <>
-      <Button type="primary" className="mb-10">
+      <Button type="primary" className="my-10">
         <Link href="/admin"> Back to tour list page</Link>
       </Button>
       <Form
@@ -232,22 +244,16 @@ const TourForm: React.FC<Props> = ({ isEdit, tour }) => {
 
         <Form.Item
           label="Tour type"
+          name="tourTypeName"
           rules={[{ required: true, message: "Please input!" }]}
         >
-          <Select
-            options={tourTypeOptions}
-            onSelect={(value) => setTourType(value.value)}
-            defaultValue={defaultTourTypeOption}
-          />
+          <Input />
         </Form.Item>
         <Form.Item
           label="Images"
           rules={[{ required: true, message: "Please input!" }]}
         >
-          <Input
-            defaultValue={tour?.images[0].url ?? ""}
-            onChange={(event) => setImage(event.target.value)}
-          />
+          <UploadImage fileList={fileList} onChangeFile={handleChangeFile} />
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
           <Button type="primary" htmlType="submit">

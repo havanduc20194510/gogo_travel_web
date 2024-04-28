@@ -25,12 +25,7 @@ export type Tour = {
     id: number;
     name: string;
   };
-  images: [
-    {
-      id: number;
-      url: string;
-    }
-  ];
+  images?: Image[];
   departureTimes: [
     {
       id: number;
@@ -38,6 +33,11 @@ export type Tour = {
     }
   ];
   schedules: Schedule[];
+};
+
+export type Image = {
+  id: number;
+  url?: string;
 };
 
 export type Schedule = {

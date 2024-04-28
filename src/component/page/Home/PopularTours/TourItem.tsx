@@ -17,7 +17,7 @@ export default function TourItem({ tour, colSpan = "1" }: Props) {
       className={`group relative flex h-48 items-end overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-80 col-span-${colSpan}`}
     >
       <img
-        src={tour.images[0].url}
+        src={tour.images?.[0]?.url}
         loading="lazy"
         alt="Product"
         className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"

@@ -1,10 +1,6 @@
-export type AddTourRequest = {
-  request: Request;
-  images: string[];
-  tourType: string;
-};
+import { Tour } from "./get";
 
-export type Request = {
+export type AddTourRequest = {
   name: string;
   adultPrice: number;
   childPrice: number;
@@ -20,4 +16,11 @@ export type Request = {
   availableSeats: number;
   status: string;
   note: string;
+  tourTypeName: string;
+};
+
+export type AddTourResponse = {
+  code: number;
+  message: string;
+  data: Tour;
 };

@@ -1,7 +1,8 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
-import { Alert, Button, Space, Spin, Table, Tag } from "antd";
+import { Alert, Button, Image, Space, Spin, Table, Tag } from "antd";
 import type { TableProps } from "antd";
-import { TourListResponse } from "@/models/tour/get";
+import { TourListResponse, Image as ImageType } from "@/models/tour/get";
 import { getTours } from "@/service/tour";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import Link from "next/link";
@@ -16,6 +17,7 @@ type DataType = {
   vehicle: string;
   departureLocation: string;
   status: string;
+  images?: ImageType[];
 };
 
 const columns: TableProps<DataType>["columns"] = [
@@ -54,6 +56,20 @@ const columns: TableProps<DataType>["columns"] = [
     title: "Departure location",
     dataIndex: "departureLocation",
     key: "departureLocation",
+  },
+  {
+    title: "Images",
+    dataIndex: "images",
+    key: "images.id",
+    render: (_, record) => (
+      <div className="w-64 flex align-center flex-wrap	">
+        <Space size="large">
+          {record.images?.slice(0, 2).map((image) => (
+            <Image width={100} key={image.id} src={image.url} />
+          ))}
+        </Space>
+      </div>
+    ),
   },
   {
     title: "Status",
@@ -102,6 +118,7 @@ const Tour: FC = () => {
       vehicle: tour.vehicle,
       departureLocation: tour.departureLocation,
       status: tour.status,
+      images: tour.images,
     }));
   }, [tourListResponse?.data]);
 
@@ -110,12 +127,16 @@ const Tour: FC = () => {
   }, [loadTour]);
 
   if (loading) {
-    return <Spin tip="Loading..." />;
+    return (
+      <div className="h-full flex items-end justify-center">
+        <Spin tip="Loading..." />
+      </div>
+    );
   }
 
   return (
     <>
-      <div className="flex justify-end mb-3">
+      <div className="flex justify-end my-3">
         <Button type="primary" size="large">
           <Link href="/admin/tour/add"> Add tour</Link>
         </Button>

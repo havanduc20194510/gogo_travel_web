@@ -3,6 +3,7 @@
 
 import { Tour } from "@/models/tour/get";
 import { formatPrice } from "@/utils/price";
+import Image from "next/image";
 import Link from "next/link";
 
 type Props = {
@@ -12,11 +13,15 @@ type Props = {
 export default function DestinationItem({ tour }: Props) {
   return (
     <Link href={`tours/${tour.tourId}`}>
-      <div className=" rounded-md overflow-hidden shadow-md hover:shadow-lg">
+      <div
+        className=" rounded-md overflow-hidden shadow-md hover:shadow-lg"
+        style={{ height: "420px" }}
+      >
         <div className="relative p-4">
           <img
             className="w-full"
-            src={tour.images[0].url}
+            src={tour.images?.[0]?.url ?? ""}
+            style={{ minHeight: "245px", maxHeight: "245px" }}
             alt="Product Image"
           />
         </div>
