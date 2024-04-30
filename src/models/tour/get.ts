@@ -85,3 +85,12 @@ export type TourResponse = {
   message: string;
   data: Tour;
 };
+
+export type TourSearchRequest = {
+  destination: string;
+  departureLocation: string;
+  startDate: string;
+  numberOfDay: string;
+  offset?: number;
+  pageSize?: number;
+};

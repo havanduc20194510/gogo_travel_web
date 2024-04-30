@@ -5,9 +5,10 @@ import { IOptions } from "tailwind-datepicker-react/types/Options";
 type Props = {
   className?: string;
   defaultDate?: Date;
+  onChange?: (selectedDate: Date) => void;
 };
 
-export const DatePicker = ({ className, defaultDate }: Props) => {
+export const DatePicker = ({ className, defaultDate, onChange }: Props) => {
   const options: IOptions | undefined = {
     autoHide: true,
     todayBtn: false,
@@ -51,7 +52,7 @@ export const DatePicker = ({ className, defaultDate }: Props) => {
   return (
     <Datepicker
       options={options}
-      onChange={handleChange}
+      onChange={onChange}
       show={show}
       setShow={handleClose}
       classNames={className}

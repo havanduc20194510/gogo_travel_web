@@ -1,5 +1,9 @@
 import { AddTourRequest, AddTourResponse } from "@/models/tour/add";
-import { TourListResponse, TourResponse } from "@/models/tour/get";
+import {
+  TourListResponse,
+  TourResponse,
+  TourSearchRequest,
+} from "@/models/tour/get";
 import httpCLient, { baseURL } from "@/utils/httpClient";
 import { UploadFile } from "antd";
 import { RcFile } from "antd/es/upload";
@@ -9,6 +13,12 @@ const API_ENDPOINT = "/tour";
 
 export const getTours = (): Promise<TourListResponse> => {
   return httpCLient.get(`${API_ENDPOINT}/list`);
+};
+
+export const tourSearch = (
+  request: TourSearchRequest
+): Promise<TourListResponse> => {
+  return httpCLient.get(`${API_ENDPOINT}/search/pagination`, request);
 };
 
 export const addTour = (request: AddTourRequest): Promise<AddTourResponse> => {

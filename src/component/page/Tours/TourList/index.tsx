@@ -10,7 +10,7 @@ type Props = {
 
 export default function TourList({ tourList }: Props) {
   if (!tourList?.length) {
-    return null;
+    return <h1 className="font-bold text-xl">Không tìm thấy tour phù hợp</h1>;
   }
 
   return (

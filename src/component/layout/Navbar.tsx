@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import NextNProgress from "nextjs-progressbar";
 
 export default function Navbar() {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
   const [isShowMenu, setIsShowMenu] = useState(false);
 
   useEffect(() => {
@@ -80,7 +80,7 @@ export default function Navbar() {
               <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                 <li>
                   <a
-                    href="#"
+                    href="/tours"
                     className="block py-2 pl-3 pr-4 text-white bg-emerald-700 rounded lg:bg-transparent lg:text-emerald-700 lg:p-0 "
                     aria-current="page"
                   >

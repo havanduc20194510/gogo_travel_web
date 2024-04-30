@@ -16,7 +16,8 @@ const defaultUser = {
   phone: "",
   address: "",
 };
-type NotificationType = "success" | "info" | "warning" | "error";
+
+export type NotificationType = "success" | "info" | "warning" | "error";
 
 export default function Profile() {
   const [isEdit, setIsEdit] = useState(false);
