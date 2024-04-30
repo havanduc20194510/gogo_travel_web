@@ -8,6 +8,7 @@ import { getTour } from "@/service/tour";
 import { Spin } from "antd";
 import { useParams } from "next/navigation";
 import Schedule from "./Schedule";
+import Plan from "./Plan";
 
 export default function TourDetail() {
   const [tourResponse, setTourResponse] = useState<TourResponse>();
@@ -40,15 +41,19 @@ export default function TourDetail() {
     );
   }
 
+  if (!tourResponse?.data) {
+    return null;
+  }
+
   const tabs = [
     {
       title: "Chương trình tour",
-      content: <>Plan</>,
+      content: <Plan tour={tourResponse.data} />,
       iconUrl: "/icons/info.svg",
     },
     {
       title: "Lịch trình",
-      content: <Schedule tour={tourResponse?.data} />,
+      content: <Schedule tour={tourResponse.data} />,
       iconUrl: "/icons/calendar.svg",
     },
     {

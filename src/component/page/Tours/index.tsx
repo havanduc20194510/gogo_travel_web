@@ -1,6 +1,6 @@
 "use client";
 
-import { tourSearch } from "@/service/tour";
+import { getTour, getTours, tourSearch } from "@/service/tour";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Heading from "./Heading";
 import SpecialList from "./SpecialList";
@@ -29,11 +29,19 @@ export default function Tours() {
       numberOfDay: searchParams.get("numberOfDay") ?? "",
     };
   }, [searchParams]);
+  console.log(query, "query");
 
   const loadTour = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await tourSearch(query);
+      const response =
+        !!query.destination ||
+        !!query.departureLocation ||
+        !!query.startDate ||
+        !!query.numberOfDay
+          ? await tourSearch(query)
+          : await getTours();
+
       setTourList(response.data);
     } catch {
       setTourList([]);

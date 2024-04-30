@@ -2,11 +2,11 @@
 "use client";
 
 import { Tour } from "@/models/tour/get";
-import Form from "./Form";
+import Form from "../Form";
 import Steps from "./Steps";
 
 type Props = {
-  tour?: Tour;
+  tour: Tour;
 };
 
 export default function Schedule({ tour }: Props) {

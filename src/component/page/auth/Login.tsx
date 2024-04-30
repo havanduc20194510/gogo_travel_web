@@ -89,7 +89,7 @@ export default function Login() {
                   type="button"
                   onClick={handleSubmit}
                 >
-                  Login
+                  Đăng nhập
                 </button>
               </div>
             </div>
