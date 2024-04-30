@@ -3,7 +3,6 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import NextNProgress from "nextjs-progressbar";
 
 export default function Navbar() {
   const [isMobile, setIsMobile] = useState(true);
@@ -24,7 +23,6 @@ export default function Navbar() {
 
   return (
     <>
-      <NextNProgress color="red" height={5} />
       <nav className="fixed  z-50 w-full py-2.5 bg-black opacity-80">
         <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
           <a href="/" className="flex items-center">
