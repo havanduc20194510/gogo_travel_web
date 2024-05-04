@@ -1,11 +1,7 @@
-import { AddTourRequest, AddTourResponse } from "@/models/tour/add";
-import { TourListResponse, TourResponse } from "@/models/tour/get";
 import { User, UserListResponse } from "@/models/user/get";
 import { LoginRequest, LoginResponse } from "@/models/user/login";
+import { RegisterRequest, RegisterResponse } from "@/models/user/register";
 import httpCLient, { baseURL } from "@/utils/httpClient";
-import { UploadFile } from "antd";
-import { RcFile } from "antd/es/upload";
-import axios from "axios";
 
 const API_ENDPOINT = "/users";
 
@@ -25,5 +21,11 @@ export const editUser = (
 };
 
 export const login = (request: LoginRequest): Promise<LoginResponse> => {
-  return httpCLient.post(`/auth/login`, request);
+  return httpCLient.post(`/auth/token`, request);
+};
+
+export const register = (
+  request: RegisterRequest
+): Promise<RegisterResponse> => {
+  return httpCLient.post(`/users/create`, request);
 };

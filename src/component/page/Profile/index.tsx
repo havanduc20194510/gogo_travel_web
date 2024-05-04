@@ -3,13 +3,20 @@
 
 import Footer from "@/component/layout/Footer";
 import Navbar from "@/component/layout/Navbar";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { EditOutlined } from "@ant-design/icons";
-import { editUser, getUserById } from "@/service/user";
-import { User } from "@/models/user/get";
+import { editUser } from "@/service/user";
 import { Spin, notification } from "antd";
+import {
+  deleteFromLocalStorage,
+  getFromLocalStorage,
+  updateLocalStorageItem,
+} from "@/utils/localStorage";
+import { User as UserLogin } from "@/models/user/login";
+import { User } from "@/models/user/get";
 
 const defaultUser = {
+  id: "",
   username: "",
   password: "",
   email: "",
@@ -23,10 +30,10 @@ export default function Profile() {
   const [isEdit, setIsEdit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [api, contextHolder] = notification.useNotification();
+  const [userInfo, setUserInfo] = useState<User | undefined>();
+  const user: UserLogin | undefined = getFromLocalStorage("user");
 
-  const [formData, setFormData] = useState<Omit<User, "id">>(defaultUser);
-
-  const [user, setUser] = useState<Omit<User, "id">>(defaultUser);
+  const [formData, setFormData] = useState<User>(defaultUser);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -35,21 +42,6 @@ export default function Profile() {
       [name]: value,
     });
   };
-
-  const loadUser = useCallback(async () => {
-    setLoading(true);
-    try {
-      const response = await getUserById(
-        "ee050da6-6049-482f-8ee7-c5d457ec30f5"
-      );
-      setFormData(response);
-      setUser(response);
-    } catch {
-      //Do nothing
-    } finally {
-      setLoading(false);
-    }
-  }, []);
 
   const openNotificationWithIcon = useCallback(
     (type: NotificationType) => {
@@ -62,20 +54,27 @@ export default function Profile() {
 
   const handleSubmit = useCallback(async () => {
     try {
-      const res = await editUser(
-        "ee050da6-6049-482f-8ee7-c5d457ec30f5",
-        formData
-      );
-      setUser(res);
+      const res = await editUser(userInfo?.id ?? "", formData);
+      setUserInfo(res);
+
+      const newUser = {
+        ...user,
+        user: res,
+      };
+
       openNotificationWithIcon("success");
+      updateLocalStorageItem("user", newUser);
     } catch {
       //Do nothing
     }
-  }, [formData, openNotificationWithIcon]);
+  }, [formData, openNotificationWithIcon, user, userInfo?.id]);
 
   useEffect(() => {
-    loadUser();
-  }, [loadUser]);
+    setUserInfo(user?.user);
+    if (user) {
+      setFormData(user.user);
+    }
+  }, []);
 
   if (loading) {
     return (
@@ -84,6 +83,7 @@ export default function Profile() {
       </div>
     );
   }
+
   return (
     <>
       <Navbar />
@@ -99,7 +99,7 @@ export default function Profile() {
               />
               <div className="py-2">
                 <h3 className="font-bold text-2xl text-gray-800 dark:text-white mb-1">
-                  {user.username}
+                  {userInfo?.username}
                 </h3>
                 <div className="inline-flex text-gray-700 dark:text-gray-300 items-center">
                   <svg
@@ -115,7 +115,7 @@ export default function Profile() {
                       d="M5.64 16.36a9 9 0 1 1 12.72 0l-5.65 5.66a1 1 0 0 1-1.42 0l-5.65-5.66zm11.31-1.41a7 7 0 1 0-9.9 0L12 19.9l4.95-4.95zM12 14a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
                     />
                   </svg>
-                  {user.address}
+                  {userInfo?.address}
                 </div>
               </div>
             </div>
@@ -198,23 +198,6 @@ export default function Profile() {
             onChange={handleChange}
           />
 
-          <label
-            className="block text-gray-500 font-bold mb-1 md:mb-0 pr-4"
-            htmlFor="inline-password"
-          >
-            Password
-          </label>
-
-          <input
-            className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-            id="inline-password"
-            type="password"
-            placeholder="******************"
-            disabled={!isEdit}
-            name="password"
-            value={formData?.password}
-            onChange={handleChange}
-          />
           <div className="md:flex md:items-center">
             <div className="md:w-1/3" />
             <div className="md:w-2/3">

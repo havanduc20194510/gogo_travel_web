@@ -1,4 +1,6 @@
 import axios, { AxiosHeaders, AxiosInstance, CancelToken } from "axios";
+import { getFromLocalStorage } from "./localStorage";
+import { User } from "@/models/user/login";
 
 export const baseURL = "https://gogotravel-be.onrender.com";
 interface ApiRequest {}
@@ -30,8 +32,24 @@ class httpClient {
       baseURL: host,
       validateStatus: this.validateStatus,
     });
+
+    this.initAuthenticate();
   }
 
+  /**
+   * Initialization authenticate
+   * @returns
+   */
+  public initAuthenticate() {
+    const user: User | undefined = getFromLocalStorage("user");
+    const token = user?.token;
+
+    if (token) {
+      this.axiosInstance.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${token}`;
+    }
+  }
   /**
    * GET method
    * @param {string} path - path after domain

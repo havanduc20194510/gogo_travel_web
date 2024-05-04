@@ -6,7 +6,16 @@ export type LoginRequest = {
 export type LoginResponse = {
   code: number;
   message: string;
-  data: {
-    authenticated: boolean;
+  data: User;
+};
+
+export type User = {
+  authenticated: boolean;
+  token: string;
+  user: {
+    id: string;
+    email: string;
+    password: string;
+    username: string;
   };
 };

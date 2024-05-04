@@ -2,15 +2,23 @@
 
 import Footer from "@/component/layout/Footer";
 import Navbar from "@/component/layout/Navbar";
+import { GoogleSignInButton } from "@/component/ui/googleLoginButton";
 import { LoginRequest } from "@/models/user/login";
 import { login } from "@/service/user";
-import { notification } from "antd";
+import { saveToLocalStorage } from "@/utils/localStorage";
+import { Button, notification } from "antd";
+import axios from "axios";
+import { SessionProvider, signIn, useSession } from "next-auth/react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
 export type NotificationType = "success" | "info" | "warning" | "error";
 
 export default function Login() {
   const [api, contextHolder] = notification.useNotification();
+
+  const router = useRouter();
 
   const [formData, setFormData] = useState<LoginRequest>({
     username: "",
@@ -32,14 +40,17 @@ export default function Login() {
     },
     [api]
   );
+
   const handleSubmit = useCallback(async () => {
     try {
-      await login(formData);
+      const res = await login(formData);
       openNotificationWithIcon("success", "Login thành công");
+      saveToLocalStorage("user", res.data);
+      router.push("/");
     } catch {
       openNotificationWithIcon("error", "Login thất bại");
     }
-  }, [formData, openNotificationWithIcon]);
+  }, [formData, openNotificationWithIcon, router]);
 
   return (
     <>
@@ -91,6 +102,7 @@ export default function Login() {
                 >
                   Đăng nhập
                 </button>
+                <GoogleSignInButton />
               </div>
             </div>
           </form>

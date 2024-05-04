@@ -2,19 +2,22 @@
 
 import Footer from "@/component/layout/Footer";
 import Navbar from "@/component/layout/Navbar";
-import { LoginRequest } from "@/models/user/login";
-import { login } from "@/service/user";
+import { RegisterRequest } from "@/models/user/register";
+import { login, register } from "@/service/user";
+import { saveToLocalStorage } from "@/utils/localStorage";
 import { notification } from "antd";
+import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
 export type NotificationType = "success" | "info" | "warning" | "error";
 
 export default function Register() {
   const [api, contextHolder] = notification.useNotification();
-
-  const [formData, setFormData] = useState<LoginRequest>({
+  const router = useRouter();
+  const [formData, setFormData] = useState<RegisterRequest>({
     username: "",
     password: "",
+    email: "",
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,12 +37,19 @@ export default function Register() {
   );
   const handleSubmit = useCallback(async () => {
     try {
-      await login(formData);
+      await register(formData);
+
+      const res = await login({
+        username: formData.username,
+        password: formData.password,
+      });
+      saveToLocalStorage("user", res.data);
+      router.push("/");
       openNotificationWithIcon("success", "Đăng ký thành công");
     } catch {
       openNotificationWithIcon("error", "Đăng ký thất bại");
     }
-  }, [formData, openNotificationWithIcon]);
+  }, [formData, openNotificationWithIcon, router]);
 
   return (
     <>
@@ -62,6 +72,22 @@ export default function Register() {
               type="text"
               name="username"
               value={formData.username}
+              onChange={handleChange}
+            />
+
+            <label
+              className="block text-gray-500 font-bold  mb-1 md:mb-0 pr-4"
+              htmlFor="inline-email"
+            >
+              Email
+            </label>
+
+            <input
+              className="bg-gray-200 mb-3 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+              id="inline-address"
+              type="text"
+              name="email"
+              value={formData.email}
               onChange={handleChange}
             />
 

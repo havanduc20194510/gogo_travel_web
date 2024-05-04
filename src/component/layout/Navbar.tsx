@@ -1,12 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import { User } from "@/models/user/login";
+import {
+  deleteFromLocalStorage,
+  getFromLocalStorage,
+} from "@/utils/localStorage";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
+import { Dropdown, MenuProps, Space } from "antd";
+import { DownOutlined } from "@ant-design/icons";
 
 export default function Navbar() {
   const [isMobile, setIsMobile] = useState(true);
   const [isShowMenu, setIsShowMenu] = useState(false);
+
+  const [userInfo, setUserInfo] = useState<User | undefined>();
 
   useEffect(() => {
     const updateMedia = () => {
@@ -21,6 +30,26 @@ export default function Navbar() {
     };
   }, []);
 
+  const items: MenuProps["items"] = [
+    {
+      label: <a href="/profile">Trang cá nhân</a>,
+      key: "0",
+    },
+    {
+      label: (
+        <a href="/login" onClick={() => deleteFromLocalStorage("user")}>
+          Đăng xuất
+        </a>
+      ),
+      key: "1",
+    },
+  ];
+
+  useEffect(() => {
+    const user: User | undefined = getFromLocalStorage("user");
+    setUserInfo(user);
+  }, []);
+
   return (
     <>
       <nav className="fixed  z-50 w-full py-2.5 bg-black opacity-80">
@@ -32,20 +61,33 @@ export default function Navbar() {
             <div className="hidden mt-2 mr-4 sm:inline-block">
               <span />
             </div>
-            <div className="flex items-center gap-3">
-              <Link
-                href="/login"
-                className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:ring-emerald-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800"
-              >
-                Đăng nhập
-              </Link>
-              <Link
-                href="/register"
-                className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:ring-emerald-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800"
-              >
-                Đăng ký
-              </Link>
-            </div>
+            {userInfo ? (
+              <Dropdown menu={{ items }} trigger={["click"]}>
+                <div onClick={(e) => e.preventDefault()}>
+                  <Space>
+                    <div className="text-white select-none cursor-pointer">
+                      {userInfo.user.username}
+                    </div>
+                    <DownOutlined />
+                  </Space>
+                </div>
+              </Dropdown>
+            ) : (
+              <div className="flex items-center gap-3">
+                <Link
+                  href="/login"
+                  className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:ring-emerald-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800"
+                >
+                  Đăng nhập
+                </Link>
+                <Link
+                  href="/register"
+                  className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:ring-emerald-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-emerald-600 dark:hover:bg-emerald-700 focus:outline-none dark:focus:ring-emerald-800"
+                >
+                  Đăng ký
+                </Link>
+              </div>
+            )}
 
             <button
               type="button"
