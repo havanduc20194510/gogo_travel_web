@@ -8,14 +8,7 @@ export type Schedule = {
   id: number;
   timeInDays: string;
   title: string;
-  scheduleDetail: [
-    {
-      id: number;
-      timeLine: string;
-      place: string;
-      activity: string;
-    }
-  ];
+  scheduleDetail: ScheduleDetail[];
   task: {
     id: number;
     name: string;
@@ -29,4 +22,11 @@ export type Schedule = {
       name: string;
     };
   };
+};
+
+export type ScheduleDetail = {
+  id: number;
+  timeLine: string;
+  place: string;
+  activity: string;
 };

@@ -1,6 +1,16 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
-import { FormProps, Modal, Spin, Tree, TreeDataNode, TreeProps } from "antd";
-import { Schedule } from "@/models/schedule/get";
+import {
+  Button,
+  FormProps,
+  Modal,
+  Spin,
+  Tooltip,
+  Tree,
+  TreeDataNode,
+  TreeProps,
+} from "antd";
+import { Schedule, ScheduleDetail } from "@/models/schedule/get";
 import {
   createSchedule,
   createScheduleDetail,
@@ -10,11 +20,13 @@ import { useParams } from "next/navigation";
 import {
   DownOutlined,
   PlusCircleOutlined,
-  EditOutlined,
+  SnippetsOutlined,
 } from "@ant-design/icons";
 import ScheduleForm, { FieldType } from "./ScheduleForm";
 import { Toast, showToast } from "@/component/ui/toast";
 import DetailForm, { FieldDetailType } from "./DetailForm";
+import TaskForm, { FieldTaskType } from "./TaskForm";
+import { createTask } from "@/service/task";
 
 const Schedule: FC = () => {
   const [loading, setLoading] = useState(false);
@@ -53,6 +65,20 @@ const Schedule: FC = () => {
     setIsDetailModalOpen(false);
   };
 
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+
+  const showTaskModal = () => {
+    setIsTaskModalOpen(true);
+  };
+
+  const handleTaskOk = () => {
+    setIsTaskModalOpen(false);
+  };
+
+  const handleTaskCancel = () => {
+    setIsTaskModalOpen(false);
+  };
+
   const id = typeof param.id === "string" ? param.id : "";
 
   const loadSchedule = useCallback(async () => {
@@ -72,60 +98,115 @@ const Schedule: FC = () => {
   }, [loadSchedule]);
 
   const treeData: TreeDataNode[] = useMemo(() => {
-    return schedules.map((schedule) => {
+    return schedules.map((schedule, index) => {
       return {
         key: schedule.id,
         title: (
-          <>
-            <div className="flex items-center gap-5 text-xl">
-              {schedule.title}
-              {/* <EditOutlined
-                className="hover:text-[#16a34a]"
-                onClick={() => {
-                  setIsEditSchedule(true);
-                  setScheduleIdSelected(schedule.id);
-                  showScheduleModal();
-                }}
-              /> */}
-            </div>
-          </>
-        ),
-        children: [
-          ...schedule.scheduleDetail.map((detail) => {
-            return {
-              key: detail.id,
-              title: (
-                <div className="flex items-center gap-3">
-                  <span>{detail.activity}</span>
-                  {/* <EditOutlined
-                    className="hover:text-[#16a34a]"
-                    onClick={() => {
-                      setIsEditDetail(true);
-                      showDetailModal();
-                    }}
-                  /> */}
-                </div>
-              ),
-            };
-          }, []),
-          {
-            key: "abc",
-            title: (
+          <div>
+            <div className="flex items-center gap-5 w-[700px]">
+              <span className="text-xl font-bold text-[#075985]">
+                {index + 1}. {schedule.title}
+              </span>
               <div
-                className="text-[#0ea5e9]"
                 onClick={() => {
                   setScheduleIdSelected(schedule.id);
                   showDetailModal();
                   setIsEditDetail(false);
                 }}
               >
-                <PlusCircleOutlined className="hover:text-[#16a34a]" />
+                <Tooltip title="Thêm schedule detail">
+                  <PlusCircleOutlined className="hover:text-[#16a34a]" />
+                </Tooltip>
               </div>
-            ),
-          },
-        ],
+              <div
+                onClick={() => {
+                  setScheduleIdSelected(schedule.id);
+                  showTaskModal();
+                }}
+              >
+                <Tooltip title="Thêm task">
+                  <SnippetsOutlined className="hover:text-[#16a34a]" />
+                </Tooltip>
+              </div>
+            </div>
+            {!!schedule.task && (
+              <div className="my-2 gap-3">
+                <div className="flex items-center gap-3 my-3">
+                  <img
+                    src="/icons/task.svg"
+                    className="w-[20px] h-[20px]"
+                    alt=""
+                  />
+                  <div className="font-bold text-gray-500">Task:</div>
+                </div>
+                <table className="table-auto">
+                  <thead>
+                    <tr>
+                      <th className="px-4 py-2">Task Name</th>
+                      <th className="px-4 py-2">description</th>
+                      <th className="px-4 py-2">coin</th>
+                      <th className="px-4 py-2">reward</th>
+                      <th className="px-4 py-2">deadline</th>
+                      <th className="px-4 py-2">taskTypeName</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="border px-4 py-2">{schedule.task.name}</td>
+                      <td className="border px-4 py-2">
+                        {schedule.task.description}
+                      </td>
+                      <td className="border px-4 py-2">{schedule.task.coin}</td>
+                      <td className="border px-4 py-2">
+                        {schedule.task.reward}
+                      </td>
+                      <td className="border px-4 py-2">
+                        {schedule.task.deadline}
+                      </td>
+                      <td className="border px-4 py-2">
+                        {schedule.task.taskType.name}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            )}
+            {!!schedule.scheduleDetail.length && (
+              <div className="my-2 gap-3">
+                <div className="flex items-center gap-3 my-3">
+                  <img
+                    src="/icons/detail.svg"
+                    className="w-[20px] h-[20px]"
+                    alt=""
+                  />
+                  <div className=" font-bold text-gray-500">
+                    Schedule detail:
+                  </div>
+                </div>
+                <table className="table-auto">
+                  <thead>
+                    <tr>
+                      <th className="px-4 py-2">Place</th>
+                      <th className="px-4 py-2">TimeLine</th>
+                      <th className="px-4 py-2">Activity</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {schedule.scheduleDetail.map((detail) => (
+                      <tr key={detail.id}>
+                        <td className="border px-4 py-2">{detail.place}</td>
+                        <td className="border px-4 py-2">{detail.timeLine}</td>
+                        <td className="border px-4 py-2">{detail.activity}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        ),
       };
-    }, []);
+    });
   }, [schedules]);
 
   const handleFinish: FormProps<FieldType>["onFinish"] = useCallback(
@@ -178,6 +259,30 @@ const Schedule: FC = () => {
       [loadSchedule, scheduleIdSelected]
     );
 
+  const handleFinishTask: FormProps<FieldTaskType>["onFinish"] = useCallback(
+    async (values: FieldTaskType) => {
+      try {
+        await createTask({
+          tourScheduleId: scheduleIdSelected ?? 0,
+          ...values,
+        });
+        showToast({
+          message: "Tạo schedule task thành công",
+          type: "success",
+        });
+        await loadSchedule();
+      } catch {
+        showToast({
+          message: "Tạo schedule task thất bại",
+          type: "error",
+        });
+      } finally {
+        handleTaskCancel();
+      }
+    },
+    [loadSchedule, scheduleIdSelected]
+  );
+
   if (loading) {
     return (
       <div className="h-screen flex items-center justify-center">
@@ -189,23 +294,26 @@ const Schedule: FC = () => {
   return (
     <div className="min-h-screen mt-20 max-w-[700px] m-auto">
       <Toast />
-      <div className="flex items-center justify-end gap-3 text-xl cursor-pointer">
-        <span
-          onClick={() => {
-            setIsEditSchedule(false);
-            showScheduleModal();
-          }}
-          className="hover:text-[#16a34a]"
-        >
-          Thêm lịch trình
-        </span>
-        <PlusCircleOutlined
-          onClick={showScheduleModal}
-          className="hover:text-[#16a34a]"
-        />
+      <div className="flex items-center justify-end">
+        <Button className="flex items-center">
+          <span
+            onClick={() => {
+              setIsEditSchedule(false);
+              showScheduleModal();
+            }}
+          >
+            Thêm lịch trình
+          </span>
+          <PlusCircleOutlined onClick={showScheduleModal} />
+        </Button>
       </div>
 
-      <Tree treeData={treeData} selectable={false} defaultExpandAll={true} />
+      <Tree
+        treeData={treeData}
+        defaultExpandAll={true}
+        showLine
+        className="w-full"
+      />
       <Modal
         title="Schedule"
         open={isScheduleModalOpen}
@@ -228,6 +336,16 @@ const Schedule: FC = () => {
         footer={null}
       >
         <DetailForm isEdit={isEditDetail} onFinish={handleFinishDetail} />
+      </Modal>
+
+      <Modal
+        title="Thêm task"
+        open={isTaskModalOpen}
+        onOk={handleTaskOk}
+        onCancel={handleTaskCancel}
+        footer={null}
+      >
+        <TaskForm onFinish={handleFinishTask} />
       </Modal>
     </div>
   );
