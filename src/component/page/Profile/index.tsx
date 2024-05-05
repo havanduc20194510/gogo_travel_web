@@ -74,6 +74,7 @@ export default function Profile() {
     if (user) {
       setFormData(user.user);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) {

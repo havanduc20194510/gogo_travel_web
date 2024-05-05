@@ -1,7 +1,7 @@
 import { User, UserListResponse } from "@/models/user/get";
 import { LoginRequest, LoginResponse } from "@/models/user/login";
 import { RegisterRequest, RegisterResponse } from "@/models/user/register";
-import httpCLient, { baseURL } from "@/utils/httpClient";
+import httpCLient from "@/utils/httpClient";
 
 const API_ENDPOINT = "/users";
 

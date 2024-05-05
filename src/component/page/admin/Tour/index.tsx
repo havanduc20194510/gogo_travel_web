@@ -25,7 +25,11 @@ const columns: TableProps<DataType>["columns"] = [
     title: "Name",
     dataIndex: "name",
     key: "name",
-    render: (text) => <a>{text}</a>,
+    render: (text) => (
+      <div className="w-40">
+        <a>{text}</a>,
+      </div>
+    ),
   },
   {
     title: "Price",
@@ -36,6 +40,11 @@ const columns: TableProps<DataType>["columns"] = [
     title: "Description",
     dataIndex: "description",
     key: "description",
+    render: (text) => (
+      <div className="w-60">
+        <a>{text}</a>,
+      </div>
+    ),
   },
   {
     title: "Number of days",
@@ -75,6 +84,15 @@ const columns: TableProps<DataType>["columns"] = [
     title: "Status",
     dataIndex: "status",
     key: "status",
+  },
+  {
+    title: "Schedule",
+    key: "status",
+    render: (_, record) => (
+      <Link href={`/admin/schedule/${record.key}`}>
+        <Button>Xem lịch trình</Button>
+      </Link>
+    ),
   },
   {
     title: "Action",
@@ -141,7 +159,11 @@ const Tour: FC = () => {
           <Link href="/admin/tour/add"> Add tour</Link>
         </Button>
       </div>
-      <Table columns={columns} dataSource={tourData} />
+      <Table
+        className="overflow-x-auto"
+        columns={columns}
+        dataSource={tourData}
+      />
     </>
   );
 };
