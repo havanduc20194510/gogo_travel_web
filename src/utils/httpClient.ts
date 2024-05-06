@@ -1,6 +1,7 @@
 import axios, { AxiosHeaders, AxiosInstance, CancelToken } from "axios";
-import { getFromLocalStorage } from "./localStorage";
+import { deleteFromLocalStorage, getFromLocalStorage } from "./localStorage";
 import { User } from "@/models/user/login";
+import { error } from "console";
 
 export const baseURL = "https://gogotravel-be.onrender.com";
 interface ApiRequest {}

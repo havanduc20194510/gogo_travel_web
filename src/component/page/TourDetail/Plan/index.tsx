@@ -33,6 +33,7 @@ export default function Plan({ tour }: Props) {
           <span className="text-sm text-gray-500">(584 reviews)</span>
         </div>
         <Slide images={tour.images} />
+
         <h1 className="text-xl font-bold my-5">Thông tin</h1>
         <ul className="list-disc ml-10">
           <li>Số ngày: {tour.numberOfDays}</li>
@@ -46,7 +47,7 @@ export default function Plan({ tour }: Props) {
         <p>{tour.note}</p>
       </div>
       <div className="col-span-2">
-        <Form />
+        <Form tour={tour} />
         <img src="/bg.png" alt="" />
       </div>
     </div>

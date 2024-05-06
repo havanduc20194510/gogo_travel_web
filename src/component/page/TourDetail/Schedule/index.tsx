@@ -16,7 +16,7 @@ export default function Schedule({ tour }: Props) {
         <Steps tour={tour} />
       </div>
       <div className="col-span-2">
-        <Form />
+        <Form tour={tour} />
         <img src="/bg.png" alt="" />
       </div>
     </div>

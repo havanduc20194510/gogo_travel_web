@@ -26,7 +26,7 @@ export type Tour = {
     name: string;
   };
   images?: Image[];
-  departureTimes: [
+  departureTimes?: [
     {
       id: number;
       startDate: string;
