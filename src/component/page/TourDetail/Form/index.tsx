@@ -1,14 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, useCallback, useMemo } from "react";
 import type { FormProps } from "antd";
-import { Form, Select } from "antd";
+import { Form } from "antd";
 import { createBooking } from "@/service/booking";
 import { getFromLocalStorage } from "@/utils/localStorage";
 import { User as UserLogin } from "@/models/user/login";
 import { Toast, showToast } from "@/component/ui/toast";
 import { useParams } from "next/navigation";
-import { DatePicker } from "@/component/ui/Datepicker";
-import { formatDate } from "@/utils/date";
 import { Tour } from "@/models/tour/get";
 
 export type FieldTaskType = {
@@ -30,6 +28,15 @@ const BookingForm: FC<Props> = ({ tour }) => {
   const param = useParams();
   const id = typeof param.id === "string" ? param.id : "";
 
+  const departureTimes = useMemo(() => {
+    return (
+      tour.departureTimes?.map((departureTime) => ({
+        label: departureTime.startDate,
+        value: departureTime.startDate,
+      })) ?? []
+    );
+  }, [tour.departureTimes]);
+
   const handleSubmit: FormProps<FieldTaskType>["onFinish"] = useCallback(
     async (values: FieldTaskType) => {
       try {
@@ -40,6 +47,7 @@ const BookingForm: FC<Props> = ({ tour }) => {
           numberOfAdults: Number(values.numberOfAdults),
           numberOfChildren: Number(values.numberOfChildren),
           numberOfBabies: Number(values.numberOfBabies),
+          startDate: values.startDate ?? departureTimes[0].value,
         });
         showToast({
           message: "Book tour thành công",
@@ -52,14 +60,8 @@ const BookingForm: FC<Props> = ({ tour }) => {
         });
       }
     },
-    [id, user?.user.id]
+    [departureTimes, id, user?.user.id]
   );
-
-  const departureTimes =
-    tour.departureTimes?.map((departureTime) => ({
-      label: departureTime.startDate,
-      value: departureTime.startDate,
-    })) ?? [];
 
   return (
     <div className="container mx-auto p4-10 bg-gray-100">
@@ -114,20 +116,20 @@ const BookingForm: FC<Props> = ({ tour }) => {
                   </span>
                 </div>
               </Form.Item>
-              <Form.Item
-                name="startDate"
-                rules={[
-                  { required: true, message: "Please input your start date!" },
-                ]}
-              >
-                <select
-                  defaultValue={"Start date"}
-                  className="w-full text-lg pl-10 pr-3 py-6 border focus:outline-none rounded shadow"
-                >
+              <Form.Item name="startDate">
+                <select className="w-full text-lg pl-10 pr-3 py-6 border focus:outline-none rounded shadow">
                   {departureTimes?.map((option) => (
                     <option key={option.value}>{option.value}</option>
                   ))}
                 </select>
+                <span className="absolute inset-y-0 left-0 flex items-center justify-center ml-3">
+                  <img
+                    width={20}
+                    height={20}
+                    src="/icons/calendar.svg"
+                    alt=""
+                  />
+                </span>
               </Form.Item>
 
               <Form.Item<FieldTaskType>
@@ -145,9 +147,9 @@ const BookingForm: FC<Props> = ({ tour }) => {
                     className="w-full text-lg pl-10 pr-3 py-6 border focus:outline-none rounded shadow"
                     placeholder="Number of adults"
                   />
-                  {/* <span className="absolute inset-y-0 left-0 flex items-center justify-center ml-3">
-            <img width={20} height={20} src="/icons/phone.svg" alt="" />
-          </span> */}
+                  <span className="absolute inset-y-0 left-0 flex items-center justify-center ml-3">
+                    <img width={20} height={20} src="/icons/user.svg" alt="" />
+                  </span>
                 </div>
               </Form.Item>
 
@@ -166,9 +168,9 @@ const BookingForm: FC<Props> = ({ tour }) => {
                     className="w-full text-lg pl-10 pr-3 py-6 border focus:outline-none rounded shadow"
                     placeholder="Number of children"
                   />
-                  {/* <span className="absolute inset-y-0 left-0 flex items-center justify-center ml-3">
-            <img width={20} height={20} src="/icons/phone.svg" alt="" />
-          </span> */}
+                  <span className="absolute inset-y-0 left-0 flex items-center justify-center ml-3">
+                    <img width={20} height={20} src="/icons/user.svg" alt="" />
+                  </span>
                 </div>
               </Form.Item>
               <Form.Item<FieldTaskType>
@@ -186,9 +188,9 @@ const BookingForm: FC<Props> = ({ tour }) => {
                     className="w-full text-lg pl-10 pr-3 py-6 border focus:outline-none rounded shadow"
                     placeholder="Number of babies"
                   />
-                  {/* <span className="absolute inset-y-0 left-0 flex items-center justify-center ml-3">
-            <img width={20} height={20} src="/icons/phone.svg" alt="" />
-          </span> */}
+                  <span className="absolute inset-y-0 left-0 flex items-center justify-center ml-3">
+                    <img width={20} height={20} src="/icons/user.svg" alt="" />
+                  </span>
                 </div>
               </Form.Item>
 
@@ -198,9 +200,6 @@ const BookingForm: FC<Props> = ({ tour }) => {
                     className="w-full text-lg pl-10 pr-3 py-6 border focus:outline-none rounded shadow"
                     placeholder="Note"
                   />
-                  {/* <span className="absolute inset-y-0 left-0 flex items-center justify-center ml-3">
-            <img width={20} height={20} src="/icons/phone.svg" alt="" />
-          </span> */}
                 </div>
               </Form.Item>
 

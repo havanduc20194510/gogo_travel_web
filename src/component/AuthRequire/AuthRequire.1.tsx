@@ -1,14 +1,16 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 import { User } from "@/models/user/login";
 import {
   deleteFromLocalStorage,
   getFromLocalStorage,
 } from "@/utils/localStorage";
-import { FC, useCallback, useEffect } from "react";
+import { FC, ReactNode, useCallback, useEffect } from "react";
 import { tokenCheck } from "@/service/user";
 import { useRouter } from "next/navigation";
-import { Props } from "./AuthRequire";
+
+type Props = {
+  children: ReactNode;
+};
 
 export const AuthRequire: FC<Props> = async ({ children }) => {
   const router = useRouter();
@@ -21,9 +23,10 @@ export const AuthRequire: FC<Props> = async ({ children }) => {
       router.push("/");
     }
   }, [router]);
+
   useEffect(() => {
     authCheck();
-  }, []);
+  }, [authCheck]);
 
   return <>{children}</>;
 };

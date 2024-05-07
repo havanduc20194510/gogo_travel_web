@@ -8,12 +8,10 @@ import { EditOutlined } from "@ant-design/icons";
 import { editUser } from "@/service/user";
 import { Spin, notification } from "antd";
 import {
-  deleteFromLocalStorage,
   getFromLocalStorage,
   updateLocalStorageItem,
 } from "@/utils/localStorage";
-import { User as UserLogin } from "@/models/user/login";
-import { User } from "@/models/user/get";
+import { User } from "@/models/user/login";
 
 const defaultUser = {
   id: "",
@@ -31,7 +29,7 @@ export default function Profile() {
   const [loading, setLoading] = useState(false);
   const [api, contextHolder] = notification.useNotification();
   const [userInfo, setUserInfo] = useState<User | undefined>();
-  const user: UserLogin | undefined = getFromLocalStorage("user");
+  const user: User | undefined = getFromLocalStorage("user");
 
   const [formData, setFormData] = useState<User>(defaultUser);
 
@@ -70,9 +68,9 @@ export default function Profile() {
   }, [formData, openNotificationWithIcon, user, userInfo?.id]);
 
   useEffect(() => {
-    setUserInfo(user?.user);
+    setUserInfo(user);
     if (user) {
-      setFormData(user.user);
+      setFormData(user);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

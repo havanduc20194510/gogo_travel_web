@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
-import { Alert, Button, Image, Space, Spin, Table, Tag } from "antd";
+import { Button, Image, Space, Spin, Table } from "antd";
 import type { TableProps } from "antd";
 import { TourListResponse, Image as ImageType } from "@/models/tour/get";
 import { getTours } from "@/service/tour";

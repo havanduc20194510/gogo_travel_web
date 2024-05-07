@@ -10,11 +10,12 @@ import Link from "next/link";
 import { use, useEffect, useState } from "react";
 import { Dropdown, MenuProps, Space } from "antd";
 import { DownOutlined } from "@ant-design/icons";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [isMobile, setIsMobile] = useState(true);
   const [isShowMenu, setIsShowMenu] = useState(false);
-
+  const pathname = usePathname();
   const [userInfo, setUserInfo] = useState<User | undefined>();
 
   useEffect(() => {
@@ -130,7 +131,11 @@ export default function Navbar() {
                 <li>
                   <a
                     href="/tours"
-                    className="block py-2 pl-3 pr-4 text-white bg-emerald-700 rounded lg:bg-transparent lg:text-emerald-700 lg:p-0 "
+                    className={`block py-2 pl-3 pr-4  ${
+                      pathname.includes("/tours")
+                        ? "text-emerald-700"
+                        : "text-white"
+                    } rounded lg:bg-transparent  lg:p-0 hover:text-emerald-700 `}
                     aria-current="page"
                   >
                     Tours

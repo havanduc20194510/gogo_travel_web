@@ -8,8 +8,6 @@ type Props = {
 };
 
 const Slide: FC<Props> = ({ images }) => {
-  console.log(images, "images");
-
   if (!images?.length) {
     return null;
   }

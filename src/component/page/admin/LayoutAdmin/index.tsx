@@ -1,7 +1,11 @@
 "use client";
 
 import React, { ReactNode } from "react";
-import { UserOutlined, CarOutlined } from "@ant-design/icons";
+import {
+  UserOutlined,
+  CarOutlined,
+  AccountBookOutlined,
+} from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -37,6 +41,11 @@ export const LayoutAdmin: React.FC<Props> = ({ children }) => {
       key: "/admin/user",
       icon: React.createElement(UserOutlined),
       label: "User",
+    },
+    {
+      key: "/admin/booking",
+      icon: React.createElement(AccountBookOutlined),
+      label: "Booking",
     },
   ];
 

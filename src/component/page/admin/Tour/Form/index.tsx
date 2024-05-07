@@ -79,7 +79,6 @@ const TourForm: React.FC<Props> = ({ isEdit, tour }) => {
   const [startDates, setStartDates] = useState<
     DateObject | DateObject[] | null
   >(null);
-  console.log(startDates, "startDates");
 
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 

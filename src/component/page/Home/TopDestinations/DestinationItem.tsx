@@ -3,7 +3,6 @@
 
 import { Tour } from "@/models/tour/get";
 import { formatPrice } from "@/utils/price";
-import Image from "next/image";
 import Link from "next/link";
 
 type Props = {

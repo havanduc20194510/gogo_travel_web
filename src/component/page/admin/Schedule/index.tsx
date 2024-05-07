@@ -8,20 +8,15 @@ import {
   Tooltip,
   Tree,
   TreeDataNode,
-  TreeProps,
 } from "antd";
-import { Schedule, ScheduleDetail } from "@/models/schedule/get";
+import { Schedule as ScheduleType } from "@/models/schedule/get";
 import {
   createSchedule,
   createScheduleDetail,
   getSchedule,
 } from "@/service/schedule";
 import { useParams } from "next/navigation";
-import {
-  DownOutlined,
-  PlusCircleOutlined,
-  SnippetsOutlined,
-} from "@ant-design/icons";
+import { PlusCircleOutlined, SnippetsOutlined } from "@ant-design/icons";
 import ScheduleForm, { FieldType } from "./ScheduleForm";
 import { Toast, showToast } from "@/component/ui/toast";
 import DetailForm, { FieldDetailType } from "./DetailForm";
@@ -30,7 +25,7 @@ import { createTask } from "@/service/task";
 
 const Schedule: FC = () => {
   const [loading, setLoading] = useState(false);
-  const [schedules, setSchedules] = useState<Schedule[]>([]);
+  const [schedules, setSchedules] = useState<ScheduleType[]>([]);
   const param = useParams();
   const [isEditSchedule, setIsEditSchedule] = useState(false);
   const [isEditDetail, setIsEditDetail] = useState(false);

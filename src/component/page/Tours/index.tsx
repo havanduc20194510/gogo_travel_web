@@ -1,6 +1,6 @@
 "use client";
 
-import { getTour, getTours, tourSearch } from "@/service/tour";
+import { getTours, tourSearch } from "@/service/tour";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Heading from "./Heading";
 import SpecialList from "./SpecialList";
@@ -8,6 +8,7 @@ import TourList from "./TourList";
 import { Tour, TourSearchRequest } from "@/models/tour/get";
 import { Spin } from "antd";
 import { useSearchParams } from "next/navigation";
+import FilterBar from "./FilterBar";
 
 function scrollToElement(elementId: string) {
   const element = document.getElementById(elementId);
@@ -29,7 +30,6 @@ export default function Tours() {
       numberOfDay: searchParams.get("numberOfDay") ?? "",
     };
   }, [searchParams]);
-  console.log(query, "query");
 
   const loadTour = useCallback(async () => {
     setLoading(true);
@@ -69,7 +69,10 @@ export default function Tours() {
         <Heading count={tourList?.length} />
       </div>
       <div className="content bg-slate-100 mt-10 p-5">
-        <div className="grid grid-cols-1 gap-4">
+        <div className="grid grid-cols-4 gap-4">
+          <div>
+            <FilterBar />
+          </div>
           <div className="col-span-3">
             <TourList tourList={tourList} />
           </div>

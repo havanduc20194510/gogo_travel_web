@@ -42,9 +42,7 @@ export const DatePicker = ({ className, defaultDate, onChange }: Props) => {
   };
 
   const [show, setShow] = useState<boolean>(false);
-  const handleChange = (selectedDate: Date) => {
-    console.log(selectedDate);
-  };
+
   const handleClose = (state: boolean) => {
     setShow(state);
   };

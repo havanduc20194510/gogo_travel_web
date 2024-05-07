@@ -1,10 +1,10 @@
 import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
-import { Button, Space, Spin, Table } from "antd";
+import { Space, Spin, Table } from "antd";
 import type { TableProps } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { getUser } from "@/service/user";
-import { User, UserListResponse } from "@/models/user/get";
+import { User } from "@/models/user/get";
 
 type DataType = Pick<User, "address" | "email" | "username" | "phone"> & {
   key: string;
@@ -48,14 +48,14 @@ const columns: TableProps<DataType>["columns"] = [
 ];
 
 const Users: FC = () => {
-  const [userListResponse, setUserListResponse] = useState<UserListResponse>();
+  const [userListResponse, setUserListResponse] = useState<User[]>();
   const [loading, setLoading] = useState(false);
 
   const loadUser = useCallback(async () => {
     setLoading(true);
     try {
       const response = await getUser();
-      setUserListResponse(response);
+      setUserListResponse(response.data);
     } catch {
       //Do nothing
     } finally {

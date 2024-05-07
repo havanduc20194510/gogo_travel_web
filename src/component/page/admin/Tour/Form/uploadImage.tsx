@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Upload } from "antd";
 import type { GetProp, UploadFile, UploadProps } from "antd";
 import { UploadChangeParam } from "antd/es/upload";

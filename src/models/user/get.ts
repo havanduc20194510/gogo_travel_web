@@ -1,10 +1,14 @@
-export type UserListResponse = User[];
+export type UserListResponse = {
+  code: number;
+  message: string;
+  data?: User[];
+};
 
 export type User = {
   id: string;
   username: string;
-  password: string;
   email: string;
-  phone?: string;
-  address?: string;
+  phone: string;
+  address: string;
+  roles?: string[] | null;
 };
