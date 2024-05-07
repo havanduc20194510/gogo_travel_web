@@ -1,3 +1,4 @@
+import { CreateDepartureRequest } from "@/models/departure/add";
 import { AddTourRequest, AddTourResponse } from "@/models/tour/add";
 import {
   TourListResponse,
@@ -44,4 +45,10 @@ export const uploadTourImage = async (
 
 export const getTour = (id: string): Promise<TourResponse> => {
   return httpCLient.get(`${API_ENDPOINT}/${id}`);
+};
+
+export const addDepartureTime = (
+  request: CreateDepartureRequest
+): Promise<AddTourResponse> => {
+  return httpCLient.post(`/departure-time/create`, request);
 };

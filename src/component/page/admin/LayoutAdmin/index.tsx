@@ -2,10 +2,10 @@
 
 import React, { ReactNode } from "react";
 import { UserOutlined, CarOutlined } from "@ant-design/icons";
-import type { MenuProps } from "antd";
-import { Breadcrumb, Layout, Menu, theme } from "antd";
+import { Layout, Menu, theme } from "antd";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { AuthRequire } from "@/component/AuthRequire/AuthRequire";
 
 type Props = {
   children: ReactNode;
@@ -41,43 +41,45 @@ export const LayoutAdmin: React.FC<Props> = ({ children }) => {
   ];
 
   return (
-    <Layout>
-      <Header style={{ display: "flex", alignItems: "center" }}>
-        <div className="demo-logo" />
-        <Menu theme="dark" mode="horizontal" style={{ flex: 1, minWidth: 0 }}>
-          <Menu.Item>
-            <Link href="/">Home</Link>
-          </Menu.Item>
-        </Menu>
-      </Header>
-      <Content>
-        <Layout
-          style={{
-            background: colorBgContainer,
-            borderRadius: borderRadiusLG,
-          }}
-        >
-          <Sider style={{ background: colorBgContainer }} width={200}>
-            <Menu
-              defaultSelectedKeys={[pathname]}
-              mode="inline"
-              style={{ height: "100%" }}
-              theme="dark"
-            >
-              {menuList.map((menu) => {
-                return (
-                  <Menu.Item key={menu?.key}>
-                    <Link href={menu.key}>{menu.label}</Link>
-                  </Menu.Item>
-                );
-              })}
-            </Menu>
-          </Sider>
-          <Content style={{ padding: "0 24px", minHeight: 280 }}>
-            {children}
-          </Content>
-        </Layout>
-      </Content>
-    </Layout>
+    <AuthRequire>
+      <Layout>
+        <Header style={{ display: "flex", alignItems: "center" }}>
+          <div className="demo-logo" />
+          <Menu theme="dark" mode="horizontal" style={{ flex: 1, minWidth: 0 }}>
+            <Menu.Item>
+              <Link href="/">Home</Link>
+            </Menu.Item>
+          </Menu>
+        </Header>
+        <Content>
+          <Layout
+            style={{
+              background: colorBgContainer,
+              borderRadius: borderRadiusLG,
+            }}
+          >
+            <Sider style={{ background: colorBgContainer }} width={200}>
+              <Menu
+                defaultSelectedKeys={[pathname]}
+                mode="inline"
+                style={{ height: "100%" }}
+                theme="dark"
+              >
+                {menuList.map((menu) => {
+                  return (
+                    <Menu.Item key={menu?.key}>
+                      <Link href={menu.key}>{menu.label}</Link>
+                    </Menu.Item>
+                  );
+                })}
+              </Menu>
+            </Sider>
+            <Content style={{ padding: "0 24px", minHeight: 280 }}>
+              {children}
+            </Content>
+          </Layout>
+        </Content>
+      </Layout>
+    </AuthRequire>
   );
 };

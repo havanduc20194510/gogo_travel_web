@@ -11,3 +11,11 @@
   width: 1070px;
   margin: 0 auto;
 }
+
+.rmdp-container[class] {
+  width: 100%;
+}
+.rmdp-input[class] {
+  width: 100%;
+  height: 40px;
+}

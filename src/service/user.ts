@@ -29,3 +29,9 @@ export const register = (
 ): Promise<RegisterResponse> => {
   return httpCLient.post(`/users/create`, request);
 };
+
+export const tokenCheck = (request: {
+  token: string;
+}): Promise<RegisterResponse> => {
+  return httpCLient.post(`/auth/introspect`, request);
+};

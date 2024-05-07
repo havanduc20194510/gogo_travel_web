@@ -10,13 +10,14 @@ import {
   UploadFile,
   UploadProps,
 } from "antd";
-import { addTour, uploadTourImage } from "@/service/tour";
+import { addDepartureTime, addTour, uploadTourImage } from "@/service/tour";
 import { Store } from "antd/es/form/interface";
 import Link from "next/link";
 import { Tour, TourResponse } from "@/models/tour/get";
 import UploadImage from "./uploadImage";
 import { AddTourRequest } from "@/models/tour/add";
 import { useRouter } from "next/navigation";
+import DatePicker, { DateObject } from "react-multi-date-picker";
 
 const formItemLayout = {
   labelCol: {
@@ -75,6 +76,10 @@ const TourForm: React.FC<Props> = ({ isEdit, tour }) => {
   const [form] = Form.useForm();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [startDates, setStartDates] = useState<
+    DateObject | DateObject[] | null
+  >(null);
+  console.log(startDates, "startDates");
 
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
@@ -98,6 +103,17 @@ const TourForm: React.FC<Props> = ({ isEdit, tour }) => {
         } else {
           const response = await addTour(values);
           await uploadTourImage(response.data.tourId, fileList);
+
+          if (startDates instanceof Array) {
+            const promises = startDates.map(async (startDate) => {
+              await addDepartureTime({
+                tourId: response.data.tourId,
+                startDate: startDate.format(),
+              });
+            });
+
+            await Promise.all(promises);
+          }
           router.push("/admin");
         }
       } catch {
@@ -106,7 +122,7 @@ const TourForm: React.FC<Props> = ({ isEdit, tour }) => {
         setLoading(false);
       }
     },
-    [fileList, isEdit, router]
+    [fileList, isEdit, router, startDates]
   );
 
   if (loading) {
@@ -254,6 +270,18 @@ const TourForm: React.FC<Props> = ({ isEdit, tour }) => {
           rules={[{ required: true, message: "Please input!" }]}
         >
           <UploadImage fileList={fileList} onChangeFile={handleChangeFile} />
+        </Form.Item>
+        <Form.Item
+          label="Departure times"
+          rules={[{ required: true, message: "Please input!" }]}
+        >
+          <DatePicker
+            className="w-full"
+            multiple
+            format="YYYY-MM-DD"
+            value={startDates}
+            onChange={setStartDates}
+          />
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
           <Button type="primary" htmlType="submit">
