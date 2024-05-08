@@ -6,16 +6,25 @@ export type LoginRequest = {
 export type LoginResponse = {
   code: number;
   message: string;
-  data: User;
+  data: DataLogin;
 };
 
-export type User = {
-  authenticated: boolean;
+export interface DataLogin {
+  user: UserData;
   token: string;
-  user: {
-    id: string;
-    email: string;
-    password: string;
-    username: string;
-  };
+  authenticated: boolean;
+}
+
+export interface UserData {
+  code: number;
+  data: User;
+}
+
+export type User = {
+  id: string;
+  username: string;
+  email: string;
+  phone: string;
+  address: string;
+  roles?: string[] | null;
 };

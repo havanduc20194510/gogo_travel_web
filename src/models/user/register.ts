@@ -8,9 +8,11 @@ export type RegisterResponse = {
   code: number;
   message: string;
   data: {
-    id: string;
-    username: string;
-    password: string;
-    email: string;
+    user: {
+      id: string;
+      username: string;
+      password: string;
+      email: string;
+    };
   };
 };

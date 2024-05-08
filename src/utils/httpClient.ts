@@ -1,8 +1,7 @@
 import axios, { AxiosInstance, CancelToken } from "axios";
 import { getFromLocalStorage } from "./localStorage";
-import { User } from "@/models/user/login";
 
-export const baseURL = "https://gogotravel-be.onrender.com";
+export const baseURL = "http://gogotravel.ap-southeast-1.elasticbeanstalk.com/";
 interface ApiRequest {}
 interface ApiResponse {}
 interface ApiParams {
@@ -41,9 +40,7 @@ class httpClient {
    * @returns
    */
   public initAuthenticate() {
-    const user: User | undefined = getFromLocalStorage("user");
-    const token = user?.token;
-
+    const token: string | undefined = getFromLocalStorage("token");
     if (token) {
       this.axiosInstance.defaults.headers.common[
         "Authorization"

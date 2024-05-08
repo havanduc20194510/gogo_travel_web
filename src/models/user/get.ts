@@ -12,3 +12,9 @@ export type User = {
   address: string;
   roles?: string[] | null;
 };
+
+export type GetUserResponse = {
+  code: number;
+  message: string;
+  data?: User;
+};

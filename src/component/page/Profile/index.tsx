@@ -5,14 +5,13 @@ import Footer from "@/component/layout/Footer";
 import Navbar from "@/component/layout/Navbar";
 import { useCallback, useEffect, useState } from "react";
 import { EditOutlined } from "@ant-design/icons";
-import { editUser } from "@/service/user";
+import { editUser, getUserById } from "@/service/user";
 import { Spin, notification } from "antd";
 import {
   getFromLocalStorage,
   updateLocalStorageItem,
 } from "@/utils/localStorage";
 import { User } from "@/models/user/login";
-
 const defaultUser = {
   id: "",
   username: "",
@@ -29,9 +28,9 @@ export default function Profile() {
   const [loading, setLoading] = useState(false);
   const [api, contextHolder] = notification.useNotification();
   const [userInfo, setUserInfo] = useState<User | undefined>();
-  const user: User | undefined = getFromLocalStorage("user");
 
   const [formData, setFormData] = useState<User>(defaultUser);
+  const user: User | undefined = getFromLocalStorage("user");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -53,25 +52,25 @@ export default function Profile() {
   const handleSubmit = useCallback(async () => {
     try {
       const res = await editUser(userInfo?.id ?? "", formData);
-      setUserInfo(res);
-
-      const newUser = {
-        ...user,
-        user: res,
-      };
+      setUserInfo(res.data);
 
       openNotificationWithIcon("success");
-      updateLocalStorageItem("user", newUser);
+      updateLocalStorageItem("user", res.data);
     } catch {
       //Do nothing
     }
-  }, [formData, openNotificationWithIcon, user, userInfo?.id]);
+  }, [formData, openNotificationWithIcon, userInfo?.id]);
+
+  const getUser = useCallback(async () => {
+    const res = await getUserById(user?.id ?? "");
+    setUserInfo(res.data);
+    if (res.data) {
+      setFormData(res.data);
+    }
+  }, [user?.id]);
 
   useEffect(() => {
-    setUserInfo(user);
-    if (user) {
-      setFormData(user);
-    }
+    getUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

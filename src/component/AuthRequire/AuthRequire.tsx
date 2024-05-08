@@ -1,6 +1,5 @@
 "use client";
 
-import { User } from "@/models/user/login";
 import {
   deleteFromLocalStorage,
   getFromLocalStorage,
@@ -18,10 +17,11 @@ export const AuthRequire: FC<Props> = async ({ children }) => {
 
   const authCheck = useCallback(async () => {
     try {
-      const user: User | undefined = getFromLocalStorage("user");
-      await tokenCheck({ token: user?.token ?? "" });
+      const token: string | undefined = getFromLocalStorage("token");
+      await tokenCheck({ token: token ?? "" });
     } catch {
       deleteFromLocalStorage("user");
+      deleteFromLocalStorage("token");
       router.push("/login");
     }
   }, [router]);

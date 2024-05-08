@@ -6,10 +6,7 @@ import { GoogleSignInButton } from "@/component/ui/googleLoginButton";
 import { LoginRequest } from "@/models/user/login";
 import { login } from "@/service/user";
 import { saveToLocalStorage } from "@/utils/localStorage";
-import { Button, notification } from "antd";
-import axios from "axios";
-import { SessionProvider, signIn, useSession } from "next-auth/react";
-import Link from "next/link";
+import { notification } from "antd";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
@@ -45,7 +42,8 @@ export default function Login() {
     try {
       const res = await login(formData);
       openNotificationWithIcon("success", "Login thành công");
-      saveToLocalStorage("user", res.data);
+      saveToLocalStorage("user", res.data.user.data);
+      saveToLocalStorage("token", res.data.token);
       router.push("/");
     } catch {
       openNotificationWithIcon("error", "Login thất bại");

@@ -4,10 +4,11 @@ import type { FormProps } from "antd";
 import { Form } from "antd";
 import { createBooking } from "@/service/booking";
 import { getFromLocalStorage } from "@/utils/localStorage";
-import { User as UserLogin } from "@/models/user/login";
+import { DataLogin, User as UserLogin } from "@/models/user/login";
 import { Toast, showToast } from "@/component/ui/toast";
 import { useParams } from "next/navigation";
 import { Tour } from "@/models/tour/get";
+import { User } from "@/models/user/get";
 
 export type FieldTaskType = {
   email: string;
@@ -24,7 +25,7 @@ type Props = {
 };
 
 const BookingForm: FC<Props> = ({ tour }) => {
-  const user: UserLogin | undefined = getFromLocalStorage("user");
+  const user: User | undefined = getFromLocalStorage("user");
   const param = useParams();
   const id = typeof param.id === "string" ? param.id : "";
 
@@ -42,7 +43,7 @@ const BookingForm: FC<Props> = ({ tour }) => {
       try {
         await createBooking({
           ...values,
-          userId: user?.user.id ?? "",
+          userId: user?.id ?? "",
           tourId: id,
           numberOfAdults: Number(values.numberOfAdults),
           numberOfChildren: Number(values.numberOfChildren),
@@ -60,7 +61,7 @@ const BookingForm: FC<Props> = ({ tour }) => {
         });
       }
     },
-    [departureTimes, id, user?.user.id]
+    [departureTimes, id, user?.id]
   );
 
   return (

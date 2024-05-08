@@ -43,7 +43,9 @@ export default function Register() {
         username: formData.username,
         password: formData.password,
       });
-      saveToLocalStorage("user", res.data);
+
+      saveToLocalStorage("user", res.data.user);
+      saveToLocalStorage("token", res.data.token);
       router.push("/");
       openNotificationWithIcon("success", "Đăng ký thành công");
     } catch {

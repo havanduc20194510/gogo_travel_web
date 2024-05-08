@@ -1,13 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { User } from "@/models/user/login";
+import { DataLogin, User } from "@/models/user/login";
 import {
   deleteFromLocalStorage,
   getFromLocalStorage,
 } from "@/utils/localStorage";
 import Link from "next/link";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Dropdown, MenuProps, Space } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { usePathname, useRouter } from "next/navigation";
@@ -38,7 +38,13 @@ export default function Navbar() {
     },
     {
       label: (
-        <a href="/login" onClick={() => deleteFromLocalStorage("user")}>
+        <a
+          href="/login"
+          onClick={() => {
+            deleteFromLocalStorage("user");
+            deleteFromLocalStorage("token");
+          }}
+        >
           Đăng xuất
         </a>
       ),
@@ -62,12 +68,12 @@ export default function Navbar() {
             <div className="hidden mt-2 mr-4 sm:inline-block">
               <span />
             </div>
-            {userInfo ? (
+            {!!userInfo ? (
               <Dropdown menu={{ items }} trigger={["click"]}>
                 <div onClick={(e) => e.preventDefault()}>
                   <Space>
                     <div className="text-white select-none cursor-pointer">
-                      {userInfo.user.username}
+                      {userInfo.username}
                     </div>
                     <DownOutlined />
                   </Space>

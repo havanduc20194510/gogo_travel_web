@@ -1,4 +1,4 @@
-import { User, UserListResponse } from "@/models/user/get";
+import { GetUserResponse, User, UserListResponse } from "@/models/user/get";
 import { LoginRequest, LoginResponse } from "@/models/user/login";
 import { RegisterRequest, RegisterResponse } from "@/models/user/register";
 import httpCLient from "@/utils/httpClient";
@@ -9,14 +9,14 @@ export const getUser = (): Promise<UserListResponse> => {
   return httpCLient.get(`${API_ENDPOINT}`);
 };
 
-export const getUserById = (id: string): Promise<User> => {
+export const getUserById = (id: string): Promise<GetUserResponse> => {
   return httpCLient.get(`${API_ENDPOINT}/${id}`);
 };
 
 export const editUser = (
   id: string,
   request: Omit<User, "id">
-): Promise<User> => {
+): Promise<GetUserResponse> => {
   return httpCLient.put(`${API_ENDPOINT}/${id}`, request);
 };
 
