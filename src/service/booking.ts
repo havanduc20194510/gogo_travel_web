@@ -9,3 +9,9 @@ export const createBooking = (request: BookingCreateRequest) => {
 export const getAllBooking = (): Promise<GetBookingResponse> => {
   return httpCLient.get(`/booking/all`);
 };
+
+export const getBookingByUser = (
+  userId: string
+): Promise<GetBookingResponse> => {
+  return httpCLient.get(`/booking/get-by-user/${userId}`);
+};
