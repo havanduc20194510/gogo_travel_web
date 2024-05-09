@@ -52,3 +52,7 @@ export const addDepartureTime = (
 ): Promise<AddTourResponse> => {
   return httpCLient.post(`/departure-time/create`, request);
 };
+
+export const increaseView = (tourId: string) => {
+  return httpCLient.put(`/tour/increase-view/${tourId}`, { tourId });
+};

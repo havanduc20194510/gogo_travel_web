@@ -1,5 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
+/* eslint-disable @next/next/no-img-element */
 
 import { useCallback, useEffect, useState } from "react";
 import { EditOutlined } from "@ant-design/icons";
@@ -26,7 +26,7 @@ type Props = {
   onChangeUserInfo: (userInfo?: User) => void;
 };
 
-export default function UserInfo({ userInfo, onChangeUserInfo }: Props) {
+export const UserInfo = ({ userInfo, onChangeUserInfo }: Props) => {
   const [isEdit, setIsEdit] = useState(false);
   const [api, contextHolder] = notification.useNotification();
 
@@ -169,4 +169,4 @@ export default function UserInfo({ userInfo, onChangeUserInfo }: Props) {
       </div>
     </form>
   );
-}
+};

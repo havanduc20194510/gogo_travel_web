@@ -5,9 +5,10 @@ import Footer from "@/component/layout/Footer";
 import Navbar from "@/component/layout/Navbar";
 import { useMemo, useState } from "react";
 import { User } from "@/models/user/login";
-import UserInfo from "./UserInfo";
 import { Tab } from "./Tab";
-import { BookingHistory } from "./BookingHistoty";
+import { BookingHistory } from "./BookingHistory";
+import { AuthRequire } from "@/component/AuthRequire/AuthRequire";
+import { UserInfo } from "./UserInfo";
 
 export type NotificationType = "success" | "info" | "warning" | "error";
 
@@ -24,7 +25,7 @@ export default function Profile() {
   }, [tab, userInfo]);
 
   return (
-    <>
+    <AuthRequire>
       <Navbar />
       <div className="py-24 grid grid-cols-4 gap-5 content2">
         <div className="max-w-sm mx-auto bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-lg">
@@ -65,6 +66,6 @@ export default function Profile() {
         </div>
       </div>
       <Footer />
-    </>
+    </AuthRequire>
   );
 }

@@ -2,7 +2,7 @@
 "use client";
 
 import { Tour } from "@/models/tour/get";
-import DestinationItem from "./DestinationItem";
+import DestinationItem from "../../domain/DestinationItem";
 import { Spin } from "antd";
 
 type Props = {

@@ -4,6 +4,37 @@ export type TourListResponse = {
   data: Tour[];
 };
 
+// export type Tour = {
+//   tourId: string;
+//   name: string;
+//   adultPrice: number;
+//   childPrice: number;
+//   babyPrice: number;
+//   unit: string;
+//   description: string;
+//   numberOfDays: number;
+//   numberOfNights: number;
+//   vehicle: string;
+//   departureLocation: string;
+//   hotelStar: number;
+//   numberOfSeats: number;
+//   availableSeats: number;
+//   status: string;
+//   note: string;
+//   tourType: {
+//     id: number;
+//     name: string;
+//   };
+//   images?: Image[];
+//   departureTimes?: [
+//     {
+//       id: number;
+//       startDate: string;
+//     }
+//   ];
+//   schedules: Schedule[];
+// };
+
 export type Tour = {
   tourId: string;
   name: string;
@@ -21,43 +52,31 @@ export type Tour = {
   availableSeats: number;
   status: string;
   note: string;
-  tourType: {
-    id: number;
-    name: string;
-  };
+  totalView: number;
+  tourType: TaskTypeOrTourType;
   images?: Image[];
-  departureTimes?: [
-    {
-      id: number;
-      startDate: string;
-    }
-  ];
-  schedules: Schedule[];
+  departureTimes?: DepartureTimes[];
+  schedules?: Schedule[];
 };
-
+export interface TaskTypeOrTourType {
+  id: number;
+  name: string;
+}
 export type Image = {
   id: number;
   url?: string;
 };
 
+export interface DepartureTimes {
+  id: number;
+  startDate: string;
+}
 export type Schedule = {
   id: number;
   timeInDays: string;
   title: string;
-  scheduleDetail: ScheduleDetail[];
-  task: {
-    id: number;
-    name: string;
-    description: string;
-    coin: number;
-    reward: string;
-    deadline: string;
-    status: string;
-    taskType: {
-      id: number;
-      name: string;
-    };
-  };
+  scheduleDetail?: ScheduleDetail[];
+  task: Task;
 };
 
 export type ScheduleDetail = {
@@ -65,21 +84,18 @@ export type ScheduleDetail = {
   timeLine: string;
   place: string;
   activity: string;
-  task: {
-    id: number;
-    name: string;
-    description: string;
-    coin: number;
-    reward: string;
-    deadline: string;
-    status: string;
-    taskType: {
-      id: number;
-      name: string;
-    };
-  };
 };
 
+export interface Task {
+  id: number;
+  name: string;
+  description: string;
+  coin: number;
+  reward: string;
+  deadline: string;
+  status: string;
+  taskType: TaskTypeOrTourType;
+}
 export type TourResponse = {
   code: number;
   message: string;

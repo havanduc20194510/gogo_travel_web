@@ -1,3 +1,5 @@
+import { Tour } from "../tour/get";
+
 export interface GetBookingResponse {
   code: number;
   message: string;
@@ -20,28 +22,6 @@ export interface Booking {
   bookingStatus: string;
 }
 
-export interface Tour {
-  tourId: string;
-  name: string;
-  adultPrice: number;
-  childPrice: number;
-  babyPrice: number;
-  unit: string;
-  description: string;
-  numberOfDays: number;
-  numberOfNights: number;
-  vehicle: string;
-  departureLocation: string;
-  hotelStar: number;
-  numberOfSeats: number;
-  availableSeats: number;
-  status: string;
-  note: string;
-  tourType: TaskTypeOrTourType;
-  images?: ImagesEntity[] | null;
-  departureTimes?: DepartureTimesEntity[] | null;
-  schedules?: SchedulesEntity[] | null;
-}
 export interface TaskTypeOrTourType {
   id: number;
   name: string;

@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import { View } from "@/component/ui/View";
 import { Tour } from "@/models/tour/get";
 import { formatPrice } from "@/utils/price";
 import Link from "next/link";
@@ -33,6 +34,7 @@ export default function TourItem({ tour, colSpan = "1" }: Props) {
           </span>
         </div>
       </div>
+      <View totalView={tour.totalView} />
     </Link>
   );
 }

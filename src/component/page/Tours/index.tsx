@@ -3,7 +3,6 @@
 import { getTours, tourSearch } from "@/service/tour";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Heading from "./Heading";
-import SpecialList from "./SpecialList";
 import TourList from "./TourList";
 import { Tour, TourSearchRequest } from "@/models/tour/get";
 import { Spin } from "antd";
@@ -82,7 +81,6 @@ export default function Tours() {
         <h1 className="text-lg font-medium my-5 py-5 border-b border-gray-300">
           Outside the city specials
         </h1>
-        <SpecialList />
       </div>
     </div>
   );

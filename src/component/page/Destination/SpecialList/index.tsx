@@ -1,9 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import { Place } from "@/models/place/get";
 import Card from "./Card";
 
-export default function SpecialList() {
+type Props = {
+  placeList?: Place[];
+};
+export default function SpecialList({ placeList }: Props) {
   return (
     <>
       <div className="flex items-center justify-between mb-3">
@@ -23,10 +27,9 @@ export default function SpecialList() {
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 md:gap-6 xl:gap-6">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {placeList?.map((place) => (
+          <Card key={place.id} place={place} />
+        ))}
       </div>
     </>
   );
