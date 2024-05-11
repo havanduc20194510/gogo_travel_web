@@ -42,7 +42,7 @@ export default function Login() {
     try {
       const res = await login(formData);
       openNotificationWithIcon("success", "Login thành công");
-      saveToLocalStorage("user", res.data.user.data);
+      saveToLocalStorage("user", res.data.user);
       saveToLocalStorage("token", res.data.token);
       router.push("/");
     } catch {

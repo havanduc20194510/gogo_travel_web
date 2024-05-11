@@ -8,8 +8,6 @@ type Props = {
 };
 
 export default function Card({ place }: Props) {
-  console.log(place, "place");
-
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-2xl">
       <img
@@ -26,19 +24,19 @@ export default function Card({ place }: Props) {
           <span>{place.timeOpen}</span>
         </div>
         <div className="flex items-center gap-1 mb-2 text-sm">
-          <img src="/icons/car.svg" alt="" />
+          <img src="/icons/clock.svg" alt="" />
           <span>{place.timeClose}</span>
         </div>
         <div className="flex items-center gap-1 text-sm">
-          <img src="/icons/family.svg" alt="" />
+          <img src="/icons/location.svg" alt="" />
           <span>{place.location}</span>
         </div>
         <div className="flex items-center gap-1 text-sm">
-          <img src="/icons/family.svg" alt="" />
+          <img src="/icons/car.svg" alt="" />
           <span>{place.activities}</span>
         </div>
         <div className="flex items-center gap-1 text-sm">
-          <img src="/icons/family.svg" alt="" />
+          <img src="/icons/detail.svg" alt="" />
           <span>{place.note}</span>
         </div>
       </div>

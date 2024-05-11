@@ -3,11 +3,25 @@
 
 import { Place } from "@/models/place/get";
 import Card from "./Card";
+import { Spin } from "antd";
 
 type Props = {
   placeList?: Place[];
+  loading: boolean;
 };
-export default function SpecialList({ placeList }: Props) {
+
+export default function SpecialList({ placeList, loading }: Props) {
+  if (loading) {
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <Spin tip="Loading..." />
+      </div>
+    );
+  }
+  if (!placeList?.length) {
+    return <p className="text-xl font-bold">Không tìm thấy kết quả nào</p>;
+  }
+
   return (
     <>
       <div className="flex items-center justify-between mb-3">

@@ -9,7 +9,7 @@ import {
   getFromLocalStorage,
   updateLocalStorageItem,
 } from "@/utils/localStorage";
-import { User } from "@/models/user/login";
+import { User } from "@/models/user/get";
 const defaultUser = {
   id: "",
   username: "",

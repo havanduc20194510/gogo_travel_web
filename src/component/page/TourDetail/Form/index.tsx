@@ -4,7 +4,6 @@ import type { FormProps } from "antd";
 import { Form } from "antd";
 import { createBooking } from "@/service/booking";
 import { getFromLocalStorage } from "@/utils/localStorage";
-import { DataLogin, User as UserLogin } from "@/models/user/login";
 import { Toast, showToast } from "@/component/ui/toast";
 import { useParams } from "next/navigation";
 import { Tour } from "@/models/tour/get";

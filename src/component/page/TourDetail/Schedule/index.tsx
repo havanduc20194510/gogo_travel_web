@@ -10,6 +10,9 @@ type Props = {
 };
 
 export default function Schedule({ tour }: Props) {
+  if (!tour.schedules?.length) {
+    return <p className="font-bold text-xl">Chưa có lịch trình</p>;
+  }
   return (
     <div className="grid grid-cols-5 gap-4">
       <div className="col-span-3">

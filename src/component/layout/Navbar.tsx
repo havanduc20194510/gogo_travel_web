@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { DataLogin, User } from "@/models/user/login";
 import {
   deleteFromLocalStorage,
   getFromLocalStorage,
@@ -11,6 +10,8 @@ import { useEffect, useState } from "react";
 import { Dropdown, MenuProps, Space } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { usePathname, useRouter } from "next/navigation";
+import { User } from "@/models/user/get";
+import { logout } from "@/service/user";
 
 export default function Navbar() {
   const [isMobile, setIsMobile] = useState(true);
@@ -40,7 +41,8 @@ export default function Navbar() {
       label: (
         <a
           href="/login"
-          onClick={() => {
+          onClick={async () => {
+            await logout();
             deleteFromLocalStorage("user");
             deleteFromLocalStorage("token");
           }}

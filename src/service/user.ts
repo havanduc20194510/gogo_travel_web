@@ -2,6 +2,7 @@ import { GetUserResponse, User, UserListResponse } from "@/models/user/get";
 import { LoginRequest, LoginResponse } from "@/models/user/login";
 import { RegisterRequest, RegisterResponse } from "@/models/user/register";
 import httpCLient from "@/utils/httpClient";
+import { getFromLocalStorage } from "@/utils/localStorage";
 
 const API_ENDPOINT = "/users";
 
@@ -34,4 +35,11 @@ export const tokenCheck = (request: {
   token: string;
 }): Promise<RegisterResponse> => {
   return httpCLient.post(`/auth/introspect`, request);
+};
+
+export const logout = (): Promise<LoginResponse> => {
+  const token: string | undefined = getFromLocalStorage("token");
+  return httpCLient.post(`/auth/logout`, {
+    token,
+  });
 };

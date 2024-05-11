@@ -61,16 +61,6 @@ export default function TourDetail() {
       content: <Schedule tour={tourResponse.data} />,
       iconUrl: "/icons/calendar.svg",
     },
-    {
-      title: "Khởi hành",
-      content: <div>This is content for Tab 3</div>,
-      iconUrl: "/icons/map.svg",
-    },
-    {
-      title: "Bảng giá",
-      content: <div>This is content for Tab 4</div>,
-      iconUrl: "/icons/price.svg",
-    },
   ];
 
   return (

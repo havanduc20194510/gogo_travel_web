@@ -1,3 +1,5 @@
+import { User } from "./get";
+
 export type LoginRequest = {
   username: string;
   password: string;
@@ -10,21 +12,7 @@ export type LoginResponse = {
 };
 
 export interface DataLogin {
-  user: UserData;
+  user: User;
   token: string;
   authenticated: boolean;
 }
-
-export interface UserData {
-  code: number;
-  data: User;
-}
-
-export type User = {
-  id: string;
-  username: string;
-  email: string;
-  phone: string;
-  address: string;
-  roles?: string[] | null;
-};

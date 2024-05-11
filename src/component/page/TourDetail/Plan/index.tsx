@@ -4,6 +4,8 @@
 import { Tour } from "@/models/tour/get";
 import Slide from "./Slide";
 import Form from "../Form";
+import { formatPrice } from "@/utils/price";
+import { PriceTable } from "./PriceTable";
 
 type Props = {
   tour: Tour;
@@ -33,7 +35,19 @@ export default function Plan({ tour }: Props) {
           <span className="text-sm text-gray-500">(584 reviews)</span>
         </div>
         <Slide images={tour.images} />
-
+        <h1 className="text-xl font-bold my-5">Bảng giá</h1>
+        <PriceTable tour={tour} />
+        <h1 className="text-xl font-bold my-5">Khởi hành</h1>
+        <ul className="list-disc ml-10">
+          <li>
+            Thời gian:
+            {tour.departureTimes?.length
+              ? tour.departureTimes?.[0]?.startDate
+              : "Chưa có"}
+          </li>
+          <li>Địa điểm: {tour.departureLocation}</li>
+          <li>Cách di chuyển: {tour.vehicle}</li>
+        </ul>
         <h1 className="text-xl font-bold my-5">Thông tin</h1>
         <ul className="list-disc ml-10">
           <li>Số ngày: {tour.numberOfDays}</li>

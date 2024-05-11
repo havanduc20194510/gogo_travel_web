@@ -1,3 +1,5 @@
+import { User } from "./get";
+
 export type RegisterRequest = {
   username: string;
   email: string;
@@ -7,12 +9,5 @@ export type RegisterRequest = {
 export type RegisterResponse = {
   code: number;
   message: string;
-  data: {
-    user: {
-      id: string;
-      username: string;
-      password: string;
-      email: string;
-    };
-  };
+  data: User;
 };

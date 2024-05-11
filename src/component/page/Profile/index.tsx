@@ -4,11 +4,11 @@
 import Footer from "@/component/layout/Footer";
 import Navbar from "@/component/layout/Navbar";
 import { useMemo, useState } from "react";
-import { User } from "@/models/user/login";
 import { Tab } from "./Tab";
 import { BookingHistory } from "./BookingHistory";
 import { AuthRequire } from "@/component/AuthRequire/AuthRequire";
 import { UserInfo } from "./UserInfo";
+import { User } from "@/models/user/get";
 
 export type NotificationType = "success" | "info" | "warning" | "error";
 
