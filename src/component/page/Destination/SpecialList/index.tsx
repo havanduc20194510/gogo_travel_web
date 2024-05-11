@@ -18,6 +18,7 @@ export default function SpecialList({ placeList, loading }: Props) {
       </div>
     );
   }
+
   if (!placeList?.length) {
     return <p className="text-xl font-bold">Không tìm thấy kết quả nào</p>;
   }
