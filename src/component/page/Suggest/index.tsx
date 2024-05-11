@@ -8,7 +8,7 @@ import { Place } from "@/models/place/get";
 import { SearchBar } from "./SearchBar";
 import { SearchPlaceRequest } from "@/models/place/search";
 
-export default function Destination() {
+export default function Suggest() {
   const [loading, setLoading] = useState(false);
   const [placeList, setPlaceList] = useState<Place[]>();
   const [formData, setFormData] = useState<SearchPlaceRequest>({

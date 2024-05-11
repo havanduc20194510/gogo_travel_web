@@ -2,7 +2,6 @@
 "use client";
 
 import { Tour } from "@/models/tour/get";
-import { Image } from "antd";
 import TourItem from "../../domain/TourItem";
 
 type Props = {

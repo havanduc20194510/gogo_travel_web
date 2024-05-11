@@ -56,3 +56,11 @@ export const addDepartureTime = (
 export const increaseView = (tourId: string) => {
   return httpCLient.put(`/tour/increase-view/${tourId}`, { tourId });
 };
+
+export const deleteTour = (id: string): Promise<TourResponse> => {
+  const config = {
+    data: { tourId: id },
+  };
+
+  return httpCLient.delete<TourResponse>(`/tour/delete/${id}`, config);
+};

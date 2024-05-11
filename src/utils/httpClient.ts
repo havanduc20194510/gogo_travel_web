@@ -133,16 +133,16 @@ class httpClient {
    */
   async delete<R extends ApiResponse, P extends ApiParams = ApiParams>(
     path: string,
-    options?: RequestOptions<P>
+    options?: RequestOptions<P> & { data?: any }
   ): Promise<R> {
+    const config = {
+      ...options,
+      data: options?.data,
+    };
+
     return this.axiosInstance
-      .delete(path, {
-        params: {
-          ...options?.params,
-        },
-        cancelToken: options?.cancelToken,
-      })
-      .then((response) => response.data);
+      .delete(path, config)
+      .then((response) => response.data as R);
   }
 }
 
