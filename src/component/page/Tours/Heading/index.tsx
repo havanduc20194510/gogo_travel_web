@@ -1,12 +1,13 @@
 "use client";
 
-import Select from "@/component/ui/Select";
+import { Select } from "@/component/ui/Select";
 
 type Props = {
   count?: number;
+  onChange?: (selectedValue: string) => void;
 };
 
-export default function Heading({ count }: Props) {
+export default function Heading({ count, onChange }: Props) {
   return (
     <div className="flex items-center justify-between">
       <div>
@@ -15,7 +16,7 @@ export default function Heading({ count }: Props) {
       </div>
       <div className="flex items-center justify-center">
         <span className="mr-5 font-bold">Sort by:</span>
-        <Select />
+        <Select onChange={onChange} />
       </div>
     </div>
   );

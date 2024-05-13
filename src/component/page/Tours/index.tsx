@@ -1,13 +1,13 @@
 "use client";
 
-import { getTours, tourSearch } from "@/service/tour";
+import { getTourByFilterAndSort, getTours, tourSearch } from "@/service/tour";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Heading from "./Heading";
 import TourList from "./TourList";
 import { Tour, TourSearchRequest } from "@/models/tour/get";
 import { Spin } from "antd";
 import { useSearchParams } from "next/navigation";
-import FilterBar from "./FilterBar";
+import FilterBar, { FilterValue } from "./FilterBar";
 
 function scrollToElement(elementId: string) {
   const element = document.getElementById(elementId);
@@ -49,6 +49,21 @@ export default function Tours() {
     }
   }, [query]);
 
+  const handleSort = useCallback(async (selectedValue: string) => {
+    const response = await getTourByFilterAndSort({
+      sortField: selectedValue,
+    });
+    setTourList(response.data.content ?? []);
+  }, []);
+
+  const handleSubmit = useCallback(async (filterValue?: FilterValue) => {
+    const response = await getTourByFilterAndSort({
+      ...filterValue,
+    });
+
+    setTourList(response.data.content ?? []);
+  }, []);
+
   useEffect(() => {
     loadTour();
     scrollToElement("section-1");
@@ -65,22 +80,17 @@ export default function Tours() {
   return (
     <div id="section-1">
       <div className="p-5">
-        <Heading count={tourList?.length} />
+        <Heading count={tourList?.length} onChange={handleSort} />
       </div>
       <div className="content bg-slate-100 mt-10 p-5">
         <div className="grid grid-cols-4 gap-4">
           <div>
-            <FilterBar />
+            <FilterBar onSubmit={handleSubmit} />
           </div>
           <div className="col-span-3">
             <TourList tourList={tourList} />
           </div>
         </div>
-      </div>
-      <div className="content py-5">
-        <h1 className="text-lg font-medium my-5 py-5 border-b border-gray-300">
-          Outside the city specials
-        </h1>
       </div>
     </div>
   );

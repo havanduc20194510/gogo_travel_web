@@ -2,6 +2,7 @@ import { CreateDepartureRequest } from "@/models/departure/add";
 import { AddTourRequest, AddTourResponse } from "@/models/tour/add";
 import {
   GetTourByFilterAndSortRequest,
+  GetTourByFilterAndSortResponse,
   TourListResponse,
   TourResponse,
   TourSearchRequest,
@@ -68,6 +69,6 @@ export const deleteTour = (id: string): Promise<TourResponse> => {
 
 export const getTourByFilterAndSort = (
   request: GetTourByFilterAndSortRequest
-): Promise<TourResponse> => {
+): Promise<GetTourByFilterAndSortResponse> => {
   return httpCLient.get(`/tour/search/pagination/sort/filter`, request);
 };

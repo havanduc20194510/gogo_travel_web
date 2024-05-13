@@ -4,6 +4,7 @@ export type RegisterRequest = {
   username: string;
   email: string;
   password: string;
+  roles?: string[];
 };
 
 export type RegisterResponse = {

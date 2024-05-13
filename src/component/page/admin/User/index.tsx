@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
-import { Space, Spin, Table } from "antd";
+import { Button, Space, Spin, Table } from "antd";
 import type { TableProps } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import Link from "next/link";
@@ -87,6 +87,11 @@ const Users: FC = () => {
 
   return (
     <div className="min-h-screen">
+      <div className="flex justify-end my-3">
+        <Button type="primary" size="large">
+          <Link href="/admin/user/add"> Add User</Link>
+        </Button>
+      </div>
       <Table columns={columns} dataSource={userData} />
     </div>
   );

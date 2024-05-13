@@ -119,3 +119,11 @@ export type GetTourByFilterAndSortRequest = {
   offset?: string;
   pageSize?: string;
 };
+
+export type GetTourByFilterAndSortResponse = {
+  code: number;
+  message: string;
+  data: {
+    content: Tour[];
+  };
+};
