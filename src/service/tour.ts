@@ -1,6 +1,7 @@
 import { CreateDepartureRequest } from "@/models/departure/add";
 import { AddTourRequest, AddTourResponse } from "@/models/tour/add";
 import {
+  GetTourByFilterAndSortRequest,
   TourListResponse,
   TourResponse,
   TourSearchRequest,
@@ -63,4 +64,10 @@ export const deleteTour = (id: string): Promise<TourResponse> => {
   };
 
   return httpCLient.delete<TourResponse>(`/tour/delete/${id}`, config);
+};
+
+export const getTourByFilterAndSort = (
+  request: GetTourByFilterAndSortRequest
+): Promise<TourResponse> => {
+  return httpCLient.get(`/tour/search/pagination/sort/filter`, request);
 };

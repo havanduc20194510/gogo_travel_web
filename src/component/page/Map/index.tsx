@@ -5,6 +5,7 @@ import Navbar from "@/component/layout/Navbar";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { Spin } from "antd";
 import axios from "axios";
+import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 const mapContainerStyle = {
@@ -20,12 +21,10 @@ type Center = {
 const MAP_KEY = "AIzaSyDm9pPMTMrXoIof6QiL2OuBaMeRRfVDdCQ";
 const COORDINATES_URL = "https://maps.googleapis.com/maps/api/geocode/json";
 
-type Props = {
-  address?: string;
-};
-
-export default function Map({ address }: Props) {
+export default function Map() {
   const [center, setCenter] = useState<Center>();
+  const searchParams = useSearchParams();
+  const address = searchParams.get("address") ?? undefined;
 
   const [loading, setLoading] = useState(false);
 
