@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import FromTo from "./forms/FromTo";
+<<<<<<< HEAD
 import TypeTours from "./forms/TypeTours";
 
 export type FilterValue = {
@@ -23,9 +24,14 @@ export default function FilterBar({ onSubmit }: Props) {
       [fieldName]: value,
     });
   };
+=======
+import NumberOfDays from "./forms/NumberOfDays";
+import TypeTours from "./forms/TypeTours";
+>>>>>>> 5337c67c4d1b3fa237d396817a49c8183c37b5aa
 
   return (
     <div className="flex flex-col gap-2">
+<<<<<<< HEAD
       <FromTo onChange={handleChange} />
       <TypeTours onChange={handleChange} />
       <button
@@ -35,6 +41,12 @@ export default function FilterBar({ onSubmit }: Props) {
       >
         Tìm kiếm
       </button>
+=======
+      <FromTo />
+      <TypeTours />
+      <NumberOfDays />
+      <Destination />
+>>>>>>> 5337c67c4d1b3fa237d396817a49c8183c37b5aa
     </div>
   );
 }
