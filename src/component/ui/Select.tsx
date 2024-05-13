@@ -6,7 +6,13 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 const options = [
   {
     id: 1,
-    name: "Wade Cooper",
+    name: "Tên",
+    value: "name",
+  },
+  {
+    id: 1,
+    name: "Giá",
+    value: "price",
   },
 ];
 
@@ -15,7 +21,8 @@ function classNames(...classes: string[]) {
 }
 
 export default function Example() {
-  const [selected, setSelected] = useState(options[3]);
+  const [selected, setSelected] = useState(options[1]);
+  console.log(selected, "selected");
 
   return (
     <Listbox value={selected} onChange={setSelected}>

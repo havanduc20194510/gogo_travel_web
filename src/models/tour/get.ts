@@ -110,3 +110,12 @@ export type TourSearchRequest = {
   offset?: number;
   pageSize?: number;
 };
+
+export type GetTourByFilterAndSortRequest = {
+  filterType?: string;
+  filterPriceMin?: number;
+  filterPriceMax?: number;
+  sortField?: string;
+  offset?: string;
+  pageSize?: string;
+};
