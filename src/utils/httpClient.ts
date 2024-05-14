@@ -113,6 +113,8 @@ class httpClient {
       })
       .then((response) => response.data)
       .catch((e) => {
+        console.log(e, "e");
+
         if (e.response?.status === 401) {
           checkAuth();
         }

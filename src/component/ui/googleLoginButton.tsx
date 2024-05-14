@@ -1,14 +1,8 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { signIn } from "next-auth/react";
-
 export const GoogleSignInButton = () => {
-  const searchParams = useSearchParams();
-
   return (
     <button
-      onClick={() => signIn("google")}
       type="button"
       className="flex items-center shadow mt-3 bg-emerald-500 hover:bg-emerald-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
     >
