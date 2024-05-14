@@ -49,7 +49,6 @@ export type Tour = {
   departureLocation: string;
   hotelStar: number;
   numberOfSeats: number;
-  availableSeats: number;
   status: string;
   note: string;
   totalView: number;

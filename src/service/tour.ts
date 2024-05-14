@@ -18,6 +18,10 @@ export const getTours = (): Promise<TourListResponse> => {
   return httpCLient.get(`${API_ENDPOINT}/list`);
 };
 
+export const getTopTours = (): Promise<TourListResponse> => {
+  return httpCLient.get(`${API_ENDPOINT}/top-tour`);
+};
+
 export const tourSearch = (
   request: TourSearchRequest
 ): Promise<TourListResponse> => {

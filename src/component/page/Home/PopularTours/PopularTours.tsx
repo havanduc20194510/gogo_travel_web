@@ -7,9 +7,10 @@ import { Spin } from "antd";
 
 type Props = {
   tourList?: Tour[];
+  loading: boolean;
 };
 
-export default function PopularTours({ tourList }: Props) {
+export default function PopularTours({ tourList, loading }: Props) {
   return (
     <div className="bg-white dark:bg-gray-800 py-6 sm:py-8 lg:py-12">
       <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
@@ -22,7 +23,7 @@ export default function PopularTours({ tourList }: Props) {
           </div>
         </div>
 
-        {!tourList ? (
+        {loading ? (
           <div className="flex items-center justify-center w-full">
             <Spin tip="Loading..." />
           </div>

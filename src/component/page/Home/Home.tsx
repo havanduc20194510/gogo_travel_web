@@ -8,18 +8,30 @@ import PopularTours from "@/component/page/Home/PopularTours/PopularTours";
 import TopDestinations from "@/component/page/Home/TopDestinations/TopDestinations";
 import Vision from "@/component/page/Home/Vision";
 import { Tour, TourListResponse } from "@/models/tour/get";
-import { getTours } from "@/service/tour";
+import { getTopTours, getTours } from "@/service/tour";
 import { useCallback, useEffect, useState } from "react";
 
 export default function Home() {
   const [tourListResponse, setTourListResponse] = useState<TourListResponse>();
+  const [topTourResponse, setTopTourResponse] = useState<TourListResponse>();
+  const [loading, setLoading] = useState(false);
 
   const loadTour = useCallback(async () => {
     try {
-      const response = await getTours();
+      setLoading(true);
+      const toursPromise = getTours();
+      const topToursPromise = getTopTours();
+
+      const [response, topTourResponse] = await Promise.all([
+        toursPromise,
+        topToursPromise,
+      ]);
       setTourListResponse(response);
+      setTopTourResponse(topTourResponse);
     } catch {
       //Do nothing
+    } finally {
+      setLoading(false);
     }
   }, []);
 
@@ -32,8 +44,8 @@ export default function Home() {
       <Navbar />
       <Banner />
       <Vision />
-      <PopularTours tourList={tourListResponse?.data} />
-      <TopDestinations tourList={tourListResponse?.data} />
+      <PopularTours tourList={topTourResponse?.data} loading={loading} />
+      <TopDestinations tourList={tourListResponse?.data} loading={loading} />
       <Comments />
       <Footer />
     </>
