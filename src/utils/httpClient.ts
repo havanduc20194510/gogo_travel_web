@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, CancelToken } from "axios";
 import { deleteFromLocalStorage, getFromLocalStorage } from "./localStorage";
 
-export const baseURL = "http://gogotravel.ap-southeast-1.elasticbeanstalk.com/";
+export const baseURL = "http://gogotravel.ap-southeast-1.elasticbeanstalk.com";
 
 const checkAuth = async () => {
   deleteFromLocalStorage("user");
