@@ -52,7 +52,6 @@ export default function Plan({ tour }: Props) {
         <ul className="list-disc ml-10">
           <li>Số ngày: {tour.numberOfDays}</li>
           <li>Số đêm: {tour.numberOfNights}</li>
-          <li>Số người: {tour.numberOfSeats}</li>
         </ul>
 
         <h1 className="text-xl font-bold my-5">Mô tả</h1>

@@ -12,7 +12,7 @@ export default function Card({ place }: Props) {
     <div className="bg-white rounded-lg overflow-hidden shadow-2xl">
       <img
         className="h-48 w-full object-cover object-end"
-        src={place.image}
+        src={place.images[0]?.url}
         alt="Home in Countryside"
       />
       <div className="p-6">

@@ -19,15 +19,8 @@ export default function Home() {
   const loadTour = useCallback(async () => {
     try {
       setLoading(true);
-      const toursPromise = getTours();
-      const topToursPromise = getTopTours();
-
-      const [response, topTourResponse] = await Promise.all([
-        toursPromise,
-        topToursPromise,
-      ]);
+      const response = await getTours();
       setTourListResponse(response);
-      setTopTourResponse(topTourResponse);
     } catch {
       //Do nothing
     } finally {
@@ -35,9 +28,19 @@ export default function Home() {
     }
   }, []);
 
+  const loadTopTour = useCallback(async () => {
+    try {
+      const response = await getTopTours();
+      setTopTourResponse(response);
+    } catch {
+      //Do nothing
+    }
+  }, []);
+
   useEffect(() => {
     loadTour();
-  }, [loadTour]);
+    loadTopTour();
+  }, [loadTopTour, loadTour]);
 
   return (
     <>

@@ -9,10 +9,15 @@ export interface Place {
   name: string;
   description: string;
   address: string;
-  image: string;
+  images: Image[];
   location: string;
   timeOpen: string;
   timeClose: string;
   note: string;
   activities: string;
+}
+
+export interface Image {
+  id: number;
+  url: string;
 }

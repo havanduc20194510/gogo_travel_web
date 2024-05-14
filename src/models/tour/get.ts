@@ -48,7 +48,6 @@ export type Tour = {
   vehicle: string;
   departureLocation: string;
   hotelStar: number;
-  numberOfSeats: number;
   status: string;
   note: string;
   totalView: number;
@@ -69,6 +68,9 @@ export type Image = {
 export interface DepartureTimes {
   id: number;
   startDate: string;
+  numberOfSeats: number;
+  bookedSeats: number;
+  available: boolean;
 }
 export type Schedule = {
   id: number;
