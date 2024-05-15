@@ -15,9 +15,16 @@ export interface Place {
   timeClose: string;
   note: string;
   activities: string;
+  totalView: number;
 }
 
 export interface Image {
   id: number;
   url: string;
+}
+
+export interface GetPlaceDetailResponse {
+  code: number;
+  message: string;
+  data: Place;
 }

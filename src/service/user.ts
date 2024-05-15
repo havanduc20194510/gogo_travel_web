@@ -28,7 +28,7 @@ export const login = (request: LoginRequest): Promise<LoginResponse> => {
 export const register = (
   request: RegisterRequest
 ): Promise<RegisterResponse> => {
-  return httpCLient.post(`/users/create`, request);
+  return httpCLient.post(`/auth/register`, request);
 };
 
 export const tokenCheck = (request: {

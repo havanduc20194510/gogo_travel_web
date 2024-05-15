@@ -4,13 +4,14 @@
 import { Tour } from "@/models/tour/get";
 import DestinationItem from "../../domain/DestinationItem";
 import { Spin } from "antd";
+import { Place } from "@/models/place/get";
 
 type Props = {
-  tourList?: Tour[];
+  placeList?: Place[];
   loading: boolean;
 };
 
-export default function TopDestinations({ tourList, loading }: Props) {
+export default function TopDestinations({ placeList, loading }: Props) {
   return (
     <div className="bg-white dark:bg-gray-800 py-6 sm:py-8 lg:py-12">
       <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
@@ -28,8 +29,8 @@ export default function TopDestinations({ tourList, loading }: Props) {
           </div>
         ) : (
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:gap-6 xl:gap-8">
-            {tourList?.slice(0, 6).map((tour, index) => (
-              <DestinationItem key={index} tour={tour} />
+            {placeList?.slice(0, 6).map((place, index) => (
+              <DestinationItem key={index} place={place} />
             ))}
           </div>
         )}

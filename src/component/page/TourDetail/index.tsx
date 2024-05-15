@@ -36,7 +36,8 @@ export default function TourDetail() {
 
   useEffect(() => {
     increaseView(id);
-  }, [id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (loading) {
     return (

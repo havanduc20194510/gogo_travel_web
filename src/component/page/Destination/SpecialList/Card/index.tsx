@@ -11,35 +11,41 @@ type Props = {
 export default function Card({ place }: Props) {
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-2xl">
-      <img
-        className="h-48 w-full object-cover object-end"
-        src={place.images[0]?.url}
-        alt="Home in Countryside"
-      />
+      <a href={`/destination/${place.id}`}>
+        <img
+          className="h-48 w-full object-cover object-end"
+          src={place.images[0]?.url}
+          alt="Home in Countryside"
+        />
+      </a>
+
       <div className="p-6">
-        <h4 className="my-2 font-semibold text-lg leading-tight truncate ">
-          {place.name}
-        </h4>
-        <div className="flex items-center gap-1 mb-2 text-sm">
-          <img src="/icons/clock.svg" alt="" />
-          <span className="limited-text">{place.timeOpen}</span>
-        </div>
-        <div className="flex items-center gap-1 mb-2 text-sm">
-          <img src="/icons/clock.svg" alt="" />
-          <span className="limited-text">{place.timeClose}</span>
-        </div>
-        <div className="flex items-center gap-1 text-sm">
-          <img src="/icons/location.svg" alt="" />
-          <span className="limited-text"> {place.location}</span>
-        </div>
-        <div className="flex items-center gap-1 text-sm">
-          <img src="/icons/car.svg" alt="" />
-          <span className="limited-text">{place.activities}</span>
-        </div>
-        <div className="flex items-center gap-1 text-sm">
-          <img src="/icons/detail.svg" alt="" />
-          <span className="limited-text">{place.note}</span>
-        </div>
+        <a href={`/destination/${place.id}`}>
+          <h4 className="my-2 font-semibold text-lg leading-tight truncate ">
+            {place.name}
+          </h4>
+          <div className="flex items-center gap-1 mb-2 text-sm">
+            <img src="/icons/clock.svg" alt="" />
+            <span className="limited-text">{place.timeOpen}</span>
+          </div>
+          <div className="flex items-center gap-1 mb-2 text-sm">
+            <img src="/icons/clock.svg" alt="" />
+            <span className="limited-text">{place.timeClose}</span>
+          </div>
+          <div className="flex items-center gap-1 text-sm">
+            <img src="/icons/location.svg" alt="" />
+            <span className="limited-text"> {place.location}</span>
+          </div>
+          <div className="flex items-center gap-1 text-sm">
+            <img src="/icons/car.svg" alt="" />
+            <span className="limited-text">{place.activities}</span>
+          </div>
+          <div className="flex items-center gap-1 text-sm">
+            <img src="/icons/detail.svg" alt="" />
+            <span className="limited-text">{place.note}</span>
+          </div>
+        </a>
+
         <div className="text-right mt-2 flex items-center justify-end">
           <img src="/icons/map-color.svg" alt="" />
           <Link
