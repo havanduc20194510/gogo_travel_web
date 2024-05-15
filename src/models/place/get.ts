@@ -28,3 +28,20 @@ export interface GetPlaceDetailResponse {
   message: string;
   data: Place;
 }
+
+export interface GetPlaceSuggestionResponse {
+  code: number;
+  message: string;
+  data: PlaceSuggestion[];
+}
+export interface PlaceSuggestion {
+  location: string;
+  description: string;
+  img: string;
+}
+
+export interface GetPlaceSuggestionRequest {
+  location: string;
+  time: string;
+  activity: string;
+}

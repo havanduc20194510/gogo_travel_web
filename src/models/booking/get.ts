@@ -65,3 +65,9 @@ export interface User {
   address: string;
   roles?: string[] | null;
 }
+
+export interface GetBookingDetailResponse {
+  code: number;
+  message: string;
+  data: Booking;
+}

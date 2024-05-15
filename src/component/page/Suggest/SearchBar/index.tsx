@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useCallback } from "react";
+import { ChangeEvent, FC } from "react";
 
 type Props = {
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -11,10 +11,10 @@ export const SearchBar: FC<Props> = ({ onChange, onSubmit }) => {
       <div className="container p-5 mx-3 gap-3 flex justify-center items-center sm:px-6 lg:px-8">
         <div className="relative">
           <input
-            name="name"
+            name="time"
             type="text"
             className="h-14 w-80 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none"
-            placeholder="Tên"
+            placeholder="Thời gian"
             onChange={onChange}
           />
           <div className="absolute top-4 right-3">
@@ -23,10 +23,10 @@ export const SearchBar: FC<Props> = ({ onChange, onSubmit }) => {
         </div>
         <div className="relative">
           <input
-            name="address"
+            name="location"
             type="text"
             className="h-14 w-80 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none"
-            placeholder="Địa chỉ"
+            placeholder="Vị trí"
             onChange={onChange}
           />
           <div className="absolute top-4 right-3">
@@ -36,9 +36,9 @@ export const SearchBar: FC<Props> = ({ onChange, onSubmit }) => {
         <div className="relative">
           <input
             type="text"
-            name="activities"
+            name="activity"
             className="h-14 w-80 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none"
-            placeholder="Activities"
+            placeholder="Hoạt động"
             onChange={onChange}
           />
           <div className="absolute top-4 right-3">

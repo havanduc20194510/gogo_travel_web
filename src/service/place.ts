@@ -1,6 +1,12 @@
-import { GetPlaceDetailResponse, GetPlaceResponse } from "@/models/place/get";
+import {
+  GetPlaceDetailResponse,
+  GetPlaceResponse,
+  GetPlaceSuggestionRequest,
+  GetPlaceSuggestionResponse,
+} from "@/models/place/get";
 import { SearchPlaceRequest, SearchPlaceResponse } from "@/models/place/search";
 import httpCLient from "@/utils/httpClient";
+import axios from "axios";
 
 export const getPlace = (): Promise<GetPlaceResponse> => {
   return httpCLient.get(`/places/all`);
@@ -22,4 +28,12 @@ export const increaseViewPlace = (id: string) => {
 
 export const getTopPlace = (): Promise<GetPlaceResponse> => {
   return httpCLient.get(`/places/top-recommend`);
+};
+
+export const placeSuggestion = (
+  request: GetPlaceSuggestionRequest
+): Promise<GetPlaceSuggestionResponse> => {
+  return axios.get(`${window.location.origin}/api/suggestions`, {
+    params: request,
+  });
 };

@@ -1,31 +1,33 @@
 "use client";
 
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
-import { Spin } from "antd";
 import SpecialList from "./SpecialList";
-import { getPlace, searchPlaces } from "@/service/place";
-import { Place } from "@/models/place/get";
+import { getPlace, placeSuggestion, searchPlaces } from "@/service/place";
+import {
+  GetPlaceSuggestionRequest,
+  Place,
+  PlaceSuggestion,
+} from "@/models/place/get";
 import { SearchBar } from "./SearchBar";
-import { SearchPlaceRequest } from "@/models/place/search";
 
 export default function Suggest() {
   const [loading, setLoading] = useState(false);
-  const [placeList, setPlaceList] = useState<Place[]>();
-  const [formData, setFormData] = useState<SearchPlaceRequest>({
-    name: "",
-    address: "",
-    activities: "",
+  const [placeList, setPlaceList] = useState<PlaceSuggestion[]>();
+  const [formData, setFormData] = useState<GetPlaceSuggestionRequest>({
+    time: "",
+    location: "",
+    activity: "",
   });
 
-  const getPlaces = useCallback(async () => {
+  const handleSubmit = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await getPlace();
+      const res = await placeSuggestion(formData);
       setPlaceList(res.data);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [formData]);
 
   const handleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -37,20 +39,6 @@ export default function Suggest() {
     },
     [formData]
   );
-
-  const handleSubmit = useCallback(async () => {
-    try {
-      setLoading(true);
-      const res = await searchPlaces(formData);
-      setPlaceList(res.data);
-    } finally {
-      setLoading(false);
-    }
-  }, [formData]);
-
-  useEffect(() => {
-    getPlaces();
-  }, [getPlaces]);
 
   return (
     <div className="content py-36">

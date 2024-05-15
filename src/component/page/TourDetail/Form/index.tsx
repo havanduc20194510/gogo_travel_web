@@ -5,7 +5,7 @@ import { Form } from "antd";
 import { createBooking } from "@/service/booking";
 import { getFromLocalStorage } from "@/utils/localStorage";
 import { Toast, showToast } from "@/component/ui/toast";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Tour } from "@/models/tour/get";
 import { User } from "@/models/user/get";
 
@@ -27,6 +27,7 @@ const BookingForm: FC<Props> = ({ tour }) => {
   const user: User | undefined = getFromLocalStorage("user");
   const param = useParams();
   const id = typeof param.id === "string" ? param.id : "";
+  const router = useRouter();
 
   const departureTimes = useMemo(() => {
     return (
@@ -40,7 +41,7 @@ const BookingForm: FC<Props> = ({ tour }) => {
   const handleSubmit: FormProps<FieldTaskType>["onFinish"] = useCallback(
     async (values: FieldTaskType) => {
       try {
-        await createBooking({
+        const res = await createBooking({
           ...values,
           userId: user?.id ?? "",
           tourId: id,
@@ -49,10 +50,13 @@ const BookingForm: FC<Props> = ({ tour }) => {
           numberOfBabies: Number(values.numberOfBabies),
           startDate: values.startDate ?? departureTimes[0].value,
         });
+
         showToast({
           message: "Book tour thành công",
           type: "success",
         });
+
+        router.push(`/payment/${res.data.id}`);
       } catch {
         showToast({
           message: "Book tour thất bại",
@@ -60,7 +64,7 @@ const BookingForm: FC<Props> = ({ tour }) => {
         });
       }
     },
-    [departureTimes, id, user?.id]
+    [departureTimes, id, router, user?.id]
   );
 
   return (

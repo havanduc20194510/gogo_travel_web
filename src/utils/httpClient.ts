@@ -7,10 +7,10 @@ const checkAuth = async () => {
   deleteFromLocalStorage("user");
   deleteFromLocalStorage("token");
 
-  const pathname = window.location.pathname;
-  if (pathname !== "/login" && pathname !== "/register") {
-    window.location.href = "/login";
-  }
+  // const pathname = window.location.pathname;
+  // if (pathname !== "/login" && pathname !== "/register") {
+  //   window.location.href = "/login";
+  // }
 };
 
 interface ApiRequest {}

@@ -1,8 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { PaymentRequest } from "@/models/payment/payment";
+import { useParams, useRouter } from "next/navigation";
+import { getBookingById } from "@/service/booking";
+import { GetBookingDetailResponse } from "@/models/booking/get";
+import { paymentVnPay } from "@/service/payment";
+import { formatPrice } from "@/utils/price";
 
 const PaymentForm = () => {
+  const param = useParams();
+  const id = typeof param.id === "string" ? param.id : "";
+  const router = useRouter();
+
+  const [bookingResponse, setBookingResponse] =
+    useState<GetBookingDetailResponse>();
   const [paymentMethod, setPaymentMethod] = useState("");
   const [language, setLanguage] = useState("vi");
 
@@ -10,6 +21,10 @@ const PaymentForm = () => {
     {
       label: "Cổng thanh toán VNPAYQR",
       value: "",
+    },
+    {
+      label: "Thanh toán qua ứng dụng hỗ trợ VNPAYQR",
+      value: "VNPAYQR",
     },
     {
       label: "Thanh toán qua ATM-Tài khoản ngân hàng nội địa",
@@ -23,25 +38,58 @@ const PaymentForm = () => {
 
   const handleSubmit = useCallback(async () => {
     const request: PaymentRequest = {
-      amount: 1000000,
+      bookingId: bookingResponse?.data.id ?? "",
+      total: bookingResponse?.data.total ?? 0,
       bankCode: paymentMethod,
-      locale: language,
+      language,
     };
 
-    // window.location.href = res.data;
-  }, [language, paymentMethod]);
+    const res = await paymentVnPay(request);
+    router.push(res.data.paymentUrl);
+  }, [
+    bookingResponse?.data.id,
+    bookingResponse?.data.total,
+    language,
+    paymentMethod,
+    router,
+  ]);
+
+  const getBooking = useCallback(async () => {
+    const res = await getBookingById(id);
+    setBookingResponse(res);
+  }, [id]);
+
+  useEffect(() => {
+    getBooking();
+  }, [getBooking]);
+
+  const booking = bookingResponse?.data;
 
   return (
     <div className="max-w-xl mx-auto p-5 bg-white shadow-md rounded-lg text-xl">
       <div className="text-center">
         <img
-          src="vnpay-logo.jpeg"
+          src="/vnpay-logo.jpeg"
           alt="VNPAY Logo"
           width={200}
           height={50}
           className="mx-auto"
         />
       </div>
+      <p className="p-3">Emai: {booking?.email}</p>
+      <p className="p-3">Số điện thoại: {booking?.phone}</p>
+      <p className="p-3">Tên tour: {booking?.tour.name}</p>
+      <p className="p-3">Tên người đặt: {booking?.user.username}</p>
+      <p className="p-3">Số người lớn:{booking?.numberOfAdults}</p>
+      <p className="p-3">Số em bé: {booking?.numberOfBabies}</p>
+      <p className="p-3">Số trẻ em: {booking?.numberOfChildren}</p>
+      <p className="p-3">Ghi chú: {booking?.note}</p>
+      <p className="p-3">Ngày bắt đầu: {booking?.startDate}</p>
+      <p className="p-3">Ngày đặt tour{booking?.bookingDate}</p>
+      <p className="p-3">Trạng thái: {booking?.bookingStatus}</p>
+      <h1 className="text-2xl font-bold p-3 ">
+        Tổng số tiền: {formatPrice(booking?.total ?? 0)}
+      </h1>
       <h2 className="text-xl font-bold mb-4 mt-4">
         Chọn Phương thức thanh toán:
       </h2>
@@ -85,12 +133,17 @@ const PaymentForm = () => {
           <span>Tiếng Anh</span>
         </label>
       </div>
-      <button
-        className="mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        onClick={handleSubmit}
-      >
-        Thanh toán
-      </button>
+      <div className="flex items-center">
+        <button
+          className="mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={handleSubmit}
+        >
+          Thanh toán
+        </button>
+        <button className="mt-6 mx-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+          <a href="/">Thanh toán sau</a>
+        </button>
+      </div>
     </div>
   );
 };
