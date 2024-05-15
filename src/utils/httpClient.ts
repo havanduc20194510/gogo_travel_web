@@ -6,7 +6,11 @@ export const baseURL = "http://gogotravel.ap-southeast-1.elasticbeanstalk.com";
 const checkAuth = async () => {
   deleteFromLocalStorage("user");
   deleteFromLocalStorage("token");
-  window.location.href = "/login";
+
+  const pathname = window.location.pathname;
+  if (pathname !== "/login" && pathname !== "/register") {
+    window.location.href = "/login";
+  }
 };
 
 interface ApiRequest {}
@@ -113,8 +117,6 @@ class httpClient {
       })
       .then((response) => response.data)
       .catch((e) => {
-        console.log(e, "e");
-
         if (e.response?.status === 401) {
           checkAuth();
         }
