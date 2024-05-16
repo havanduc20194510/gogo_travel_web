@@ -4,6 +4,5 @@ export type CreateTaskRequest = {
   description: string;
   coin: number;
   reward: string;
-  deadline: string;
   taskTypeName: string;
 };

@@ -1,14 +1,12 @@
 import React, { FC } from "react";
 import type { FormProps } from "antd";
 import { Button, Form, Input } from "antd";
-import { DatePicker } from "@/component/ui/Datepicker";
 
 export type FieldTaskType = {
   name: string;
   description: string;
   coin: number;
   reward: string;
-  deadline: string;
   taskTypeName: string;
 };
 
@@ -55,13 +53,6 @@ const TaskForm: FC<Props> = ({ onFinish }) => {
         rules={[{ required: true, message: "Please input your reward!" }]}
       >
         <Input />
-      </Form.Item>
-      <Form.Item<FieldTaskType>
-        label="Deadline"
-        name="deadline"
-        rules={[{ required: true, message: "Please input your deadline!" }]}
-      >
-        <DatePicker />
       </Form.Item>
       <Form.Item<FieldTaskType>
         label="Task type name"

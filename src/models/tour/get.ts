@@ -93,8 +93,6 @@ export interface Task {
   description: string;
   coin: number;
   reward: string;
-  deadline: string;
-  status: string;
   taskType: TaskTypeOrTourType;
 }
 export type TourResponse = {

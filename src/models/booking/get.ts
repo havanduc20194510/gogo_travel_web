@@ -19,7 +19,9 @@ export interface Booking {
   note: string;
   bookingDate: string;
   total: number;
-  bookingStatus: string;
+  status: string;
+  taskDeadline: string;
+  taskStatus: string;
 }
 
 export interface TaskTypeOrTourType {

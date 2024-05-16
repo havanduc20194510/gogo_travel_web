@@ -46,7 +46,6 @@ export default function Step({ schedule }: Props) {
                   </td>
                   <td className="border px-4 py-2">{schedule.task.coin}</td>
                   <td className="border px-4 py-2">{schedule.task.reward}</td>
-                  <td className="border px-4 py-2">{schedule.task.deadline}</td>
                   <td className="border px-4 py-2">
                     {schedule.task.taskType.name}
                   </td>

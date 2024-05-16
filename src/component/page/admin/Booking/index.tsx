@@ -16,7 +16,7 @@ type DataType = {
   note: string;
   bookingDate: string;
   total: number;
-  bookingStatus: string;
+  status: string;
   tour: string;
 };
 
@@ -84,7 +84,7 @@ const Users: FC = () => {
       note: booking.note ?? "-",
       bookingDate: formatDate(new Date(booking.bookingDate)) ?? "-",
       total: booking.total ?? "-",
-      bookingStatus: booking.bookingStatus ?? "-",
+      status: booking.status ?? "-",
       tour: booking.tour.name ?? "-",
     }));
   }, [bookings]);
