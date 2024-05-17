@@ -1,11 +1,10 @@
 "use client";
 
 import { getTourByFilterAndSort } from "@/service/tour";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Heading from "./Heading";
 import TourList from "./TourList";
-import { Tour, TourSearchRequest } from "@/models/tour/get";
-import { Spin } from "antd";
+import { GetTourByFilterAndSortRequest, Tour } from "@/models/tour/get";
 import { useSearchParams } from "next/navigation";
 import FilterBar, { FilterValue } from "./FilterBar";
 
@@ -17,11 +16,14 @@ function scrollToElement(elementId: string) {
 }
 
 export default function Tours() {
-  const [tourList, setTourList] = useState<Tour[]>();
+  const [tourList, setTourList] = useState<Tour[]>([]);
   const [loading, setLoading] = useState(false);
+  const [totalPage, setTotalPage] = useState<number>(10);
   const searchParams = useSearchParams();
+  const [page, setPage] = useState(1);
+  const pageSize = 10;
 
-  const query: TourSearchRequest = useMemo(() => {
+  const query: GetTourByFilterAndSortRequest = useMemo(() => {
     return {
       destination: searchParams.get("destination") ?? "",
       departureLocation: searchParams.get("departureLocation") ?? "",
@@ -30,45 +32,67 @@ export default function Tours() {
     };
   }, [searchParams]);
 
+  const [request, setRequest] = useState<GetTourByFilterAndSortRequest>({
+    ...query,
+    offset: 1,
+    pageSize,
+  });
+
   const loadTour = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await getTourByFilterAndSort(query);
+      const res = await getTourByFilterAndSort(request);
       setTourList(res.data.content);
+      setTotalPage(res.data.totalPages);
     } catch {
       setTourList([]);
     } finally {
       setLoading(false);
     }
-  }, [query]);
+  }, [request]);
 
-  const handleSort = useCallback(async (selectedValue: string) => {
+  const handleSort = useCallback(
+    async (selectedValue: string) => {
+      const response = await getTourByFilterAndSort({
+        sortField: selectedValue,
+      });
+      setTourList(response.data.content ?? []);
+      setRequest({ ...request, sortField: selectedValue });
+    },
+    [request]
+  );
+
+  const handleSubmit = useCallback(
+    async (filterValue?: FilterValue) => {
+      const response = await getTourByFilterAndSort({
+        ...filterValue,
+      });
+
+      setTourList(response.data.content ?? []);
+      setRequest({ ...filterValue, ...request });
+    },
+    [request]
+  );
+
+  const handleLoadMore = useCallback(async () => {
+    const offset = page * pageSize;
     const response = await getTourByFilterAndSort({
-      sortField: selectedValue,
-    });
-    setTourList(response.data.content ?? []);
-  }, []);
-
-  const handleSubmit = useCallback(async (filterValue?: FilterValue) => {
-    const response = await getTourByFilterAndSort({
-      ...filterValue,
+      ...request,
+      offset,
+      pageSize,
     });
 
-    setTourList(response.data.content ?? []);
-  }, []);
+    const newTourList = [...tourList, ...response.data.content];
+
+    setTourList(newTourList);
+
+    setPage(page + 1);
+  }, [page, request, tourList]);
 
   useEffect(() => {
     loadTour();
     scrollToElement("section-1");
-  }, [loadTour, query]);
-
-  if (loading) {
-    return (
-      <div className="h-screen flex items-center justify-center">
-        <Spin tip="Loading..." />
-      </div>
-    );
-  }
+  }, [loadTour]);
 
   return (
     <div id="section-1">
@@ -81,7 +105,18 @@ export default function Tours() {
             <FilterBar onSubmit={handleSubmit} />
           </div>
           <div className="col-span-3">
-            <TourList tourList={tourList} />
+            <TourList tourList={tourList} loading={loading} />
+            <div className="flex items-center justify-center mt-5">
+              {page < totalPage && (
+                <button
+                  type="button"
+                  className="py-2.5 px-5 me-2 mb-2 w-full text-sm font-medium text-emerald-600 focus:outline-none bg-white rounded-full border border-emerald-600 hover:bg-emerald-500 hover:text-white focus:z-10 focus:ring-4 focus:ring-gray-100 "
+                  onClick={handleLoadMore}
+                >
+                  Load more
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>

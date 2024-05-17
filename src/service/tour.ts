@@ -5,7 +5,6 @@ import {
   GetTourByFilterAndSortResponse,
   TourListResponse,
   TourResponse,
-  TourSearchRequest,
 } from "@/models/tour/get";
 import httpCLient, { baseURL } from "@/utils/httpClient";
 import { UploadFile } from "antd";

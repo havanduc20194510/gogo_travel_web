@@ -2,6 +2,7 @@
 "use client";
 
 import { Tour } from "@/models/tour/get";
+import { formatPrice } from "@/utils/price";
 import { Image } from "antd";
 import Link from "next/link";
 
@@ -50,6 +51,12 @@ export default function TourItem({ tour }: Props) {
             <img src="/icons/family.svg" alt="" />
             <span>Family Plan</span>
           </div>
+
+          <ul className="flex items-center gap-4 text-gray-500 mt-4">
+            <li>Người lớn: {formatPrice(tour.adultPrice)}</li>
+            <li>Trẻ em: {formatPrice(tour.childPrice)}</li>
+            <li>Em bé: {formatPrice(tour.babyPrice)}</li>
+          </ul>
         </div>
         <Image
           src={tour.images?.[0]?.url ?? ""}

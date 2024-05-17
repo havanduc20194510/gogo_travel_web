@@ -2,7 +2,7 @@
 "use client";
 
 import { DatePicker } from "@/component/ui/Datepicker";
-import { TourSearchRequest } from "@/models/tour/get";
+import { GetTourByFilterAndSortRequest } from "@/models/tour/get";
 import { formatDate, parseDateString } from "@/utils/date";
 import { objectToQueryString } from "@/utils/url";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -11,7 +11,7 @@ import { useMemo, useState } from "react";
 export default function Banner() {
   const searchParams = useSearchParams();
 
-  const query: TourSearchRequest = useMemo(() => {
+  const query: GetTourByFilterAndSortRequest = useMemo(() => {
     return {
       destination: searchParams.get("destination") ?? "",
       departureLocation: searchParams.get("departureLocation") ?? "",
@@ -22,7 +22,7 @@ export default function Banner() {
 
   const router = useRouter();
 
-  const [values, setValues] = useState<TourSearchRequest>(query);
+  const [values, setValues] = useState<GetTourByFilterAndSortRequest>(query);
 
   const handleSubmit = () => {
     const query = objectToQueryString(values);

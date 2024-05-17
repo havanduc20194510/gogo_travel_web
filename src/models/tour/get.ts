@@ -101,16 +101,11 @@ export type TourResponse = {
   data: Tour;
 };
 
-export type TourSearchRequest = {
-  destination: string;
-  departureLocation: string;
-  startDate: string;
-  numberOfDay: string;
-  offset?: number;
-  pageSize?: number;
-};
-
 export type GetTourByFilterAndSortRequest = {
+  destination?: string;
+  departureLocation?: string;
+  startDate?: string;
+  numberOfDay?: string;
   filterType?: string;
   filterPriceMin?: number;
   filterPriceMax?: number;
