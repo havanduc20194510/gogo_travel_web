@@ -4,6 +4,7 @@ import type { TableProps } from "antd";
 import { getAllBooking } from "@/service/booking";
 import { Booking } from "@/models/booking/get";
 import { formatDate } from "@/utils/date";
+import { BookingStatus } from "@/component/ui/BookingStatus";
 
 type DataType = {
   user: string;
@@ -51,7 +52,16 @@ const columns: TableProps<DataType>["columns"] = [
   { title: "Note", dataIndex: "note", key: "note" },
   { title: "Booking date", dataIndex: "bookingDate", key: "bookingDate" },
   { title: "Total", dataIndex: "total", key: "total" },
-  { title: "Booking status", dataIndex: "bookingStatus", key: "bookingStatus" },
+  {
+    title: "Booking status",
+    dataIndex: "status",
+    key: "status",
+    render: (_, record) => (
+      <div className="w-[100px] text-sm">
+        <BookingStatus status={record.status} />
+      </div>
+    ),
+  },
   { title: "Tour", dataIndex: "tour", key: "tour" },
 ];
 

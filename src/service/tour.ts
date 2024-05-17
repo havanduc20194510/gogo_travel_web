@@ -22,12 +22,6 @@ export const getTopTours = (): Promise<TourListResponse> => {
   return httpCLient.get(`${API_ENDPOINT}/top-tour`);
 };
 
-export const tourSearch = (
-  request: TourSearchRequest
-): Promise<TourListResponse> => {
-  return httpCLient.get(`${API_ENDPOINT}/search/pagination`, request);
-};
-
 export const addTour = (request: AddTourRequest): Promise<AddTourResponse> => {
   return httpCLient.post(`${API_ENDPOINT}/create`, request);
 };

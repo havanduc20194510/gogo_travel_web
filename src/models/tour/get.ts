@@ -115,14 +115,39 @@ export type GetTourByFilterAndSortRequest = {
   filterPriceMin?: number;
   filterPriceMax?: number;
   sortField?: string;
-  offset?: string;
-  pageSize?: string;
+  offset?: number;
+  pageSize?: number;
 };
 
-export type GetTourByFilterAndSortResponse = {
+export interface GetTourByFilterAndSortResponse {
   code: number;
   message: string;
-  data: {
-    content: Tour[];
-  };
-};
+  data: Data;
+}
+export interface Data {
+  content: Tour[];
+  pageable: Pageable;
+  totalPages: number;
+  totalElements: number;
+  last: boolean;
+  size: number;
+  number: number;
+  sort: Sort;
+  numberOfElements: number;
+  first: boolean;
+  empty: boolean;
+}
+
+export interface Pageable {
+  pageNumber: number;
+  pageSize: number;
+  sort: Sort;
+  offset: number;
+  paged: boolean;
+  unpaged: boolean;
+}
+export interface Sort {
+  sorted: boolean;
+  empty: boolean;
+  unsorted: boolean;
+}

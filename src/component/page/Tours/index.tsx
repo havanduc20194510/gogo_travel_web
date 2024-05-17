@@ -1,6 +1,6 @@
 "use client";
 
-import { getTourByFilterAndSort, getTours, tourSearch } from "@/service/tour";
+import { getTourByFilterAndSort } from "@/service/tour";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Heading from "./Heading";
 import TourList from "./TourList";
@@ -33,15 +33,8 @@ export default function Tours() {
   const loadTour = useCallback(async () => {
     setLoading(true);
     try {
-      const response =
-        !!query.destination ||
-        !!query.departureLocation ||
-        !!query.startDate ||
-        !!query.numberOfDay
-          ? await tourSearch(query)
-          : await getTours();
-
-      setTourList(response.data);
+      const res = await getTourByFilterAndSort(query);
+      setTourList(res.data.content);
     } catch {
       setTourList([]);
     } finally {

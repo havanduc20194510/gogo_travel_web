@@ -46,7 +46,12 @@ export default function Register() {
 
       saveToLocalStorage("user", res.data.user);
       saveToLocalStorage("token", res.data.token);
-      router.push("/");
+
+      const redirectUrl = res.data.user.roles?.includes("ADMIN")
+        ? "/admin"
+        : "/";
+
+      router.push(redirectUrl);
       openNotificationWithIcon("success", "Đăng ký thành công");
     } catch {
       openNotificationWithIcon("error", "Đăng ký thất bại");

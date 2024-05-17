@@ -54,6 +54,13 @@ export default function Navbar() {
     },
   ];
 
+  if (userInfo?.roles?.includes("ADMIN")) {
+    items.push({
+      label: <a href="/admin">Admin</a>,
+      key: "2",
+    });
+  }
+
   useEffect(() => {
     const user: User | undefined = getFromLocalStorage("user");
     setUserInfo(user);
