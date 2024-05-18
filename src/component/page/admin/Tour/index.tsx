@@ -40,7 +40,7 @@ const Tour: FC = () => {
     } catch {
       showToast({
         message: "Xoá tour thất bại",
-        type: "success",
+        type: "error",
       });
     }
   };
