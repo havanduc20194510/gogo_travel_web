@@ -11,7 +11,6 @@ import {
   message,
 } from "antd";
 import { ColumnsType } from "antd/lib/table";
-import moment from "moment";
 import { DepartureTime } from "@/models/departureTime/get";
 import {
   getDepartureTimesByTourId,
@@ -20,7 +19,8 @@ import {
   createDepartureTime,
 } from "@/service/departureTime";
 import { useParams } from "next/navigation";
-import { PlusCircleOutlined, SnippetsOutlined } from "@ant-design/icons";
+import { PlusCircleOutlined } from "@ant-design/icons";
+import dayjs from "dayjs";
 
 export const DepartureTimePage = () => {
   const [data, setData] = useState<DepartureTime[]>([]);
@@ -60,7 +60,7 @@ export const DepartureTimePage = () => {
       setCurrentRecord(record);
       form.setFieldsValue({
         ...record,
-        startDate: moment(record.startDate),
+        startDate: dayjs(record.startDate), // Ensure this is a dayjs object
       });
       setIsModalVisible(true);
     },
@@ -85,11 +85,11 @@ export const DepartureTimePage = () => {
 
   const handleOk = useCallback(async () => {
     try {
-      const values = await form.validateFields();
+      const values = form.getFieldsValue();
       setLoading(true);
       const data = {
         tourId: values.tourId,
-        startDate: values.startDate.format("YYYY-MM-DD"),
+        startDate: values.startDate.format("YYYY-MM-DD"), // Format the startDate
         numberOfSeats: values.numberOfSeats,
       };
       if (currentRecord) {
@@ -168,6 +168,7 @@ export const DepartureTimePage = () => {
             name="startDate"
             label="Ngày bắt đầu"
             rules={[{ required: true, message: "Please select a start date" }]}
+            initialValue={currentRecord ? dayjs(currentRecord.startDate) : null} // Ensure initialValue is a dayjs object
           >
             <DatePicker />
           </Form.Item>
