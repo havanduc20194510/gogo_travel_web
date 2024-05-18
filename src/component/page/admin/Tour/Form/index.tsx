@@ -20,6 +20,7 @@ import { useParams, useRouter } from "next/navigation";
 import { TourType } from "@/models/tourType/get";
 import { getTourTypes } from "@/service/tourType";
 import Schedule from "../../Schedule";
+import { DepartureTimePage } from "../../DepartureTime";
 
 const formItemLayout = {
   labelCol: {
@@ -289,7 +290,10 @@ const TourForm: React.FC = () => {
           </Button>
         </Form.Item>
       </Form>
-      <Schedule />
+      <div className="max-w-[700px] m-auto">
+        <DepartureTimePage />
+        <Schedule />
+      </div>
     </>
   );
 };

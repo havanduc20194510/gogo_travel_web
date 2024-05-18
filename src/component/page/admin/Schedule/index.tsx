@@ -289,7 +289,7 @@ const Schedule: FC = () => {
   }
 
   return (
-    <div className="min-h-screen mt-20 max-w-[700px] m-auto">
+    <div className="my-20 ">
       <Toast />
       <div className="flex items-center justify-end">
         <Button className="flex items-center">
