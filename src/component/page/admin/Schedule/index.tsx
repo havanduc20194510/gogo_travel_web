@@ -111,7 +111,7 @@ const Schedule: FC = () => {
                   setIsEditDetail(false);
                 }}
               >
-                <Tooltip title="Thêm schedule detail">
+                <Tooltip title="Thêm chi tiết lịch trình">
                   <PlusCircleOutlined className="hover:text-[#16a34a]" />
                 </Tooltip>
               </div>
@@ -121,7 +121,7 @@ const Schedule: FC = () => {
                   showTaskModal();
                 }}
               >
-                <Tooltip title="Thêm task">
+                <Tooltip title="Thêm công việc">
                   <SnippetsOutlined className="hover:text-[#16a34a]" />
                 </Tooltip>
               </div>
@@ -134,17 +134,17 @@ const Schedule: FC = () => {
                     className="w-[20px] h-[20px]"
                     alt=""
                   />
-                  <div className="font-bold text-gray-500">Task:</div>
+                  <div className="font-bold text-gray-500">Công việc:</div>
                 </div>
                 <table className="table-auto">
                   <thead>
                     <tr>
-                      <th className="px-4 py-2">Task Name</th>
-                      <th className="px-4 py-2">description</th>
-                      <th className="px-4 py-2">coin</th>
-                      <th className="px-4 py-2">reward</th>
-                      <th className="px-4 py-2">deadline</th>
-                      <th className="px-4 py-2">taskTypeName</th>
+                      <th className="px-4 py-2">Tên công việc</th>
+                      <th className="px-4 py-2">Mô tả</th>
+                      <th className="px-4 py-2">Xu</th>
+                      <th className="px-4 py-2">Phần thưởng</th>
+                      <th className="px-4 py-2">Hạn chót</th>
+                      <th className="px-4 py-2">Loại công việc</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -177,15 +177,15 @@ const Schedule: FC = () => {
                     alt=""
                   />
                   <div className=" font-bold text-gray-500">
-                    Schedule detail:
+                    Chi tiết lịch trình:
                   </div>
                 </div>
                 <table className="table-auto">
                   <thead>
                     <tr>
-                      <th className="px-4 py-2">Place</th>
-                      <th className="px-4 py-2">TimeLine</th>
-                      <th className="px-4 py-2">Activity</th>
+                      <th className="px-4 py-2">Địa điểm</th>
+                      <th className="px-4 py-2">Thời gian</th>
+                      <th className="px-4 py-2">Hoạt động</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -214,14 +214,14 @@ const Schedule: FC = () => {
           ...values,
         });
         showToast({
-          message: "Tạo schedule thành công",
+          message: "Tạo lịch trình thành công",
           type: "success",
         });
 
         await loadSchedule();
       } catch {
         showToast({
-          message: "Tạo schedule thất bại",
+          message: "Tạo lịch trình thất bại",
           type: "error",
         });
       } finally {
@@ -240,13 +240,13 @@ const Schedule: FC = () => {
             ...values,
           });
           showToast({
-            message: "Tạo schedule detail thành công",
+            message: "Tạo chi tiết lịch trình thành công",
             type: "success",
           });
           await loadSchedule();
         } catch {
           showToast({
-            message: "Tạo schedule detail thất bại",
+            message: "Tạo chi tiết lịch trình thất bại",
             type: "error",
           });
         } finally {
@@ -264,13 +264,13 @@ const Schedule: FC = () => {
           ...values,
         });
         showToast({
-          message: "Tạo schedule task thành công",
+          message: "Tạo công việc thành công",
           type: "success",
         });
         await loadSchedule();
       } catch {
         showToast({
-          message: "Tạo schedule task thất bại",
+          message: "Tạo công việc thất bại",
           type: "error",
         });
       } finally {
@@ -283,7 +283,7 @@ const Schedule: FC = () => {
   if (loading) {
     return (
       <div className="h-screen flex items-center justify-center">
-        <Spin tip="Loading..." />
+        <Spin tip="Đang tải..." />
       </div>
     );
   }
@@ -312,7 +312,7 @@ const Schedule: FC = () => {
         className="w-full"
       />
       <Modal
-        title="Schedule"
+        title="Lịch trình"
         open={isScheduleModalOpen}
         onOk={handleScheduleOk}
         onCancel={handleScheduleCancel}
@@ -326,7 +326,7 @@ const Schedule: FC = () => {
       </Modal>
 
       <Modal
-        title="Schedule detail"
+        title="Chi tiết lịch trình"
         open={isDetailModalOpen}
         onOk={handleDetailOk}
         onCancel={handleDetailCancel}
@@ -336,7 +336,7 @@ const Schedule: FC = () => {
       </Modal>
 
       <Modal
-        title="Thêm task"
+        title="Thêm công việc"
         open={isTaskModalOpen}
         onOk={handleTaskOk}
         onCancel={handleTaskCancel}

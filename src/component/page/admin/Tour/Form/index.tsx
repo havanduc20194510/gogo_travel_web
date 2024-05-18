@@ -290,7 +290,7 @@ const TourForm: React.FC = () => {
           </Button>
         </Form.Item>
       </Form>
-      <div className="max-w-[700px] m-auto">
+      <div className="px-[50px] m-auto">
         <DepartureTimePage />
         <Schedule />
       </div>

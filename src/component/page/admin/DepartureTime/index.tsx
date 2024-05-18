@@ -39,7 +39,7 @@ export const DepartureTimePage = () => {
       const response = await getDepartureTimesByTourId(tourId);
       setData(response.data);
     } catch (error) {
-      message.error("Failed to fetch data");
+      message.error("Không thể lấy dữ liệu");
     } finally {
       setLoading(false);
     }
@@ -72,10 +72,10 @@ export const DepartureTimePage = () => {
       setLoading(true);
       try {
         await deleteDepartureTime(departureTimeId);
-        message.success("Record deleted successfully");
+        message.success("Xóa bản ghi thành công");
         fetchData();
       } catch (error) {
-        message.error("Failed to delete record");
+        message.error("Không thể xóa bản ghi");
       } finally {
         setLoading(false);
       }
@@ -94,15 +94,15 @@ export const DepartureTimePage = () => {
       };
       if (currentRecord) {
         await updateDepartureTime(String(currentRecord.id), data);
-        message.success("Record updated successfully");
+        message.success("Cập nhật bản ghi thành công");
       } else {
         await createDepartureTime(data);
-        message.success("Record created successfully");
+        message.success("Tạo bản ghi thành công");
       }
       fetchData();
       setIsModalVisible(false);
     } catch (error) {
-      message.error("Failed to save record");
+      message.error("Không thể lưu bản ghi");
     } finally {
       setLoading(false);
     }
@@ -110,27 +110,27 @@ export const DepartureTimePage = () => {
 
   const columns: ColumnsType<DepartureTime> = [
     { title: "ID", dataIndex: "id", key: "id" },
-    { title: "Start Date", dataIndex: "startDate", key: "startDate" },
+    { title: "Ngày bắt đầu", dataIndex: "startDate", key: "startDate" },
     {
-      title: "Number of Seats",
+      title: "Số ghế",
       dataIndex: "numberOfSeats",
       key: "numberOfSeats",
     },
-    { title: "Booked Seats", dataIndex: "bookedSeats", key: "bookedSeats" },
+    { title: "Ghế đã đặt", dataIndex: "bookedSeats", key: "bookedSeats" },
     {
-      title: "Available",
+      title: "Còn trống",
       dataIndex: "available",
       key: "available",
-      render: (text) => (text ? "Yes" : "No"),
+      render: (text) => (text ? "Có" : "Không"),
     },
     {
-      title: "Actions",
+      title: "Hành động",
       key: "actions",
       render: (text, record) => (
         <Space size="middle">
-          <Button onClick={() => handleEdit(record)}>Edit</Button>
+          <Button onClick={() => handleEdit(record)}>Chỉnh sửa</Button>
           <Button danger onClick={() => handleDelete(record.id)}>
-            Delete
+            Xóa
           </Button>
         </Space>
       ),
@@ -155,7 +155,9 @@ export const DepartureTimePage = () => {
       />
 
       <Modal
-        title={currentRecord ? "Edit Departure Time" : "Add Departure Time"}
+        title={
+          currentRecord ? "Chỉnh sửa Ngày khởi hành" : "Thêm Ngày khởi hành"
+        }
         open={isModalVisible}
         onOk={handleOk}
         onCancel={() => setIsModalVisible(false)}
@@ -167,17 +169,15 @@ export const DepartureTimePage = () => {
           <Form.Item
             name="startDate"
             label="Ngày bắt đầu"
-            rules={[{ required: true, message: "Please select a start date" }]}
+            rules={[{ required: true, message: "Vui lòng chọn ngày bắt đầu" }]}
             initialValue={currentRecord ? dayjs(currentRecord.startDate) : null} // Ensure initialValue is a dayjs object
           >
             <DatePicker />
           </Form.Item>
           <Form.Item
             name="numberOfSeats"
-            label="Number of Seats"
-            rules={[
-              { required: true, message: "Please enter the number of seats" },
-            ]}
+            label="Số ghế"
+            rules={[{ required: true, message: "Vui lòng nhập số ghế" }]}
           >
             <InputNumber min={1} />
           </Form.Item>
