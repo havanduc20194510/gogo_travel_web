@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
-import { Button, Image, Space, Spin, Table } from "antd";
+import { Button, Image, Space, Spin, Table, Pagination } from "antd";
 import type { TableProps } from "antd";
-import { TourListResponse, Image as ImageType } from "@/models/tour/get";
-import { deleteTour, getTours } from "@/service/tour";
+import { Image as ImageType } from "@/models/tour/get";
+import { deleteTour, getTourByFilterAndSort } from "@/service/tour";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import Link from "next/link";
-import ConfirmModal from "@/component/ui/ConfilmModal";
+import { Tour } from "@/models/tour/get";
+import { Toast, showToast } from "@/component/ui/toast";
 
 type DataType = {
   key: string;
@@ -22,39 +23,43 @@ type DataType = {
 };
 
 const Tour: FC = () => {
-  const [tourListResponse, setTourListResponse] = useState<TourListResponse>();
   const [loading, setLoading] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [tourList, setTourList] = useState<Tour[]>([]);
+  const [totalPage, setTotalPage] = useState<number>(10);
+  const [page, setPage] = useState(1);
+  const pageSize = 5;
 
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleConfirm = async (id: string) => {
+  const handleDeleteTour = async (id: string) => {
     try {
       await deleteTour(id);
       await loadTour();
-      setIsModalVisible(false);
+      showToast({
+        message: "Xoá tour thành công",
+        type: "success",
+      });
     } catch {
-      //Do nothing
+      showToast({
+        message: "Xoá tour thất bại",
+        type: "success",
+      });
     }
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
   };
 
   const loadTour = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await getTours();
-      setTourListResponse(response);
+      const res = await getTourByFilterAndSort({
+        offset: page,
+        pageSize,
+      });
+      setTourList(res.data.content);
+      setTotalPage(res.data.totalPages);
     } catch {
-      //Do nothing
+      setTourList([]);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [page]);
 
   const columns: TableProps<DataType>["columns"] = [
     {
@@ -107,7 +112,7 @@ const Tour: FC = () => {
       dataIndex: "images",
       key: "images.id",
       render: (_, record) => (
-        <div className="w-64 flex align-center flex-wrap	">
+        <div className="w-64 flex align-center flex-wrap">
           <Space size="large">
             {record.images?.slice(0, 2).map((image) => (
               <Image width={100} key={image.id} src={image.url} />
@@ -138,23 +143,16 @@ const Tour: FC = () => {
           <Link href={`/admin/tour/edit/${record.key}`}>
             <EditOutlined />
           </Link>
-          <a onClick={showModal}>
+          <a onClick={() => handleDeleteTour(record.key)}>
             <DeleteOutlined />
           </a>
-          <ConfirmModal
-            isVisible={isModalVisible}
-            onConfirm={() => handleConfirm(record.key)}
-            onCancel={handleCancel}
-            title="Xoá tour"
-            content="Bạn có chắc chắn muốn xoá tour?"
-          />
         </Space>
       ),
     },
   ];
 
   const tourData: DataType[] = useMemo(() => {
-    return (tourListResponse?.data ?? []).map((tour) => ({
+    return tourList.map((tour) => ({
       key: tour.tourId,
       name: tour.name,
       price: tour.adultPrice,
@@ -166,33 +164,41 @@ const Tour: FC = () => {
       status: tour.status,
       images: tour.images,
     }));
-  }, [tourListResponse?.data]);
+  }, [tourList]);
 
   useEffect(() => {
     loadTour();
-  }, [loadTour]);
-
-  if (loading) {
-    return (
-      <div className="h-screen flex items-center justify-center">
-        <Spin tip="Loading..." />
-      </div>
-    );
-  }
+  }, [loadTour, page]);
 
   return (
     <>
+      <Toast />
       <div className="flex justify-end my-3">
         <Button type="primary" size="large">
           <Link href="/admin/tour/add"> Add tour</Link>
         </Button>
       </div>
-      <Table
-        className="overflow-x-auto"
-        columns={columns}
-        dataSource={tourData}
+      {loading ? (
+        <div className="h-screen flex items-center justify-center">
+          <Spin tip="Loading..." />
+        </div>
+      ) : (
+        <Table
+          className="overflow-x-auto"
+          columns={columns}
+          dataSource={tourData}
+          pagination={false}
+        />
+      )}
+      <Pagination
+        className="mt-4"
+        current={page}
+        pageSize={pageSize}
+        total={totalPage * pageSize}
+        onChange={(page) => setPage(page)}
       />
     </>
   );
 };
+
 export default Tour;

@@ -1,6 +1,7 @@
-import React, { useCallback, useState } from "react";
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
-  Alert,
   Button,
   Form,
   Input,
@@ -10,14 +11,15 @@ import {
   UploadFile,
   UploadProps,
 } from "antd";
-import { addDepartureTime, addTour, uploadTourImage } from "@/service/tour";
-import { Store } from "antd/es/form/interface";
+import { addTour, getTour, updateTour, uploadTourImage } from "@/service/tour";
 import Link from "next/link";
-import { Tour, TourResponse } from "@/models/tour/get";
+import { TourResponse } from "@/models/tour/get";
 import UploadImage from "./uploadImage";
 import { AddTourRequest } from "@/models/tour/add";
-import { useRouter } from "next/navigation";
-import DatePicker, { DateObject } from "react-multi-date-picker";
+import { useParams, useRouter } from "next/navigation";
+import { TourType } from "@/models/tourType/get";
+import { getTourTypes } from "@/service/tourType";
+import Schedule from "../../Schedule";
 
 const formItemLayout = {
   labelCol: {
@@ -41,17 +43,6 @@ const unitOptions = [
   },
 ];
 
-const tourTypeOptions = [
-  {
-    label: "Du lịch trong nước",
-    value: "Du lịch trong nước",
-  },
-  {
-    label: "Du lịch nước ngoài",
-    value: "Du lịch nước ngoài",
-  },
-];
-
 const statusOptions = [
   {
     label: "DELETED",
@@ -67,24 +58,47 @@ const statusOptions = [
   },
 ];
 
-type Props = {
-  tour?: Tour;
-  isEdit?: boolean;
-};
-
-const TourForm: React.FC<Props> = ({ isEdit, tour }) => {
+const TourForm: React.FC = () => {
   const [form] = Form.useForm();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [startDates, setStartDates] = useState<
-    DateObject | DateObject[] | null
-  >(null);
 
   const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [tourResponse, setTourResponse] = useState<TourResponse>();
+  const param = useParams();
+  const id = typeof param.id === "string" ? param.id : "";
+  const [tourTypeList, setTourTypeList] = useState<TourType[]>([]);
 
-  const initialValues: Store = {
-    ...tour,
-  };
+  const loadTour = useCallback(async () => {
+    setLoading(true);
+    try {
+      if (id) {
+        const response = await getTour(id);
+        setTourResponse(response);
+      }
+    } catch {
+      //Do nothing
+    } finally {
+      setLoading(false);
+    }
+  }, [id]);
+
+  const tourTypeOptions = tourTypeList.map((tourType) => ({
+    label: tourType.name,
+    value: tourType.name,
+  }));
+
+  const initialValues = useMemo(() => {
+    return {
+      ...tourResponse?.data,
+      tourTypeName:
+        tourResponse?.data.tourType.name ?? tourTypeOptions[0]?.value,
+    };
+  }, [tourResponse?.data, tourTypeOptions]);
+
+  useEffect(() => {
+    loadTour();
+  }, [loadTour]);
 
   const handleChangeFile: UploadProps["onChange"] = ({
     fileList: newFileList,
@@ -97,32 +111,32 @@ const TourForm: React.FC<Props> = ({ isEdit, tour }) => {
       setLoading(true);
 
       try {
-        if (isEdit) {
-          // TODO: edit
+        let res;
+        if (id) {
+          res = await updateTour(id, values);
         } else {
-          const response = await addTour(values);
-          await uploadTourImage(response.data.tourId, fileList);
-
-          if (startDates instanceof Array) {
-            const promises = startDates.map(async (startDate) => {
-              await addDepartureTime({
-                tourId: response.data.tourId,
-                startDate: startDate.format(),
-              });
-            });
-
-            await Promise.all(promises);
-          }
-          router.push("/admin");
+          res = await addTour(values);
         }
+
+        await uploadTourImage(res.data.tourId, fileList);
+        router.push("/admin");
       } catch {
         //Do nothing
       } finally {
         setLoading(false);
       }
     },
-    [fileList, isEdit, router, startDates]
+    [fileList, id, router]
   );
+
+  const loadTourType = useCallback(async () => {
+    const res = await getTourTypes();
+    setTourTypeList(res.data);
+  }, []);
+
+  useEffect(() => {
+    loadTourType();
+  }, [loadTourType]);
 
   if (loading) {
     return (
@@ -226,20 +240,6 @@ const TourForm: React.FC<Props> = ({ isEdit, tour }) => {
         >
           <InputNumber style={{ width: "100%" }} />
         </Form.Item>
-        <Form.Item
-          label="Number Of Seats"
-          name="numberOfSeats"
-          rules={[{ required: true, message: "Please input!" }]}
-        >
-          <InputNumber style={{ width: "100%" }} />
-        </Form.Item>
-        <Form.Item
-          label="Available seats"
-          name="availableSeats"
-          rules={[{ required: true, message: "Please input!" }]}
-        >
-          <InputNumber style={{ width: "100%" }} />
-        </Form.Item>
 
         <Form.Item
           label="Status"
@@ -262,32 +262,34 @@ const TourForm: React.FC<Props> = ({ isEdit, tour }) => {
           name="tourTypeName"
           rules={[{ required: true, message: "Please input!" }]}
         >
-          <Input />
+          <Select
+            defaultValue={tourResponse?.data.tourType.name}
+            options={tourTypeOptions}
+          />
         </Form.Item>
         <Form.Item
           label="Images"
           rules={[{ required: true, message: "Please input!" }]}
         >
+          <div className="flex items-center gap-2 mb-3">
+            {tourResponse?.data.images?.map((image) => (
+              <img
+                className="w-[100px] h-[100px]"
+                key={image.id}
+                src={image.url}
+              />
+            ))}
+          </div>
           <UploadImage fileList={fileList} onChangeFile={handleChangeFile} />
         </Form.Item>
-        <Form.Item
-          label="Departure times"
-          rules={[{ required: true, message: "Please input!" }]}
-        >
-          <DatePicker
-            className="w-full"
-            multiple
-            format="YYYY-MM-DD"
-            value={startDates}
-            onChange={setStartDates}
-          />
-        </Form.Item>
+
         <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
         </Form.Item>
       </Form>
+      <Schedule />
     </>
   );
 };

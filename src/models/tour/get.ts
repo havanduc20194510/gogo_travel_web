@@ -60,10 +60,10 @@ export interface TaskTypeOrTourType {
   id: number;
   name: string;
 }
-export type Image = {
+export interface Image {
   id: number;
   url?: string;
-};
+}
 
 export interface DepartureTimes {
   id: number;

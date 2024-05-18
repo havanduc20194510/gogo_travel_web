@@ -9,35 +9,9 @@ import { useParams } from "next/navigation";
 import { Spin } from "antd";
 
 const Page: FC = () => {
-  const [tourResponse, setTourResponse] = useState<TourResponse>();
-  const param = useParams();
-  const [loading, setLoading] = useState(false);
-
-  const id = typeof param.id === "string" ? param.id : "";
-
-  const loadTour = useCallback(async () => {
-    setLoading(true);
-    try {
-      const response = await getTour(id);
-      setTourResponse(response);
-    } catch {
-      //Do nothing
-    } finally {
-      setLoading(false);
-    }
-  }, [id]);
-
-  useEffect(() => {
-    loadTour();
-  }, [loadTour]);
-
-  <div className="h-screen flex items-center justify-center">
-    <Spin tip="Loading..." />
-  </div>;
-
   return (
     <LayoutAdmin>
-      <TourForm isEdit tour={tourResponse?.data} />
+      <TourForm />
     </LayoutAdmin>
   );
 };

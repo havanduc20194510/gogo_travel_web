@@ -10,6 +10,8 @@ import httpCLient, { baseURL } from "@/utils/httpClient";
 import { UploadFile } from "antd";
 import { RcFile } from "antd/es/upload";
 import axios from "axios";
+import { Image } from "@/models/tour/get";
+import { getFromLocalStorage } from "@/utils/localStorage";
 
 const API_ENDPOINT = "/tour";
 
@@ -30,15 +32,25 @@ export const uploadTourImage = async (
   fileList: UploadFile[]
 ) => {
   if (fileList.length) {
-    const formDataToSend = new FormData();
+    const token: string | undefined = getFromLocalStorage("token");
 
-    formDataToSend.append("images", fileList[0].originFileObj as RcFile);
+    const uploadPromises = fileList.map((file) => {
+      const formDataToSend = new FormData();
+      formDataToSend.append("images", file.originFileObj as RcFile);
 
-    await axios.post(`${baseURL}/tour/upload-image/${tourId}`, formDataToSend, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+      return axios.post(
+        `${baseURL}/tour/upload-image/${tourId}`,
+        formDataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     });
+
+    await Promise.all(uploadPromises);
   }
 };
 
@@ -68,4 +80,11 @@ export const getTourByFilterAndSort = (
   request: GetTourByFilterAndSortRequest
 ): Promise<GetTourByFilterAndSortResponse> => {
   return httpCLient.get(`/tour/search/pagination/sort/filter`, request);
+};
+
+export const updateTour = (
+  tourId: string,
+  request: AddTourRequest
+): Promise<AddTourResponse> => {
+  return httpCLient.put(`/tour/update/${tourId}`, request);
 };

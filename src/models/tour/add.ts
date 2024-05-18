@@ -12,8 +12,6 @@ export type AddTourRequest = {
   vehicle: string;
   departureLocation: string;
   hotelStar: number;
-  numberOfSeats: number;
-  availableSeats: number;
   status: string;
   note: string;
   tourTypeName: string;

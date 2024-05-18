@@ -79,8 +79,10 @@ const Schedule: FC = () => {
   const loadSchedule = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await getSchedule(id);
-      setSchedules(response.data);
+      if (id) {
+        const response = await getSchedule(id);
+        setSchedules(response.data);
+      }
     } catch {
       //Do nothing
     } finally {
