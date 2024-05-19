@@ -2,11 +2,14 @@
 import { Suspense } from "react";
 
 import Login from "@/component/page/auth/Login";
+import { AuthRequire } from "@/component/AuthRequire/AuthRequire";
 
 export default function Page() {
   return (
     <Suspense>
-      <Login />
+      <AuthRequire>
+        <Login />
+      </AuthRequire>
     </Suspense>
   );
 }

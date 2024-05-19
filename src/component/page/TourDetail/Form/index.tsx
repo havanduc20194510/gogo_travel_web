@@ -14,8 +14,8 @@ export type FieldTaskType = {
   phone: string;
   startDate: string;
   numberOfAdults: number;
-  numberOfChildren: number;
-  numberOfBabies: number;
+  numberOfChildren?: number;
+  numberOfBabies?: number;
   note: string;
 };
 
@@ -29,14 +29,21 @@ const BookingForm: FC<Props> = ({ tour }) => {
   const id = typeof param.id === "string" ? param.id : "";
   const router = useRouter();
 
+  const now = new Date();
+  const filteredData = tour.departureTimes?.filter(
+    (item) => new Date(item.startDate) >= now
+  );
+
   const departureTimes = useMemo(() => {
     return (
-      tour.departureTimes?.map((departureTime) => ({
+      filteredData?.map((departureTime) => ({
         label: departureTime.startDate,
         value: departureTime.startDate,
       })) ?? []
     );
-  }, [tour.departureTimes]);
+  }, [filteredData]);
+
+  console.log(tour.departureTimes, "tour.departureTimes");
 
   const handleSubmit: FormProps<FieldTaskType>["onFinish"] = useCallback(
     async (values: FieldTaskType) => {
@@ -157,15 +164,7 @@ const BookingForm: FC<Props> = ({ tour }) => {
                 </div>
               </Form.Item>
 
-              <Form.Item<FieldTaskType>
-                name="numberOfChildren"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your number of children!",
-                  },
-                ]}
-              >
+              <Form.Item<FieldTaskType> name="numberOfChildren">
                 <div className="relative mt-1">
                   <input
                     type="number"
@@ -177,15 +176,7 @@ const BookingForm: FC<Props> = ({ tour }) => {
                   </span>
                 </div>
               </Form.Item>
-              <Form.Item<FieldTaskType>
-                name="numberOfBabies"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your number of babies!",
-                  },
-                ]}
-              >
+              <Form.Item<FieldTaskType> name="numberOfBabies">
                 <div className="relative mt-1">
                   <input
                     type="number"

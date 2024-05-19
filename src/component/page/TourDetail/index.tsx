@@ -10,6 +10,8 @@ import { useParams } from "next/navigation";
 import Schedule from "./Schedule";
 import Plan from "./Plan";
 import { AuthRequire } from "@/component/AuthRequire/AuthRequire";
+import ReviewForm from "./Review/ReviewForm";
+import ReviewList from "./Review/ReviewList";
 
 export default function TourDetail() {
   const [tourResponse, setTourResponse] = useState<TourResponse>();
@@ -64,11 +66,22 @@ export default function TourDetail() {
     },
   ];
 
+  const handleReviewSubmit = (review: {
+    title: string;
+    content: string;
+    rating: number;
+  }) => {
+    console.log("Review submitted:", review);
+    // Here you can handle the review submission, e.g., send it to your backend
+  };
+
   return (
     <AuthRequire>
       <Banner />
       <div className="content">
         <TabContent tabs={tabs} />
+        <ReviewList />
+        <ReviewForm onSubmit={handleReviewSubmit} />
       </div>
     </AuthRequire>
   );

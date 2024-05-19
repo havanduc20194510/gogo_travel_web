@@ -1,5 +1,6 @@
 "use client";
 
+import { AuthRequire } from "@/component/AuthRequire/AuthRequire";
 import Footer from "@/component/layout/Footer";
 import Navbar from "@/component/layout/Navbar";
 import Banner from "@/component/page/Home/Banner";
@@ -9,10 +10,12 @@ import { Suspense } from "react";
 export default function Page() {
   return (
     <Suspense>
-      <Navbar />
-      <Banner />
-      <Tours />
-      <Footer />
+      <AuthRequire>
+        <Navbar />
+        <Banner />
+        <Tours />
+        <Footer />
+      </AuthRequire>
     </Suspense>
   );
 }

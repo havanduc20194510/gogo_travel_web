@@ -12,9 +12,10 @@ import { User } from "@/models/user/get";
 type Props = {
   children: ReactNode;
   role?: string;
+  require?: boolean;
 };
 
-export const AuthRequire: FC<Props> = async ({ children, role }) => {
+export const AuthRequire: FC<Props> = async ({ children, role, require }) => {
   const router = useRouter();
 
   const authCheck = useCallback(async () => {
@@ -29,9 +30,11 @@ export const AuthRequire: FC<Props> = async ({ children, role }) => {
     } catch {
       deleteFromLocalStorage("user");
       deleteFromLocalStorage("token");
-      router.push("/login");
+      if (require) {
+        router.push("/login");
+      }
     }
-  }, [role, router]);
+  }, [require, role, router]);
 
   useEffect(() => {
     authCheck();
