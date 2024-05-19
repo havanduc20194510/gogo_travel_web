@@ -27,6 +27,10 @@ export const Tab: FC<Props> = ({ tab, onChangeTab }) => {
       tab: "booking",
       name: "Lịch sử đặt tour",
     },
+    {
+      tab: "payment",
+      name: "Lịch sử thanh toán",
+    },
   ];
 
   return (

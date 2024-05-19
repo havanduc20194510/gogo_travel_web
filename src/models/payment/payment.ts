@@ -11,6 +11,7 @@ export interface GetPaymentResponse {
   message: string;
   data: Payment;
 }
+
 export interface Payment {
   code: string;
   message: string;
@@ -32,3 +33,26 @@ export type PaymentCheckRequest = {
   vnp_TxnRef: string;
   vnp_SecureHash: string;
 };
+
+export interface GetPaymentListResponse {
+  code: number;
+  message: string;
+  data: PaymentData[];
+}
+export interface PaymentData {
+  id: number;
+  bookingId: string;
+  username: string;
+  phone: string;
+  email: string;
+  tourName: string;
+  amount: string;
+  paymentMethod: string;
+  bankCode: string;
+  transactionNo: string;
+  payDate: string;
+  orderInfo: string;
+  paymentStatus: string;
+  createdAt: string;
+  updatedAt: string;
+}
