@@ -11,7 +11,7 @@ export const saveToLocalStorage = <T>(key: string, data: T) => {
 export const deleteFromLocalStorage = (key: string) => {
   if (typeof window !== "undefined") {
     try {
-      // localStorage.removeItem(key);
+      localStorage.removeItem(key);
     } catch (error) {
       // console.error("Lỗi khi xóa khỏi localStorage:", error);
     }

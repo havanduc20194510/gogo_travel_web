@@ -57,9 +57,9 @@ const BookingForm: FC<Props> = ({ tour }) => {
         });
 
         router.push(`/payment/${res.data.id}`);
-      } catch {
+      } catch (error: any) {
         showToast({
-          message: "Book tour thất bại",
+          message: error.response.data.message ?? "",
           type: "error",
         });
       }

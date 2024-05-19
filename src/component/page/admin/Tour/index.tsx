@@ -27,7 +27,7 @@ const Tour: FC = () => {
   const [tourList, setTourList] = useState<Tour[]>([]);
   const [totalPage, setTotalPage] = useState<number>(10);
   const [page, setPage] = useState(1);
-  const pageSize = 5;
+  const pageSize = 10;
 
   const handleDeleteTour = async (id: string) => {
     try {

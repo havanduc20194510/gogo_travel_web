@@ -42,6 +42,7 @@ const PaymentForm = () => {
       total: bookingResponse?.data.total ?? 0,
       bankCode: paymentMethod,
       language,
+      returnUrl: `${window.location.origin}/payment/check`,
     };
 
     const res = await paymentVnPay(request);

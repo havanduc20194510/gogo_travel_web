@@ -1,17 +1,7 @@
 import axios, { AxiosInstance, CancelToken } from "axios";
-import { deleteFromLocalStorage, getFromLocalStorage } from "./localStorage";
+import { getFromLocalStorage } from "./localStorage";
 
 export const baseURL = "http://gogotravel.ap-southeast-1.elasticbeanstalk.com";
-
-const checkAuth = async () => {
-  deleteFromLocalStorage("user");
-  deleteFromLocalStorage("token");
-
-  // const pathname = window.location.pathname;
-  // if (pathname !== "/login" && pathname !== "/register") {
-  //   window.location.href = "/login";
-  // }
-};
 
 interface ApiRequest {}
 interface ApiResponse {}
@@ -83,13 +73,7 @@ class httpClient {
           "Access-Control-Allow-Origin": "*",
         },
       })
-      .then((response) => response.data)
-      .catch((e) => {
-        if (e.response.status === 401) {
-          checkAuth();
-        }
-        throw new Error(e);
-      });
+      .then((response) => response.data);
   }
 
   /**
@@ -115,13 +99,7 @@ class httpClient {
         },
         cancelToken: options?.cancelToken,
       })
-      .then((response) => response.data)
-      .catch((e) => {
-        if (e.response?.status === 401) {
-          checkAuth();
-        }
-        throw new Error(e);
-      });
+      .then((response) => response.data);
   }
 
   /**
@@ -144,13 +122,7 @@ class httpClient {
         },
         cancelToken: options?.cancelToken,
       })
-      .then((response) => response.data)
-      .catch((e) => {
-        if (e.response.status === 401) {
-          checkAuth();
-        }
-        throw new Error(e);
-      });
+      .then((response) => response.data);
   }
 
   /**
@@ -171,13 +143,7 @@ class httpClient {
 
     return this.axiosInstance
       .delete(path, config)
-      .then((response) => response.data as R)
-      .catch((e) => {
-        if (e.response.status === 401) {
-          checkAuth();
-        }
-        throw new Error(e);
-      });
+      .then((response) => response.data as R);
   }
 }
 
