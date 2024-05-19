@@ -47,11 +47,16 @@ export const LayoutAdmin: React.FC<Props> = ({ children }) => {
       icon: React.createElement(AccountBookOutlined),
       label: "Booking",
     },
+    {
+      key: "/admin/task",
+      icon: React.createElement(AccountBookOutlined),
+      label: "Task",
+    },
   ];
 
   return (
     <Suspense>
-      <AuthRequire role="ADMIN">
+      <AuthRequire role="ADMIN" require>
         <Layout>
           <Header style={{ display: "flex", alignItems: "center" }}>
             <div className="demo-logo" />
@@ -76,7 +81,7 @@ export const LayoutAdmin: React.FC<Props> = ({ children }) => {
                 <Menu
                   defaultSelectedKeys={[pathname]}
                   mode="inline"
-                  style={{ height: "100%" }}
+                  style={{ minHeight: "100vh" }}
                   theme="dark"
                 >
                   {menuList.map((menu) => {

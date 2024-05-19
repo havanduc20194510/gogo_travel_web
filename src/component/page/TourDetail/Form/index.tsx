@@ -43,8 +43,6 @@ const BookingForm: FC<Props> = ({ tour }) => {
     );
   }, [filteredData]);
 
-  console.log(tour.departureTimes, "tour.departureTimes");
-
   const handleSubmit: FormProps<FieldTaskType>["onFinish"] = useCallback(
     async (values: FieldTaskType) => {
       try {

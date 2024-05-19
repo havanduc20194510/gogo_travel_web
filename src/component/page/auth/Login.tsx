@@ -49,8 +49,8 @@ export default function Login() {
         : "/";
 
       router.push(redirectUrl);
-    } catch {
-      openNotificationWithIcon("error", "Login thất bại");
+    } catch (error: any) {
+      openNotificationWithIcon("error", error.response.data.message ?? "");
     }
   }, [formData, openNotificationWithIcon, router]);
 
