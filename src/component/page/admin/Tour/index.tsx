@@ -22,7 +22,7 @@ type DataType = {
   images?: ImageType[];
 };
 
-const Tour: FC = () => {
+const TourPage: FC = () => {
   const [loading, setLoading] = useState(false);
   const [tourList, setTourList] = useState<Tour[]>([]);
   const [totalPage, setTotalPage] = useState<number>(10);
@@ -201,4 +201,4 @@ const Tour: FC = () => {
   );
 };
 
-export default Tour;
+export default TourPage;
