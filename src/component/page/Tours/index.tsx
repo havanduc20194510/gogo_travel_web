@@ -7,6 +7,7 @@ import TourList from "./TourList";
 import { GetTourByFilterAndSortRequest, Tour } from "@/models/tour/get";
 import { useSearchParams } from "next/navigation";
 import FilterBar, { FilterValue } from "./FilterBar";
+import Banner from "../Home/Banner";
 
 function scrollToElement(elementId: string) {
   const element = document.getElementById(elementId);
@@ -38,22 +39,28 @@ export default function Tours() {
     pageSize,
   });
 
-  const loadTour = useCallback(async () => {
-    setLoading(true);
-    try {
-      const res = await getTourByFilterAndSort(request);
-      setTourList(res.data.content);
-      setTotalPage(res.data.totalPages);
-    } catch {
-      setTourList([]);
-    } finally {
-      setLoading(false);
-    }
-  }, [request]);
+  const loadTour = useCallback(
+    async (values?: GetTourByFilterAndSortRequest) => {
+      setLoading(true);
+
+      try {
+        const res = await getTourByFilterAndSort({ ...request, ...values });
+        setTourList(res.data.content);
+        setTotalPage(res.data.totalPages);
+        setRequest({ ...request, ...values });
+      } catch {
+        setTourList([]);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [request]
+  );
 
   const handleSort = useCallback(
     async (selectedValue: string) => {
       const response = await getTourByFilterAndSort({
+        ...request,
         sortField: selectedValue,
       });
       setTourList(response.data.content ?? []);
@@ -65,6 +72,7 @@ export default function Tours() {
   const handleSubmit = useCallback(
     async (filterValue?: FilterValue) => {
       const response = await getTourByFilterAndSort({
+        ...request,
         ...filterValue,
       });
 
@@ -92,10 +100,12 @@ export default function Tours() {
   useEffect(() => {
     loadTour();
     scrollToElement("section-1");
-  }, [loadTour]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div id="section-1">
+      <Banner onSearch={loadTour} />
       <div className="p-5">
         <Heading count={tourList?.length} onChange={handleSort} />
       </div>

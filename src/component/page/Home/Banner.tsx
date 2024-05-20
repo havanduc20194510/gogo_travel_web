@@ -8,7 +8,11 @@ import { objectToQueryString } from "@/utils/url";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
-export default function Banner() {
+export default function Banner({
+  onSearch,
+}: {
+  onSearch?: (values: GetTourByFilterAndSortRequest) => void;
+}) {
   const searchParams = useSearchParams();
 
   const query: GetTourByFilterAndSortRequest = useMemo(() => {
@@ -124,7 +128,10 @@ export default function Banner() {
                     height={20}
                     className="mr-5"
                   />
-                  <span className="text-sm font-semibold whitespace-nowrap truncate mx-auto">
+                  <span
+                    className="text-sm font-semibold whitespace-nowrap truncate mx-auto"
+                    onClick={() => onSearch?.(values)}
+                  >
                     Search
                   </span>
                 </div>

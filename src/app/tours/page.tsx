@@ -12,7 +12,7 @@ export default function Page() {
     <Suspense>
       <AuthRequire>
         <Navbar />
-        <Banner />
+
         <Tours />
         <Footer />
       </AuthRequire>

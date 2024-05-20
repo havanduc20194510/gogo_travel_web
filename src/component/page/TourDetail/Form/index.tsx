@@ -63,10 +63,14 @@ const BookingForm: FC<Props> = ({ tour }) => {
 
         router.push(`/payment/${res.data.id}`);
       } catch (error: any) {
-        showToast({
-          message: error.response.data.message ?? "",
-          type: "error",
-        });
+        if (error.response.status === 401) {
+          router.push(`/login`);
+        } else {
+          showToast({
+            message: error.response.data.message ?? "",
+            type: "error",
+          });
+        }
       }
     },
     [departureTimes, id, router, user?.id]

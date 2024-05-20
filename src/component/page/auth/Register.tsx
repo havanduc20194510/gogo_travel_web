@@ -53,8 +53,8 @@ export default function Register() {
 
       router.push(redirectUrl);
       openNotificationWithIcon("success", "Đăng ký thành công");
-    } catch {
-      openNotificationWithIcon("error", "Đăng ký thất bại");
+    } catch (error: any) {
+      openNotificationWithIcon("error", error.response.data.message ?? "");
     }
   }, [formData, openNotificationWithIcon, router]);
 
