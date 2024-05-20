@@ -6,10 +6,10 @@ import {
   getFromLocalStorage,
 } from "@/utils/localStorage";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Dropdown, MenuProps, Space } from "antd";
 import { DownOutlined } from "@ant-design/icons";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { User } from "@/models/user/get";
 import { logout } from "@/service/user";
 
@@ -18,6 +18,7 @@ export default function Navbar() {
   const [isShowMenu, setIsShowMenu] = useState(false);
   const pathname = usePathname();
   const [userInfo, setUserInfo] = useState<User | undefined>();
+  const [forceRender, setForceRender] = useState(false);
 
   useEffect(() => {
     const updateMedia = () => {
@@ -32,6 +33,13 @@ export default function Navbar() {
     };
   }, []);
 
+  const handleLogout = useCallback(async () => {
+    await logout();
+    deleteFromLocalStorage("user");
+    deleteFromLocalStorage("token");
+    setUserInfo(undefined);
+    setForceRender((prev) => !prev);
+  }, []);
   const items: MenuProps["items"] = [
     {
       label: <a href="/profile">Trang cá nhân</a>,
@@ -39,14 +47,7 @@ export default function Navbar() {
     },
     {
       label: (
-        <a
-          href="/login"
-          onClick={async () => {
-            await logout();
-            deleteFromLocalStorage("user");
-            deleteFromLocalStorage("token");
-          }}
-        >
+        <a href="/login" onClick={handleLogout}>
           Đăng xuất
         </a>
       ),
@@ -64,11 +65,11 @@ export default function Navbar() {
   useEffect(() => {
     const user: User | undefined = getFromLocalStorage("user");
     setUserInfo(user);
-  }, []);
+  }, [forceRender]);
 
   return (
     <>
-      <nav className="fixed  z-50 w-full py-2.5 bg-black opacity-80">
+      <nav className="fixed z-50 w-full py-2.5 bg-black opacity-80">
         <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
           <a href="/" className="flex items-center">
             <img src="/logo.png" className="h-6 mr-3 sm:h-9" alt="Logo" />

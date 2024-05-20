@@ -22,7 +22,7 @@ export const AuthRequire: FC<Props> = async ({ children, role, require }) => {
     try {
       const token: string | undefined = getFromLocalStorage("token");
       const user: User | undefined = getFromLocalStorage("user");
-      const res = await tokenCheck({ token: token ?? "" });
+      await tokenCheck({ token: token ?? "" });
 
       if (role && !user?.roles?.includes(role)) {
         router.push("/");
