@@ -6,12 +6,15 @@ import Slide from "./Slide";
 import Form from "../Form";
 import { formatPrice } from "@/utils/price";
 import { PriceTable } from "./PriceTable";
+import { AverageRating } from "@/models/review/get";
+import { Rate } from "antd";
 
 type Props = {
   tour?: Tour;
+  averageRating?: AverageRating;
 };
 
-export default function Plan({ tour }: Props) {
+export default function Plan({ tour, averageRating }: Props) {
   if (!tour) {
     return null;
   }
@@ -25,17 +28,11 @@ export default function Plan({ tour }: Props) {
           </button>
           <span className="text-gray-300">|</span>
           <div className="flex items-center">
-            {Array.from({ length: tour.hotelStar }).map((_, index) => (
-              <img
-                key={index}
-                width={20}
-                height={20}
-                src="/icons/star.svg"
-                alt=""
-              />
-            ))}
+            <Rate defaultValue={averageRating?.averageRating} disabled />
           </div>
-          <span className="text-sm text-gray-500">(584 reviews)</span>
+          <span className="text-sm text-gray-500">
+            ({averageRating?.totalReview} reviews)
+          </span>
         </div>
         <Slide images={tour.images} />
         <h1 className="text-xl font-bold my-5">Bảng giá</h1>

@@ -1,5 +1,5 @@
 // components/ReviewList.tsx
-import { Review } from "@/models/review/get";
+import { AverageRating, Review } from "@/models/review/get";
 import React from "react";
 
 const ReviewList = ({ reviews }: { reviews: Review[] }) => {

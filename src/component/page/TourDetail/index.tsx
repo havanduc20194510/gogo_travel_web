@@ -12,11 +12,15 @@ import Plan from "./Plan";
 import { AuthRequire } from "@/component/AuthRequire/AuthRequire";
 import ReviewForm from "./Review/ReviewForm";
 import ReviewList from "./Review/ReviewList";
-import { createTourReview, getTourReview } from "@/service/review";
+import {
+  createTourReview,
+  getTourAverageRating,
+  getTourReview,
+} from "@/service/review";
 import { CreateTourReviewRequest } from "@/models/review/create";
 import { User } from "@/models/user/get";
 import { getFromLocalStorage } from "@/utils/localStorage";
-import { Review } from "@/models/review/get";
+import { AverageRating, Review } from "@/models/review/get";
 
 export default function TourDetail() {
   const [tourResponse, setTourResponse] = useState<TourResponse>();
@@ -24,18 +28,23 @@ export default function TourDetail() {
   const [loading, setLoading] = useState(false);
   const user: User | undefined = getFromLocalStorage("user");
   const id = typeof param.id === "string" ? param.id : "";
+  const [averageRating, setAverageRating] = useState<AverageRating>();
 
   const loadTour = useCallback(async () => {
     setLoading(true);
     try {
       const response = await getTour(id);
       setTourResponse(response);
+      const averageRatingRes = await getTourAverageRating(id);
+      setAverageRating(averageRatingRes.data);
     } catch {
       //Do nothing
     } finally {
       setLoading(false);
     }
   }, [id]);
+
+  console.log(averageRating, "averageRating");
 
   const [reviews, setReviews] = useState<Review[]>([]);
 
@@ -78,7 +87,7 @@ export default function TourDetail() {
   const tabs = [
     {
       title: "Chương trình tour",
-      content: <Plan tour={tourResponse?.data} />,
+      content: <Plan tour={tourResponse?.data} averageRating={averageRating} />,
       iconUrl: "/icons/info.svg",
     },
     {

@@ -1,5 +1,6 @@
 import { CreateTourReviewRequest } from "@/models/review/create";
 import {
+  GetAverageRatingResponse,
   GetTourReviewDetailResponse,
   GetTourReviewResponse,
 } from "@/models/review/get";
@@ -15,4 +16,10 @@ export const createTourReview = (
   request: CreateTourReviewRequest
 ): Promise<GetTourReviewDetailResponse> => {
   return httpCLient.post(`/tour-reviews/create`, request);
+};
+
+export const getTourAverageRating = (
+  tourId: string
+): Promise<GetAverageRatingResponse> => {
+  return httpCLient.get(`/tour-reviews/average-rating/${tourId}`);
 };

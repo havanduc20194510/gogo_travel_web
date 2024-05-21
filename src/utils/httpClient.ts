@@ -72,7 +72,7 @@ class httpClient {
         cancelToken: options?.cancelToken,
         headers: {
           "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${token}`,
+          Authorization: token ? `Bearer ${token}` : undefined,
         },
       })
       .then((response) => response.data);
@@ -99,7 +99,7 @@ class httpClient {
         },
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: token ? `Bearer ${token}` : undefined,
         },
         cancelToken: options?.cancelToken,
       })
@@ -127,7 +127,7 @@ class httpClient {
         },
         cancelToken: options?.cancelToken,
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: token ? `Bearer ${token}` : undefined,
         },
       })
       .then((response) => response.data);
@@ -149,7 +149,7 @@ class httpClient {
       ...options,
       data: options?.data,
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: token ? `Bearer ${token}` : undefined,
       },
     };
 
