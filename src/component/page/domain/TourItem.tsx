@@ -1,16 +1,34 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import { AverageRating } from "@/models/review/get";
 import { Tour } from "@/models/tour/get";
+import { getTourAverageRating } from "@/service/review";
 import { formatPrice } from "@/utils/price";
 import { Image } from "antd";
 import Link from "next/link";
+import { useState, useCallback, useEffect } from "react";
 
 type Props = {
   tour: Tour;
 };
 
 export default function TourItem({ tour }: Props) {
+  const [averageRating, setAverageRating] = useState<AverageRating>();
+
+  const loadAverageRating = useCallback(async () => {
+    try {
+      const averageRatingRes = await getTourAverageRating(tour.tourId);
+      setAverageRating(averageRatingRes.data);
+    } catch {
+      //Do nothing
+    }
+  }, [tour.tourId]);
+
+  useEffect(() => {
+    loadAverageRating();
+  }, [loadAverageRating]);
+
   return (
     <Link href={`tours/${tour.tourId}`}>
       <li
@@ -22,19 +40,28 @@ export default function TourItem({ tour }: Props) {
             <button className="rounded-2xl bg-emerald-600 text-sm px-4 py-1 leading-none text-white">
               {tour.status}
             </button>
-            <span className="text-gray-300">|</span>
+            {!!averageRating?.averageRating && (
+              <span className="text-gray-300">|</span>
+            )}
             <div className="flex items-center">
-              {Array.from({ length: tour.hotelStar }).map((_, index) => (
-                <img
-                  key={index}
-                  width={20}
-                  height={20}
-                  src="/icons/star.svg"
-                  alt=""
-                />
-              ))}
+              {!!averageRating?.averageRating &&
+                Array.from({ length: averageRating?.averageRating ?? 0 }).map(
+                  (_, index) => (
+                    <img
+                      key={index}
+                      width={20}
+                      height={20}
+                      src="/icons/star.svg"
+                      alt=""
+                    />
+                  )
+                )}
             </div>
-            <span className="text-sm text-gray-500">(584 reviews)</span>
+            {!!averageRating?.totalReview && (
+              <span className="text-sm text-gray-500">
+                ({averageRating?.totalReview} reviews)
+              </span>
+            )}
           </div>
           <h3 className="my-3 text-slate-900 font-semibold text-lg">
             {tour.name}

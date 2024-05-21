@@ -44,8 +44,6 @@ export default function TourDetail() {
     }
   }, [id]);
 
-  console.log(averageRating, "averageRating");
-
   const [reviews, setReviews] = useState<Review[]>([]);
 
   const getReviews = useCallback(async () => {
