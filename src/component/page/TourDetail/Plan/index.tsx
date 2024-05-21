@@ -8,10 +8,13 @@ import { formatPrice } from "@/utils/price";
 import { PriceTable } from "./PriceTable";
 
 type Props = {
-  tour: Tour;
+  tour?: Tour;
 };
 
 export default function Plan({ tour }: Props) {
+  if (!tour) {
+    return null;
+  }
   return (
     <div className="grid grid-cols-5 gap-4">
       <div className="col-span-3">

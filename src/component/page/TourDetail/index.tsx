@@ -5,19 +5,24 @@ import Banner from "../Home/Banner";
 import { useCallback, useEffect, useState } from "react";
 import { TourResponse } from "@/models/tour/get";
 import { getTour, increaseView } from "@/service/tour";
-import { Spin } from "antd";
+import { Spin, message } from "antd";
 import { useParams } from "next/navigation";
 import Schedule from "./Schedule";
 import Plan from "./Plan";
 import { AuthRequire } from "@/component/AuthRequire/AuthRequire";
 import ReviewForm from "./Review/ReviewForm";
 import ReviewList from "./Review/ReviewList";
+import { createTourReview, getTourReview } from "@/service/review";
+import { CreateTourReviewRequest } from "@/models/review/create";
+import { User } from "@/models/user/get";
+import { getFromLocalStorage } from "@/utils/localStorage";
+import { Review } from "@/models/review/get";
 
 export default function TourDetail() {
   const [tourResponse, setTourResponse] = useState<TourResponse>();
   const param = useParams();
   const [loading, setLoading] = useState(false);
-
+  const user: User | undefined = getFromLocalStorage("user");
   const id = typeof param.id === "string" ? param.id : "";
 
   const loadTour = useCallback(async () => {
@@ -32,6 +37,17 @@ export default function TourDetail() {
     }
   }, [id]);
 
+  const [reviews, setReviews] = useState<Review[]>([]);
+
+  const getReviews = useCallback(async () => {
+    const res = await getTourReview(id);
+    setReviews(res.data);
+  }, [id]);
+
+  useEffect(() => {
+    getReviews();
+  }, [getReviews]);
+
   useEffect(() => {
     loadTour();
   }, [loadTour]);
@@ -41,48 +57,51 @@ export default function TourDetail() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (loading) {
-    return (
-      <div className="h-screen flex items-center justify-center">
-        <Spin tip="Loading..." />
-      </div>
-    );
-  }
+  const handleReviewSubmit = useCallback(
+    async (review: { content: string; rating: number }) => {
+      try {
+        const request: CreateTourReviewRequest = {
+          tourId: id,
+          userId: user?.id ?? "",
+          ...review,
+        };
 
-  if (!tourResponse?.data) {
-    return null;
-  }
+        await createTourReview(request);
+        await getReviews();
+      } catch (error: any) {
+        message.error(error.response.data.message ?? "");
+      }
+    },
+    [getReviews, id, user?.id]
+  );
 
   const tabs = [
     {
       title: "Chương trình tour",
-      content: <Plan tour={tourResponse.data} />,
+      content: <Plan tour={tourResponse?.data} />,
       iconUrl: "/icons/info.svg",
     },
     {
       title: "Lịch trình",
-      content: <Schedule tour={tourResponse.data} />,
+      content: <Schedule tour={tourResponse?.data} />,
       iconUrl: "/icons/calendar.svg",
     },
   ];
 
-  const handleReviewSubmit = (review: {
-    title: string;
-    content: string;
-    rating: number;
-  }) => {
-    console.log("Review submitted:", review);
-    // Here you can handle the review submission, e.g., send it to your backend
-  };
-
   return (
     <AuthRequire>
       <Banner />
-      <div className="content">
-        <TabContent tabs={tabs} />
-        <ReviewList />
-        <ReviewForm onSubmit={handleReviewSubmit} />
-      </div>
+      {loading ? (
+        <div className="h-screen flex items-center justify-center">
+          <Spin tip="Loading..." />
+        </div>
+      ) : (
+        <div className="content">
+          <TabContent tabs={tabs} />
+          <ReviewList reviews={reviews} />
+          <ReviewForm onSubmit={handleReviewSubmit} />
+        </div>
+      )}
     </AuthRequire>
   );
 }

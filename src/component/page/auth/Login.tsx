@@ -29,6 +29,7 @@ export default function Login() {
       [name]: value,
     });
   };
+
   const openNotificationWithIcon = useCallback(
     (type: NotificationType, message: string) => {
       api[type]({

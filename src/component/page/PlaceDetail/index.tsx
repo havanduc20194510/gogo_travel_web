@@ -50,10 +50,12 @@ export default function PlaceDetail() {
   const place = placeResponse.data;
 
   return (
-    <div className="content">
-      <div className="py-24">
-        <h1 className=" font-bold text-2xl">{place.name}</h1>
+    <div className="content flex py-24">
+      <div className="w-2/3 p-4">
         <Slide images={place.images} />
+      </div>
+      <div className="w-1/3 p-4">
+        <h1 className="font-bold text-2xl">{place.name}</h1>
         <h1 className="text-xl font-bold my-5">Địa điểm</h1>
         <p>{place.address}</p>
         <h1 className="text-xl font-bold my-5">Các hoạt động</h1>

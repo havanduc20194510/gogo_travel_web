@@ -61,6 +61,7 @@ class httpClient {
     R extends ApiResponse,
     P extends ApiParams = ApiParams
   >(path: string, request?: T, options?: RequestOptions<P>): Promise<R> {
+    const token: string | undefined = getFromLocalStorage("token");
     return this.axiosInstance
       .get(path, {
         params: {
@@ -71,6 +72,7 @@ class httpClient {
         cancelToken: options?.cancelToken,
         headers: {
           "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => response.data);
@@ -89,6 +91,7 @@ class httpClient {
     R extends ApiResponse,
     P extends ApiParams = ApiParams
   >(path: string, request: T, options?: RequestOptions<P>): Promise<R> {
+    const token: string | undefined = getFromLocalStorage("token");
     return this.axiosInstance
       .post(path, request, {
         params: {
@@ -96,6 +99,7 @@ class httpClient {
         },
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         cancelToken: options?.cancelToken,
       })
@@ -115,12 +119,16 @@ class httpClient {
     R extends ApiResponse,
     P extends ApiParams = ApiParams
   >(path: string, request: T, options?: RequestOptions<P>): Promise<R> {
+    const token: string | undefined = getFromLocalStorage("token");
     return this.axiosInstance
       .put(path, request, {
         params: {
           ...options?.params,
         },
         cancelToken: options?.cancelToken,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then((response) => response.data);
   }
@@ -136,9 +144,13 @@ class httpClient {
     path: string,
     options?: RequestOptions<P> & { data?: any }
   ): Promise<R> {
+    const token: string | undefined = getFromLocalStorage("token");
     const config = {
       ...options,
       data: options?.data,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     };
 
     return this.axiosInstance

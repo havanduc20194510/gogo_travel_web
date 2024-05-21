@@ -36,7 +36,7 @@ export default function Banner({
   return (
     <div className=" bg-[url('/banner.png')] bg-no-repeat	width-full  h-screen text-white bg-cover">
       <div className="relative z-10 flex flex-col justify-center h-full text-center">
-        <div className="bg-black bg-opacity-50 text-white py-10 px-36 max-w-[1000px] mx-auto rounded-lg">
+        <div className="bg-black bg-opacity-50 text-white py-10 px-36 max-w-[2000px] mx-auto rounded-lg">
           <h1 className="text-5xl font-bold leading-tight mb-4">
             Vùng đất mới con người mới
           </h1>
@@ -47,7 +47,7 @@ export default function Banner({
           </p>
           <div>
             <label
-              className="mx-auto mt-8 relative bg-white min-w-sm max-w-3xl flex flex-col md:flex-row items-center justify-center border py-2 px-2 rounded-2xl gap-2 shadow-2xl focus-within:border-gray-300"
+              className="mx-auto mt-8 relative bg-white min-w-sm  flex flex-col md:flex-row items-center justify-center border py-2 px-2 rounded-2xl gap-2 shadow-2xl focus-within:border-gray-300"
               htmlFor="search-bar"
             >
               <img
@@ -71,7 +71,7 @@ export default function Banner({
           </div>
           <div>
             <label
-              className="mx-auto mt-8 relative bg-white min-w-sm max-w-3xl flex flex-col md:flex-row items-center justify-center border py-2 px-2 rounded-2xl gap-2 shadow-2xl focus-within:border-gray-300"
+              className="mx-auto mt-8 relative bg-white min-w-sm   flex flex-col md:flex-row items-center justify-center border py-2 px-2 rounded-2xl gap-2 shadow-2xl focus-within:border-gray-300"
               htmlFor="search-bar"
             >
               <img
