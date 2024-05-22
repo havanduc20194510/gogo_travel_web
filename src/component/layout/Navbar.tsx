@@ -11,14 +11,13 @@ import { Dropdown, MenuProps, Space } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { usePathname } from "next/navigation";
 import { User } from "@/models/user/get";
-import { logout } from "@/service/user";
+import { getUserById, logout } from "@/service/user";
 
 export default function Navbar() {
   const [isMobile, setIsMobile] = useState(true);
   const [isShowMenu, setIsShowMenu] = useState(false);
   const pathname = usePathname();
   const [userInfo, setUserInfo] = useState<User | undefined>();
-  const [forceRender, setForceRender] = useState(false);
 
   useEffect(() => {
     const updateMedia = () => {
@@ -38,8 +37,8 @@ export default function Navbar() {
     deleteFromLocalStorage("user");
     deleteFromLocalStorage("token");
     setUserInfo(undefined);
-    setForceRender((prev) => !prev);
   }, []);
+
   const items: MenuProps["items"] = [
     {
       label: <a href="/profile">Trang cá nhân</a>,
@@ -62,10 +61,20 @@ export default function Navbar() {
     });
   }
 
+  const getUser = useCallback(async () => {
+    try {
+      const user: User | undefined = getFromLocalStorage("user");
+      const res = await getUserById(user?.id ?? "");
+      setUserInfo(res.data);
+    } catch {
+      //
+    }
+  }, []);
+
   useEffect(() => {
-    const user: User | undefined = getFromLocalStorage("user");
-    setUserInfo(user);
-  }, [forceRender]);
+    getUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>

@@ -131,8 +131,12 @@ const TourForm: React.FC = () => {
   );
 
   const loadTourType = useCallback(async () => {
-    const res = await getTourTypes();
-    setTourTypeList(res.data);
+    try {
+      const res = await getTourTypes();
+      setTourTypeList(res.data);
+    } catch {
+      //
+    }
   }, []);
 
   useEffect(() => {
