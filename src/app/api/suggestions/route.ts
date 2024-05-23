@@ -1,4 +1,5 @@
 // pages/api/request.ts
+import { DestinationItem } from '@/models/suggestion/get';
 import { NextResponse } from 'next/server';
 import { OpenAI } from 'openai';
 
@@ -60,13 +61,13 @@ const GET = async (request: Request) => {
     // Xử lý phản hồi từ OpenAI API
     const [, ...entries] = JSON.stringify(
       response.choices[0].message.content
-    ).split('\\n');
+    ).split("\\n");
 
-    const destinations = [];
+    const destinations: DestinationItem[] = [];
 
     for (const entry of entries) {
-      const [locationWithNumber, description] = entry.split(' - ');
-      const [, location] = locationWithNumber.split('.');
+      const [locationWithNumber, description] = entry.split(" - ");
+      const [, location] = locationWithNumber.split(".");
 
       if (location) {
         // Gửi yêu cầu tới OpenAI API để tạo hình ảnh
