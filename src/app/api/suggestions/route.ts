@@ -41,9 +41,9 @@ const GET = async (request: Request) => {
     }
 
      // Tạo text prompt từ các tham số
-  let textPrompt = `Gợi ý 6 địa điểm vui chơi ở ${location} vào ${time}`;
-  if (activity) textPrompt += ` có hoạt động ${activity}`;
-  textPrompt += 'format dưới dạng Location - Description.';
+  let textPrompt = `Gợi ý 4 địa điểm vui chơi ở ${location} vào ${time}`;
+  if (activity) textPrompt += ` có hoạt động ${activity}.`;
+  textPrompt += 'Format dưới dạng Location - Description.';
 
   // Khởi tạo đối tượng OpenAI với API key
   const openai = new OpenAI();
@@ -72,7 +72,7 @@ const GET = async (request: Request) => {
       if (location) {
         // Gửi yêu cầu tới OpenAI API để tạo hình ảnh
         const image = await openai.images.generate({
-          prompt: 'Ảnh đẹp nhất của ' + location,
+          prompt: 'Ảnh thực tế của ' + location,
           n: 1,
           size: '512x512',
         });
