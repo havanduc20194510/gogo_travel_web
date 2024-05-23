@@ -11,5 +11,5 @@ export const getAllTask = (): Promise<GetTaskResponse> => {
 };
 
 export const verifyTask = (userTaskId: string) => {
-  return httpCLient.post(`/user-task/verify`, { userTaskId });
+  return httpCLient.post(`/user-task/verify/${userTaskId}`, { userTaskId });
 };

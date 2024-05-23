@@ -1,10 +1,14 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
-import { Button, Table, TableProps, message } from "antd";
+import { Button, Table, TableProps, message, notification } from "antd";
 import { LayoutAdmin } from "@/component/page/admin/LayoutAdmin";
 import { TaskStatus } from "@/component/ui/TaskStatus";
 import { Task } from "@/models/task/get";
 import { getAllTask, verifyTask } from "@/service/task";
+import { useRouter } from "next/router";
+
+
+export type NotificationType = "success" | "info" | "warning" | "error";
 
 interface UserTask {
   id: string;

@@ -86,7 +86,7 @@ const PaymentForm = () => {
       <p className="p-3">Số trẻ em: {booking?.numberOfChildren}</p>
       <p className="p-3">Ghi chú: {booking?.note}</p>
       <p className="p-3">Ngày bắt đầu: {booking?.startDate}</p>
-      <p className="p-3">Ngày đặt tour{booking?.bookingDate}</p>
+      <p className="p-3">Ngày đặt tour: {booking?.bookingDate}</p>
       <p className="p-3">Trạng thái: {booking?.status}</p>
       <h1 className="text-2xl font-bold p-3 ">
         Tổng số tiền: {formatPrice(booking?.total ?? 0)}
