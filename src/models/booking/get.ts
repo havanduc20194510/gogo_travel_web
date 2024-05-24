@@ -66,6 +66,7 @@ export interface User {
   phone: string;
   address: string;
   roles?: string[] | null;
+  coin?: number;
 }
 
 export interface GetBookingDetailResponse {

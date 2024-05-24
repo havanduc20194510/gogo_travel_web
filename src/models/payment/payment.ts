@@ -4,6 +4,7 @@ export type PaymentRequest = {
   bankCode: string;
   language: string;
   returnUrl: string;
+  coin: boolean;
 };
 
 export interface GetPaymentResponse {

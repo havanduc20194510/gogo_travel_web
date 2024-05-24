@@ -54,7 +54,9 @@ export default function Navbar() {
     },
   ];
 
-  if (userInfo?.roles?.includes("ADMIN")) {
+  const isGameManage = userInfo?.roles?.includes("GAME_MANAGER");
+
+  if (userInfo?.roles?.includes("ADMIN") || isGameManage) {
     items.push({
       label: <a href="/admin">Admin</a>,
       key: "2",

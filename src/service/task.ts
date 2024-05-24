@@ -13,3 +13,7 @@ export const getAllTask = (): Promise<GetTaskResponse> => {
 export const verifyTask = (userTaskId: string) => {
   return httpCLient.post(`/user-task/verify/${userTaskId}`, { userTaskId });
 };
+
+export const getTaskByEmail = (email: string): Promise<GetTaskResponse> => {
+  return httpCLient.get("/user-task/get-by-email", { email });
+};

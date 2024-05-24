@@ -10,6 +10,8 @@ import { Layout, Menu, theme } from "antd";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AuthRequire } from "@/component/AuthRequire/AuthRequire";
+import { getFromLocalStorage } from "@/utils/localStorage";
+import { User } from "@/models/user/get";
 
 type Props = {
   children: ReactNode;
@@ -30,6 +32,17 @@ export const LayoutAdmin: React.FC<Props> = ({ children }) => {
     pathname.includes("/admin/tour/edit")
       ? pathname
       : "/admin";
+
+  const user: User | undefined = getFromLocalStorage("user");
+  const isGameManage = user?.roles?.includes("GAME_MANAGER");
+
+  const gameMenuList = [
+    {
+      key: "/admin/task",
+      icon: React.createElement(AccountBookOutlined),
+      label: "Task",
+    },
+  ];
 
   const menuList = [
     {
@@ -84,7 +97,7 @@ export const LayoutAdmin: React.FC<Props> = ({ children }) => {
                   style={{ minHeight: "100vh" }}
                   theme="dark"
                 >
-                  {menuList.map((menu) => {
+                  {(isGameManage ? gameMenuList : menuList).map((menu) => {
                     return (
                       <Menu.Item key={menu?.key}>
                         <Link href={menu.key}>{menu.label}</Link>

@@ -3,10 +3,17 @@
 import { AuthRequire } from "@/component/AuthRequire/AuthRequire";
 import Footer from "@/component/layout/Footer";
 import Navbar from "@/component/layout/Navbar";
-import PaymentForm from "@/component/page/Payment/PaymentForm";
+import dynamic from "next/dynamic";
 import { Suspense } from "react";
 
 export default function Page() {
+  const PaymentForm = dynamic(
+    () => import("../../../component/page/Payment/PaymentForm"),
+    {
+      ssr: false,
+    }
+  );
+
   return (
     <Suspense>
       <AuthRequire>

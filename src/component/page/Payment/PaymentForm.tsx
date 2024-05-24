@@ -1,16 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { PaymentRequest } from "@/models/payment/payment";
 import { useParams, useRouter } from "next/navigation";
 import { getBookingById } from "@/service/booking";
-import { GetBookingDetailResponse } from "@/models/booking/get";
+import { GetBookingDetailResponse, User } from "@/models/booking/get";
 import { paymentVnPay } from "@/service/payment";
 import { formatPrice } from "@/utils/price";
+import { Checkbox, CheckboxProps } from "antd";
+import { getFromLocalStorage } from "@/utils/localStorage";
 
 const PaymentForm = () => {
   const param = useParams();
   const id = typeof param.id === "string" ? param.id : "";
   const router = useRouter();
+
+  const [isUseCoin, setIsUseCoin] = useState(false);
+
+  const user: User | undefined = getFromLocalStorage("user");
 
   const [bookingResponse, setBookingResponse] =
     useState<GetBookingDetailResponse>();
@@ -35,24 +41,31 @@ const PaymentForm = () => {
       value: "INTCARD",
     },
   ];
+  const booking = bookingResponse?.data;
 
   const handleSubmit = useCallback(async () => {
     const request: PaymentRequest = {
       bookingId: bookingResponse?.data.id ?? "",
-      total: bookingResponse?.data.total ?? 0,
+      total: !isUseCoin
+        ? bookingResponse?.data.total ?? 0
+        : booking?.total ?? 0 - (user?.coin ?? 0) * 1000,
       bankCode: paymentMethod,
       language,
       returnUrl: `${window.location.origin}/payment/check`,
+      coin: isUseCoin,
     };
 
     const res = await paymentVnPay(request);
     router.push(res.data.paymentUrl);
   }, [
+    booking?.total,
     bookingResponse?.data.id,
     bookingResponse?.data.total,
+    isUseCoin,
     language,
     paymentMethod,
     router,
+    user?.coin,
   ]);
 
   const getBooking = useCallback(async () => {
@@ -60,11 +73,13 @@ const PaymentForm = () => {
     setBookingResponse(res);
   }, [id]);
 
+  const onChange: CheckboxProps["onChange"] = (e) => {
+    setIsUseCoin(e.target.checked);
+  };
+
   useEffect(() => {
     getBooking();
   }, [getBooking]);
-
-  const booking = bookingResponse?.data;
 
   return (
     <div className="max-w-xl mx-auto p-5 bg-white shadow-md rounded-lg text-xl">
@@ -88,9 +103,31 @@ const PaymentForm = () => {
       <p className="p-3">Ngày bắt đầu: {booking?.startDate}</p>
       <p className="p-3">Ngày đặt tour: {booking?.bookingDate}</p>
       <p className="p-3">Trạng thái: {booking?.status}</p>
+
       <h1 className="text-2xl font-bold p-3 ">
-        Tổng số tiền: {formatPrice(booking?.total ?? 0)}
+        Tổng số tiền:
+        <span className={isUseCoin ? "line-through" : ""}>
+          {formatPrice(booking?.total ?? 0)}
+        </span>
+        {isUseCoin && (
+          <span className="ml-3">
+            {formatPrice((booking?.total ?? 0) - (user?.coin ?? 0) * 1000)}
+          </span>
+        )}
       </h1>
+
+      <div className="flex items-center mb-2">
+        <span className="text-gray-600 mr-4">Bạn có</span>
+        <span className="font-semibold text-red-500 ">{user?.coin} coins</span>
+      </div>
+      <div className="flex items-center">
+        <Checkbox
+          onChange={onChange}
+          className="text-xl font-medium text-indigo-700"
+        >
+          Bạn có muốn sử dụng coin?
+        </Checkbox>
+      </div>
       <h2 className="text-xl font-bold mb-4 mt-4">
         Chọn Phương thức thanh toán:
       </h2>

@@ -10,6 +10,7 @@ import { AuthRequire } from "@/component/AuthRequire/AuthRequire";
 import { UserInfo } from "./UserInfo";
 import { User } from "@/models/user/get";
 import { PaymentList } from "./PaymentList";
+import { TaskList } from "./TaskList";
 
 export type NotificationType = "success" | "info" | "warning" | "error";
 
@@ -24,6 +25,10 @@ export default function Profile() {
 
     if (tab === "payment") {
       return <PaymentList userId={userInfo?.id} />;
+    }
+
+    if (tab === "task") {
+      return <TaskList userInfo={userInfo} />;
     }
 
     return <BookingHistory />;

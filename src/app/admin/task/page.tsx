@@ -7,7 +7,6 @@ import { Task } from "@/models/task/get";
 import { getAllTask, verifyTask } from "@/service/task";
 import { useRouter } from "next/router";
 
-
 export type NotificationType = "success" | "info" | "warning" | "error";
 
 interface UserTask {
@@ -28,15 +27,6 @@ interface Props {
 
 const UserTaskTable: React.FC<Props> = () => {
   const [taskList, setTaskList] = useState<Task[]>();
-
-  const handleVerifyTask = useCallback(async (id: string) => {
-    try {
-      await verifyTask(id);
-      message.success("Xác nhận task thành công");
-    } catch (error: any) {
-      message.error("Xác nhận task lỗi");
-    }
-  }, []);
 
   const columns: TableProps<UserTask>["columns"] = [
     {
@@ -73,9 +63,11 @@ const UserTaskTable: React.FC<Props> = () => {
           <div className="w-[100px] text-sm flex items-center mb-2">
             <TaskStatus status={record.taskStatus} />
           </div>
-          <Button onClick={() => handleVerifyTask(record.id)} type="primary">
-            Xác nhận hoàn thành
-          </Button>
+          {record.taskStatus === "IN_PROGRESS" && (
+            <Button onClick={() => handleVerifyTask(record.id)} type="primary">
+              Xác nhận hoàn thành
+            </Button>
+          )}
         </>
       ),
     },
@@ -85,6 +77,19 @@ const UserTaskTable: React.FC<Props> = () => {
     const res = await getAllTask();
     setTaskList(res.data);
   }, []);
+
+  const handleVerifyTask = useCallback(
+    async (id: string) => {
+      try {
+        await verifyTask(id);
+        message.success("Xác nhận task thành công");
+        await getTask();
+      } catch (error: any) {
+        message.error("Xác nhận task lỗi");
+      }
+    },
+    [getTask]
+  );
 
   useEffect(() => {
     getTask();
