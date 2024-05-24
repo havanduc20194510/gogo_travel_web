@@ -15,7 +15,7 @@ export const getPlace = (): Promise<GetPlaceResponse> => {
 export const searchPlaces = (
   request: SearchPlaceRequest
 ): Promise<SearchPlaceResponse> => {
-  return httpCLient.get(`/places/search`, request);
+  return httpCLient.get(`/places/search/pagination`, request);
 };
 
 export const getPlaceById = (id: string): Promise<GetPlaceDetailResponse> => {

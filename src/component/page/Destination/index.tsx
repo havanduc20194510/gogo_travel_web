@@ -42,7 +42,7 @@ export default function Destination() {
     try {
       setLoading(true);
       const res = await searchPlaces(formData);
-      setPlaceList(res.data);
+      setPlaceList(res.data.content);
     } finally {
       setLoading(false);
     }

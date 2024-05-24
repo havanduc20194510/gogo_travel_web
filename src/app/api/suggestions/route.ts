@@ -41,9 +41,9 @@ const GET = async (request: Request) => {
     }
 
      // Tạo text prompt từ các tham số
-  let textPrompt = `Gợi ý 4 địa điểm vui chơi ở ${location} vào ${time}`;
+  let textPrompt = `Gợi ý top 4 địa điểm vui chơi ở ${location} vào thời gian ${time}`;
   if (activity) textPrompt += ` có hoạt động ${activity}.`;
-  textPrompt += 'Format dưới dạng Location - Description.';
+  textPrompt += 'Format dưới dạng Location - Description';
 
   // Khởi tạo đối tượng OpenAI với API key
   const openai = new OpenAI();
