@@ -17,3 +17,7 @@ export const verifyTask = (userTaskId: string) => {
 export const getTaskByEmail = (email: string): Promise<GetTaskResponse> => {
   return httpCLient.get("/user-task/get-by-email", { email });
 };
+
+export const getMyTask = (): Promise<GetTaskResponse> => {
+  return httpCLient.get("/user-task/get-my-tasks");
+};

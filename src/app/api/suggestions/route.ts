@@ -72,7 +72,7 @@ const GET = async (request: Request) => {
         // Gửi yêu cầu tới OpenAI API để tạo hình ảnh
         try {
           const image = await openai.images.generate({
-            prompt: 'Ảnh thực tế của ' + location,
+            prompt: 'Ảnh thực tế của địa điểm ' + location,
             n: 1,
             size: '512x512',
           });

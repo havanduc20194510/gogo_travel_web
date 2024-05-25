@@ -86,12 +86,18 @@ export const UserInfo = ({ userInfo, onChangeUserInfo }: Props) => {
       </div>
 
       <h1 className=" text-xl mb-3">Personal Information</h1>
+      <div className="my-4 md:flex md:items-center md:justify-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 text-yellow-500">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+        </svg>
+        <p className="text-xl">{formData?.coin}</p>
+      </div>
 
       <label
         className="block text-gray-500 font-bold  mb-1 md:mb-0 pr-4"
         htmlFor="inline-full-name"
       >
-        Full Name
+        User Name
       </label>
       <input
         className="bg-gray-200 mb-3 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
@@ -153,10 +159,10 @@ export const UserInfo = ({ userInfo, onChangeUserInfo }: Props) => {
         value={formData?.email}
         onChange={handleChange}
       />
-
-      <div className="md:flex md:items-center">
-        <div className="md:w-1/3" />
-        <div className="md:w-2/3">
+      
+      <div className="md:flex md:items-center md:justify-center">
+        <div className="md:w-1/2" />
+        <div className="md:w-1/2">
           <button
             className="shadow mt-10 bg-emerald-500 hover:bg-emerald-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
             type="button"

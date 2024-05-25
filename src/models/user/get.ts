@@ -11,6 +11,7 @@ export type User = {
   phone: string;
   address: string;
   roles?: string[] | null;
+  coin?: number;
 };
 
 export type GetUserResponse = {
