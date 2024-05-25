@@ -32,14 +32,6 @@ export default function SpecialList({ placeList, loading }: Props) {
         >
           Places
         </button>
-        <div className="flex items-center gap-2">
-          <button className="flex items-center justify-center w-10 h-10 bg-emerald-600 rounded-full text-white shadow-xl">
-            <img src="/icons/arrow-left.svg" alt="" />
-          </button>
-          <button className="flex items-center justify-center w-10 h-10 bg-emerald-600 rounded-full text-white shadow-xl">
-            <img src="/icons/arrow-right.svg" alt="" />
-          </button>
-        </div>
       </div>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 md:gap-6 xl:gap-6">
         {placeList?.map((place) => (

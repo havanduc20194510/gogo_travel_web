@@ -46,9 +46,7 @@ const PaymentForm = () => {
   const handleSubmit = useCallback(async () => {
     const request: PaymentRequest = {
       bookingId: bookingResponse?.data.id ?? "",
-      total: !isUseCoin
-        ? bookingResponse?.data.total ?? 0
-        : booking?.total ?? 0 - (user?.coin ?? 0) * 1000,
+      total: bookingResponse?.data.total ?? 0,
       bankCode: paymentMethod,
       language,
       returnUrl: `${window.location.origin}/payment/check`,
@@ -58,14 +56,12 @@ const PaymentForm = () => {
     const res = await paymentVnPay(request);
     router.push(res.data.paymentUrl);
   }, [
-    booking?.total,
     bookingResponse?.data.id,
     bookingResponse?.data.total,
     isUseCoin,
     language,
     paymentMethod,
     router,
-    user?.coin,
   ]);
 
   const getBooking = useCallback(async () => {
@@ -111,15 +107,17 @@ const PaymentForm = () => {
         </span>
         {isUseCoin && (
           <span className="ml-3">
-            {formatPrice((booking?.total ?? 0) - (user?.coin ?? 0) * 1000)}
+            {formatPrice((booking?.total ?? 0) - (user?.coin ?? 0) * 100)}
           </span>
         )}
       </h1>
-
       <div className="flex items-center mb-2">
         <span className="text-gray-600 mr-4">Bạn có</span>
         <span className="font-semibold text-red-500 ">{user?.coin} coins</span>
       </div>
+      <p className="text-indigo-700 font-medium ml-6 ">
+        10 coin giảm 1000 đồng
+      </p>
       <div className="flex items-center">
         <Checkbox
           onChange={onChange}

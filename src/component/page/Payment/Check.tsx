@@ -11,6 +11,7 @@ interface QueryParams {
 
 const PaymentCheck = () => {
   const [isSuccess, setIsSuccess] = useState(true);
+  const [error, setError] = useState<string>();
 
   const queryToObject = (): QueryParams | undefined => {
     if (typeof window !== "undefined") {
@@ -37,7 +38,8 @@ const PaymentCheck = () => {
         await paymentCheck(queryParams);
       }
       setIsSuccess(true);
-    } catch {
+    } catch (error: any) {
+      setError(error?.response?.data?.message);
       setIsSuccess(false);
     }
   }, [queryParams]);
@@ -91,11 +93,12 @@ const PaymentCheck = () => {
         <h1 className="text-3xl font-bold text-center mb-4">
           {isSuccess ? "Giao dịch thành công" : "Giao dịch thất bại"}
         </h1>
+        {!!error && <p className="text-red-500 font-bold">Lý do: {error}</p>}
         <p className="text-center text-gray-700 mb-2">
           Mã giao dịch: {queryParams?.vnp_TransactionNo}
         </p>
         <p className="text-center text-gray-700 mb-6">
-          Số tiền: {formatPrice(Number(queryParams?.vnp_Amount))}
+          Số tiền: {formatPrice(Number(queryParams?.vnp_Amount) / 100)}
         </p>
         <button
           className="w-full py-3 px-4 rounded bg-blue-500 text-white font-semibold hover:bg-blue-600 transition duration-300"
