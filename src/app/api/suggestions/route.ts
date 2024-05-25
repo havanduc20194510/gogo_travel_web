@@ -6,7 +6,6 @@ import { OpenAI } from 'openai';
 
 const GET = async (request: Request) => {
 
-  const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
   try {
     const { searchParams } = new URL(request.url);
     const location = searchParams.get('location');
@@ -41,13 +40,13 @@ const GET = async (request: Request) => {
     }
 
      // Tạo text prompt từ các tham số
-  let textPrompt = `Gợi ý top 4 địa điểm vui chơi ở ${location} vào thời gian ${time}`;
-  if (activity) textPrompt += ` có hoạt động ${activity}.`;
-  textPrompt += 'Format dưới dạng Location - Description';
+    let textPrompt = `Gợi ý top 3 địa điểm vui chơi ở ${location} vào thời gian ${time}`;
+    if (activity) textPrompt += ` có hoạt động ${activity}.`;
+    textPrompt += 'Format dưới dạng Location - Description.';
 
-  // Khởi tạo đối tượng OpenAI với API key
-  const openai = new OpenAI();
-  openai.apiKey = OPENAI_API_KEY as string;
+    // Khởi tạo đối tượng OpenAI với API key
+    const openai = new OpenAI();
+    openai.apiKey = "sk-proj-LJANS3nXDAXSGKLSyi0RT3BlbkFJJn49ipOBOFpSNkLhVaef"
 
   try {
     // Gửi yêu cầu tới OpenAI API để tạo nội dung
@@ -71,16 +70,27 @@ const GET = async (request: Request) => {
 
       if (location) {
         // Gửi yêu cầu tới OpenAI API để tạo hình ảnh
-        const image = await openai.images.generate({
-          prompt: 'Ảnh thực tế của ' + location,
-          n: 1,
-          size: '512x512',
-        });
-        destinations.push({
-          location,
-          description,
-          img: image.data[0].url,
-        });
+        try {
+          const image = await openai.images.generate({
+            prompt: 'Ảnh thực tế của ' + location,
+            n: 1,
+            size: '512x512',
+          });
+          destinations.push({
+            location,
+            description,
+            img: image.data[0].url,
+          });
+        }
+        catch(error){
+          console.log(error);
+          return new NextResponse(
+          JSON.stringify({ error: 'Lỗi khi call api generate ảnh.' }),
+          {
+            status: 500,
+          }
+          );
+        }
       }
     }
 
@@ -92,8 +102,9 @@ const GET = async (request: Request) => {
     });
 
   } catch (error) {
+    console.log(error);
     return new NextResponse(
-      JSON.stringify({ error: 'An error occurred when call open ai.' }),
+      JSON.stringify({ error: 'Lỗi khi call api địa điểm.' }),
       {
         status: 500,
       }
@@ -101,6 +112,7 @@ const GET = async (request: Request) => {
   }
   }
   catch (error) {
+    console.log(error);
     return new NextResponse(
       JSON.stringify({ error: 'An error occurred when get params.' }),
       {
