@@ -40,13 +40,13 @@ const GET = async (request: Request) => {
     }
 
      // Tạo text prompt từ các tham số
-    let textPrompt = `Gợi ý top 3 địa điểm vui chơi ở ${location} vào thời gian ${time}`;
+    let textPrompt = `Gợi ý top 5 địa điểm vui chơi ở ${location} vào thời gian ${time}`;
     if (activity) textPrompt += ` có hoạt động ${activity}.`;
     textPrompt += 'Format dưới dạng Location - Description.';
 
     // Khởi tạo đối tượng OpenAI với API key
     const openai = new OpenAI();
-    openai.apiKey = "sk-proj-LJANS3nXDAXSGKLSyi0RT3BlbkFJJn49ipOBOFpSNkLhVaef"
+    openai.apiKey = "sk-my-travel-app-B7ycXtdyd1szASxCUmZBT3BlbkFJLTAR8qPfw9fyFHHp8uX9"
 
   try {
     // Gửi yêu cầu tới OpenAI API để tạo nội dung
