@@ -48,7 +48,6 @@ const BookingForm: FC<Props> = ({ tour }) => {
       try {
         const res = await createBooking({
           ...values,
-          userId: user?.id ?? "",
           tourId: id,
           numberOfAdults: Number(values.numberOfAdults),
           numberOfChildren: Number(values.numberOfChildren),
@@ -73,7 +72,7 @@ const BookingForm: FC<Props> = ({ tour }) => {
         }
       }
     },
-    [departureTimes, id, router, user?.id]
+    [departureTimes, id, router]
   );
 
   return (
