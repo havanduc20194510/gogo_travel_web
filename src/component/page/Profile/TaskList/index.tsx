@@ -1,18 +1,16 @@
 import { TaskStatus } from "@/component/ui/TaskStatus";
 import { Task } from "@/models/task/get";
 import { User } from "@/models/user/get";
-import { getMyTask, getTaskByEmail } from "@/service/task";
-import { getUserById } from "@/service/user";
+import { getMyTask } from "@/service/task";
 import { useCallback, useEffect, useState } from "react";
 
 export const TaskList = ({ userInfo }: { userInfo?: User }) => {
   const [taskList, setTaskList] = useState<Task[]>();
-  console.log(userInfo, "userInfo");
 
   const getTaskList = useCallback(async () => {
     const res = await getMyTask();
     setTaskList(res.data);
-  },[]);
+  }, []);
 
   useEffect(() => {
     getTaskList();

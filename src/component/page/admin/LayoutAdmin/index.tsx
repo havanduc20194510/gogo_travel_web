@@ -94,7 +94,7 @@ export const LayoutAdmin: React.FC<Props> = ({ children }) => {
                 <Menu
                   defaultSelectedKeys={[pathname]}
                   mode="inline"
-                  style={{ minHeight: "100vh" }}
+                  style={{ minHeight: "100%" }}
                   theme="dark"
                 >
                   {(isGameManage ? gameMenuList : menuList).map((menu) => {

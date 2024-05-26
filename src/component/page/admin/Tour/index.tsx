@@ -191,7 +191,7 @@ const TourPage: FC = () => {
         />
       )}
       <Pagination
-        className="mt-4"
+        className="mt-4 flex justify-end"
         current={page}
         pageSize={pageSize}
         total={totalPage * pageSize}

@@ -1,5 +1,5 @@
 import { CreateTaskRequest } from "@/models/task/add";
-import { GetTaskResponse } from "@/models/task/get";
+import { GetTaskResponse, SearchTaskRequest } from "@/models/task/get";
 import httpCLient from "@/utils/httpClient";
 
 export const createTask = (request: CreateTaskRequest) => {
@@ -14,8 +14,10 @@ export const verifyTask = (userTaskId: string) => {
   return httpCLient.post(`/user-task/verify/${userTaskId}`, { userTaskId });
 };
 
-export const getTaskByEmail = (email: string): Promise<GetTaskResponse> => {
-  return httpCLient.get("/user-task/get-by-email", { email });
+export const getTaskByPhoneOrEmail = (
+  request?: SearchTaskRequest
+): Promise<GetTaskResponse> => {
+  return httpCLient.get("/user-task/get-by-phone-or-email", request);
 };
 
 export const getMyTask = (): Promise<GetTaskResponse> => {

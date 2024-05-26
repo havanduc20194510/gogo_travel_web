@@ -19,3 +19,8 @@ export interface Task {
   taskDeadline: string;
   taskStatus: string;
 }
+
+export type SearchTaskRequest = {
+  phone?: string;
+  email?: string;
+};
