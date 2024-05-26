@@ -1,5 +1,5 @@
 import { CreateTaskRequest } from "@/models/task/add";
-import { GetTaskResponse, SearchTaskRequest } from "@/models/task/get";
+import { GetTaskResponse, SearchFormRequest } from "@/models/task/get";
 import httpCLient from "@/utils/httpClient";
 
 export const createTask = (request: CreateTaskRequest) => {
@@ -15,7 +15,7 @@ export const verifyTask = (userTaskId: string) => {
 };
 
 export const getTaskByPhoneOrEmail = (
-  request?: SearchTaskRequest
+  request?: SearchFormRequest
 ): Promise<GetTaskResponse> => {
   return httpCLient.get("/user-task/get-by-phone-or-email", request);
 };

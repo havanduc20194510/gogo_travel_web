@@ -40,7 +40,7 @@ export default function Plan({ tour, averageRating }: Props) {
         <h1 className="text-xl font-bold my-5">Khởi hành</h1>
         <ul className="list-disc ml-10">
           <li>
-            Thời gian:
+            Thời gian:{" "}
             {tour.departureTimes?.length
               ? tour.departureTimes?.[0]?.startDate
               : "Chưa có"}

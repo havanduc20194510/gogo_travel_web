@@ -20,7 +20,7 @@ export interface Task {
   taskStatus: string;
 }
 
-export type SearchTaskRequest = {
+export type SearchFormRequest = {
   phone?: string;
   email?: string;
 };

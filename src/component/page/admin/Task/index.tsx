@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useState, useMemo } from "react";
 import { Button, Input, Table, TableProps, message } from "antd";
 import { TaskStatus } from "@/component/ui/TaskStatus";
-import { SearchTaskRequest, Task } from "@/models/task/get";
+import { SearchFormRequest, Task } from "@/models/task/get";
 import { getAllTask, getTaskByPhoneOrEmail, verifyTask } from "@/service/task";
 
 export type NotificationType = "success" | "info" | "warning" | "error";
@@ -21,7 +21,7 @@ interface UserTask {
 
 const TaskList = () => {
   const [taskList, setTaskList] = useState<Task[]>();
-  const [searchForm, setSearchForm] = useState<SearchTaskRequest>();
+  const [searchForm, setSearchForm] = useState<SearchFormRequest>();
 
   const getTask = useCallback(async () => {
     const res = await getAllTask();
