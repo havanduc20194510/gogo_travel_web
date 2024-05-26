@@ -23,3 +23,7 @@ export const getTourAverageRating = (
 ): Promise<GetAverageRatingResponse> => {
   return httpCLient.get(`/tour-reviews/average-rating/${tourId}`);
 };
+
+export const getTopTourReview = (): Promise<GetTourReviewResponse> => {
+  return httpCLient.get(`/tour-reviews/top-3`);
+};
