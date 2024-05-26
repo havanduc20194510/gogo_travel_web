@@ -4,7 +4,6 @@
 import { Tour } from "@/models/tour/get";
 import Slide from "./Slide";
 import Form from "../Form";
-import { formatPrice } from "@/utils/price";
 import { PriceTable } from "./PriceTable";
 import { AverageRating } from "@/models/review/get";
 import { Rate } from "antd";

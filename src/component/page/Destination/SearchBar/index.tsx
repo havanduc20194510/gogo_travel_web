@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useCallback } from "react";
+import { ChangeEvent, FC } from "react";
 
 type Props = {
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;

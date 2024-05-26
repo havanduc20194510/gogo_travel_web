@@ -90,6 +90,7 @@ export default function TourItem({ tour }: Props) {
           alt=""
           className="mb-6 shadow-md rounded-lg bg-slate-50  sm:mb-0"
           width={150}
+          preview={false}
         />
       </li>
     </Link>
