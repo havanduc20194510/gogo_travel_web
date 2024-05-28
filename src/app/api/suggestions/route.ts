@@ -23,7 +23,7 @@ const GET = async (request: Request) => {
 
     if(!time) {
       return new NextResponse(
-        JSON.stringify({ error: 'Missing month parameter' }),
+        JSON.stringify({ error: 'Missing time parameter' }),
         {
           status: 400,
         }
@@ -45,8 +45,7 @@ const GET = async (request: Request) => {
     textPrompt += 'Format dưới dạng Location - Description.';
 
     // Khởi tạo đối tượng OpenAI với API key
-    const openai = new OpenAI();
-    openai.apiKey = "sk-my-travel-app-B7ycXtdyd1szASxCUmZBT3BlbkFJLTAR8qPfw9fyFHHp8uX9"
+    const openai = new OpenAI({apiKey:"sk-my-travel-app-test-eJbSBxpQ3Xy7ITjF7CZJT3BlbkFJjNaHLiGaCW3YPTs0teV6"});
 
   try {
     // Gửi yêu cầu tới OpenAI API để tạo nội dung
