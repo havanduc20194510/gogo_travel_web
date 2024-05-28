@@ -1,12 +1,13 @@
 "use client";
 
-import Footer from "@/component/layout/Footer";
-import Navbar from "@/component/layout/Navbar";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-import { Spin } from "antd";
-import axios from "axios";
-import { useSearchParams } from "next/navigation";
+import { Flex } from "@chakra-ui/react";
 import { useCallback, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import {getPlacesData} from "../../../service/map"
+import List from "./List";
+import MapHeader from "./MapHeader";
+import MapBox from './MapBox/index';
+import axios from "axios";
 
 const mapContainerStyle = {
   height: "100vh",
@@ -18,15 +19,22 @@ type Center = {
   lng: number;
 };
 
-const MAP_KEY = "AIzaSyDm9pPMTMrXoIof6QiL2OuBaMeRRfVDdCQ";
-const COORDINATES_URL = "https://maps.googleapis.com/maps/api/geocode/json";
-
-export default function Map() {
+const Map = () => {
+  
+  const MAP_KEY = "AIzaSyDm9pPMTMrXoIof6QiL2OuBaMeRRfVDdCQ";
+  const COORDINATES_URL = "https://maps.googleapis.com/maps/api/geocode/json";
+  
   const [center, setCenter] = useState<Center>();
+  const [places, setPlaces] = useState([]);
+  const [filteredPlaces, setFilteredPlaces] = useState([]);
+  const [coordinates, setCoordinates] = useState({});
+  const [bounds, setBounds] = useState(null);
+  const [type, setType] = useState("restaurants");
+  const [ratings, setRatings] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const searchParams = useSearchParams();
   const address = searchParams.get("address") ?? undefined;
 
-  const [loading, setLoading] = useState(false);
 
   const getCurrentLocation = useCallback(() => {
     if (navigator.geolocation) {
@@ -57,7 +65,9 @@ export default function Map() {
 
       if (response.data.status === "OK") {
         const location = response.data.results[0].geometry.location;
+        console.log(location)
         setCenter(location);
+        setBounds(location);
       } else {
         throw new Error("Geocoding failed: " + response.data.status);
       }
@@ -68,14 +78,14 @@ export default function Map() {
 
   const getLocation = useCallback(async () => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       if (!address) {
         await getCurrentLocation();
       } else {
         await getCoordinatesFromAddress();
       }
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }, [address, getCoordinatesFromAddress, getCurrentLocation]);
 
@@ -83,27 +93,51 @@ export default function Map() {
     getLocation();
   }, [getLocation]);
 
+  
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   if (bounds) {
+  //     getPlacesData(type, bounds?.sw, bounds?.ne).then((data) => {
+  //       console.log(data);
+  //       setPlaces(data);
+  //       setIsLoading(false);
+  //     });
+  //   }
+  // }, [type, coordinates, bounds]);
+
+
+
   return (
-    <div>
-      <Navbar />
-      <div className="pt-[56px]">
-        {loading || !center ? (
-          <div className="h-screen flex items-center justify-center">
-            <Spin tip="Loading..." />
-          </div>
-        ) : (
-          <LoadScript googleMapsApiKey={MAP_KEY}>
-            <GoogleMap
-              mapContainerStyle={mapContainerStyle}
-              center={center}
-              zoom={15}
-            >
-              <Marker position={center} />
-            </GoogleMap>
-          </LoadScript>
-        )}
-      </div>
-      <Footer />
-    </div>
+    <Flex
+      justifyContent={"center"}
+      alignItems={"center"}
+      width={"100vw"}
+      height={"100vh"}
+      maxWidth={"100vw"}
+      maxHeight={"100vh"}
+      position={"relative"}
+    >
+      
+      <MapHeader
+        setType={setType}
+        setRatings={setRatings}
+      />
+
+      <List
+        places={filteredPlaces.length ? filteredPlaces : places}
+        isLoading={isLoading}
+      />
+
+      <MapBox
+        isloading={isLoading}
+        mapContainerStyle={mapContainerStyle}
+        setCoordinates={setCoordinates}
+        coordinates={coordinates}
+        setBounds={setBounds}
+        places={filteredPlaces.length ? filteredPlaces : places}
+      />
+    </Flex>
   );
-}
+};
+
+export default Map;
