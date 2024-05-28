@@ -3,7 +3,7 @@ import { DestinationItem } from '@/models/suggestion/get';
 import { NextResponse } from 'next/server';
 import { OpenAI } from 'openai';
 
-
+export const maxDuration = 60; // This function can run for a maximum of 60 seconds
 const GET = async (request: Request) => {
 
   try {
