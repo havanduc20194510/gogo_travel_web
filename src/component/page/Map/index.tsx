@@ -1,13 +1,15 @@
 "use client";
 
-import { Flex } from "@chakra-ui/react";
-import { useCallback, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
-import {getPlacesData} from "../../../service/map"
-import List from "./List";
-import MapHeader from "./MapHeader";
-import MapBox from './MapBox/index';
+import Footer from "@/component/layout/Footer";
+import Navbar from "@/component/layout/Navbar";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import { Spin } from "antd";
 import axios from "axios";
+import { useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+
+import { useRouter } from 'next/navigation'
+import List from "./Place/List";
 
 const mapContainerStyle = {
   height: "100vh",
@@ -19,21 +21,16 @@ type Center = {
   lng: number;
 };
 
-const Map = () => {
-  
-  const MAP_KEY = "AIzaSyDm9pPMTMrXoIof6QiL2OuBaMeRRfVDdCQ";
-  const COORDINATES_URL = "https://maps.googleapis.com/maps/api/geocode/json";
-  
+const MAP_KEY = "AIzaSyCFdaHqEutQgWVKGlMHCucA8kVPyGr4MRM";
+const COORDINATES_URL = "https://maps.googleapis.com/maps/api/geocode/json";
+
+export default function Map() {
   const [center, setCenter] = useState<Center>();
-  const [places, setPlaces] = useState([]);
-  const [filteredPlaces, setFilteredPlaces] = useState([]);
-  const [coordinates, setCoordinates] = useState({});
-  const [bounds, setBounds] = useState(null);
-  const [type, setType] = useState("restaurants");
-  const [ratings, setRatings] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const searchParams = useSearchParams();
   const address = searchParams.get("address") ?? undefined;
+
+  const [loading, setLoading] = useState(false);
+  const [bounds, setBounds] = useState<any>({});
 
 
   const getCurrentLocation = useCallback(() => {
@@ -65,79 +62,63 @@ const Map = () => {
 
       if (response.data.status === "OK") {
         const location = response.data.results[0].geometry.location;
-        console.log(location)
         setCenter(location);
-        setBounds(location);
+        const bounds_addr = response.data.results[0].geometry.bounds;
+        setBounds(bounds_addr);
       } else {
         throw new Error("Geocoding failed: " + response.data.status);
       }
     } catch (error) {
       // Do nothing
+      console.log(error);
     }
   }, [address]);
 
+
   const getLocation = useCallback(async () => {
     try {
-      setIsLoading(true);
+      setLoading(true);
       if (!address) {
         await getCurrentLocation();
       } else {
         await getCoordinatesFromAddress();
       }
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   }, [address, getCoordinatesFromAddress, getCurrentLocation]);
 
   useEffect(() => {
     getLocation();
   }, [getLocation]);
-
   
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   if (bounds) {
-  //     getPlacesData(type, bounds?.sw, bounds?.ne).then((data) => {
-  //       console.log(data);
-  //       setPlaces(data);
-  //       setIsLoading(false);
-  //     });
-  //   }
-  // }, [type, coordinates, bounds]);
-
-
 
   return (
-    <Flex
-      justifyContent={"center"}
-      alignItems={"center"}
-      width={"100vw"}
-      height={"100vh"}
-      maxWidth={"100vw"}
-      maxHeight={"100vh"}
-      position={"relative"}
-    >
-      
-      <MapHeader
-        setType={setType}
-        setRatings={setRatings}
-      />
+    <div>
+      <Navbar />
+      <div className="pt-[56px]">
+        {loading || !center ? (
+          <div className="h-screen flex items-center justify-center">
+            <Spin tip="Loading..." />
+          </div>
+        ) : (
+          <div className="flex items-center justify-center h-screen mb-8">
 
-      <List
-        places={filteredPlaces.length ? filteredPlaces : places}
-        isLoading={isLoading}
-      />
-
-      <MapBox
-        isloading={isLoading}
-        mapContainerStyle={mapContainerStyle}
-        setCoordinates={setCoordinates}
-        coordinates={coordinates}
-        setBounds={setBounds}
-        places={filteredPlaces.length ? filteredPlaces : places}
-      />
-    </Flex>
+            <List bounds={bounds} isLoading={loading} />
+            <LoadScript googleMapsApiKey={MAP_KEY}>
+                <GoogleMap
+                  mapContainerStyle={mapContainerStyle}
+                  center={center}
+                  zoom={15}
+                >
+                  <Marker position={center} />
+                </GoogleMap>
+              </LoadScript>
+            
+          </div>
+        )}
+      </div>
+      <Footer />
+    </div>
   );
-};
-
-export default Map;
+}
