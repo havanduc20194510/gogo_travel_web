@@ -31,7 +31,7 @@ export const LayoutAdmin: React.FC<Props> = ({ children }) => {
     pathname === "/admin/tour/add" ||
     pathname.includes("/admin/tour/edit")
       ? pathname
-      : "/admin";
+      : "/admin/tour";
 
   const user: User | undefined = getFromLocalStorage("user");
   const isGameManage = user?.roles?.includes("GAME_MANAGER");
@@ -45,6 +45,11 @@ export const LayoutAdmin: React.FC<Props> = ({ children }) => {
   ];
 
   const menuList = [
+    {
+      key: "/admin",
+      icon: React.createElement(CarOutlined),
+      label: "Biểu đồ",
+    },
     {
       key: tourKey,
       icon: React.createElement(CarOutlined),
