@@ -58,7 +58,7 @@ export default function Navbar() {
 
   if (userInfo?.roles?.includes("ADMIN") || isGameManage) {
     items.push({
-      label: <a href="/admin">Admin</a>,
+      label: <a href={`${isGameManage ? "/admin/task" : "/admin"}`}>Admin</a>,
       key: "2",
     });
   }
@@ -216,6 +216,27 @@ export default function Navbar() {
                     Yêu thích
                   </a>
                 </li>
+                {isMobile && (
+                  <>
+                    <li>
+                      <a
+                        href="/profile"
+                        className="block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-emerald-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                      >
+                        Trang cá nhân
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/login"
+                        onClick={handleLogout}
+                        className="block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-emerald-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                      >
+                        Logout
+                      </a>
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
           )}

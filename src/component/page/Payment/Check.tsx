@@ -53,7 +53,7 @@ const PaymentCheck = () => {
   }
 
   return (
-    <div className="flex items-center justify-center py-36 bg-gray-100">
+    <div className="flex items-center justify-center py-36 px-5 bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <div
           className={`flex items-center m-auto justify-center h-20 w-20 rounded-full mb-6 ${

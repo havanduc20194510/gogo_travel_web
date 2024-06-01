@@ -45,11 +45,16 @@ export default function Login() {
       openNotificationWithIcon("success", "Login thành công");
       saveToLocalStorage("user", res.data.user);
       saveToLocalStorage("token", res.data.token);
-      const redirectUrl = res.data.user.roles?.includes("ADMIN")
-        ? "/admin"
-        : "/";
 
-      router.push(redirectUrl);
+      if (res.data.user.roles?.includes("GAME_MANAGER")) {
+        router.push("/admin/task");
+      } else {
+        const redirectUrl = res.data.user.roles?.includes("ADMIN")
+          ? "/admin"
+          : "/";
+
+        router.push(redirectUrl);
+      }
     } catch (error: any) {
       openNotificationWithIcon("error", error.response.data.message ?? "");
     }

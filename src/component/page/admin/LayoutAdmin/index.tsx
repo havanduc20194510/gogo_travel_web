@@ -27,7 +27,7 @@ export const LayoutAdmin: React.FC<Props> = ({ children }) => {
   const pathname = usePathname();
 
   const tourKey =
-    pathname === "/admin" ||
+    pathname === "/admin/tour" ||
     pathname === "/admin/tour/add" ||
     pathname.includes("/admin/tour/edit")
       ? pathname
