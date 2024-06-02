@@ -45,7 +45,7 @@ const GET = async (request: Request) => {
     textPrompt += 'Format dưới dạng Location - Description.';
 
     // Khởi tạo đối tượng OpenAI với API key
-    const openai = new OpenAI({apiKey:"sk-my-travel-app-test-eJbSBxpQ3Xy7ITjF7CZJT3BlbkFJjNaHLiGaCW3YPTs0teV6"});
+    const openai = new OpenAI({apiKey:"sk-my-travel-service-1-7CkUaO1202Xqoc4ZdNh7T3BlbkFJnjMZF9INxiZbRNEaRJI1"});
 
   try {
     // Gửi yêu cầu tới OpenAI API để tạo nội dung

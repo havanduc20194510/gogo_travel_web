@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, CancelToken } from "axios";
 import { getFromLocalStorage } from "./localStorage";
 
-export const baseURL = "http://gogotravel.ap-southeast-1.elasticbeanstalk.com";
+export const baseURL = "https://gogotravel.ap-southeast-1.elasticbeanstalk.com";
 
 interface ApiRequest {}
 interface ApiResponse {}
