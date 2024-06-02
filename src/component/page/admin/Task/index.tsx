@@ -14,6 +14,7 @@ interface UserTask {
   phone: string;
   tourId: string;
   tourName: string;
+  taskName: string;
   bookingTourId: string;
   taskDeadline: string;
   taskStatus: string;
@@ -52,6 +53,11 @@ const TaskList = () => {
         title: "Phone",
         dataIndex: "phone",
         key: "phone",
+      },
+      {
+        title: "Task Name",
+        dataIndex: "taskName",
+        key: "taskName",
       },
       {
         title: "Tour Name",
