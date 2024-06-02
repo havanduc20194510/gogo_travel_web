@@ -14,6 +14,10 @@ export const getUserById = (id: string): Promise<GetUserResponse> => {
   return httpCLient.get(`${API_ENDPOINT}/${id}`);
 };
 
+export const deleteUser = (id: string): Promise<GetUserResponse> => {
+  return httpCLient.delete(`${API_ENDPOINT}/${id}`);
+};
+
 export const editUser = (
   id: string,
   request: Omit<User, "id">

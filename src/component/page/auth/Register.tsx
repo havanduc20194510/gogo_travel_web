@@ -47,11 +47,15 @@ export default function Register() {
       saveToLocalStorage("user", res.data.user);
       saveToLocalStorage("token", res.data.token);
 
-      const redirectUrl = res.data.user.roles?.includes("ADMIN")
-        ? "/admin"
-        : "/";
+      if (res.data.user.roles?.includes("GAME_MANAGER")) {
+        router.push("/admin/task");
+      } else {
+        const redirectUrl = res.data.user.roles?.includes("ADMIN")
+          ? "/admin"
+          : "/";
 
-      router.push(redirectUrl);
+        router.push(redirectUrl);
+      }
       openNotificationWithIcon("success", "Đăng ký thành công");
     } catch (error: any) {
       openNotificationWithIcon("error", error.response.data.message ?? "");

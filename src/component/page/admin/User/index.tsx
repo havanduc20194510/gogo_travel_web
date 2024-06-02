@@ -1,51 +1,14 @@
 import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
-import { Button, Space, Spin, Table } from "antd";
+import { Button, Space, Spin, Table, message } from "antd";
 import type { TableProps } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import Link from "next/link";
-import { getUser } from "@/service/user";
+import { deleteUser, getUser } from "@/service/user";
 import { User } from "@/models/user/get";
 
 type DataType = Pick<User, "address" | "email" | "username" | "phone"> & {
   key: string;
 };
-
-const columns: TableProps<DataType>["columns"] = [
-  {
-    title: "Name",
-    dataIndex: "username",
-    key: "username",
-  },
-  {
-    title: "Email",
-    dataIndex: "email",
-    key: "email",
-  },
-  {
-    title: "Phone",
-    dataIndex: "phone",
-    key: "phone",
-  },
-  {
-    title: "Address",
-    dataIndex: "address",
-    key: "address",
-  },
-  {
-    title: "Action",
-    key: "action",
-    render: (_, record) => (
-      <Space size="large">
-        <Link href={`/admin/tour/edit/${record.key}`}>
-          <EditOutlined />
-        </Link>
-        <a>
-          <DeleteOutlined />
-        </a>
-      </Space>
-    ),
-  },
-];
 
 const Users: FC = () => {
   const [userListResponse, setUserListResponse] = useState<User[]>();
@@ -62,6 +25,55 @@ const Users: FC = () => {
       setLoading(false);
     }
   }, []);
+
+  const handleDeleteUser = useCallback(
+    async (id: string) => {
+      try {
+        await deleteUser(id);
+        await loadUser();
+      } catch (error: any) {
+        message.error(error.response.data.message ?? "");
+      }
+    },
+    [loadUser]
+  );
+
+  const columns: TableProps<DataType>["columns"] = [
+    {
+      title: "Name",
+      dataIndex: "username",
+      key: "username",
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+    },
+    {
+      title: "Phone",
+      dataIndex: "phone",
+      key: "phone",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (_, record) => (
+        <Space size="large">
+          <Link href={`/admin/tour/edit/${record.key}`}>
+            <EditOutlined />
+          </Link>
+          <a>
+            <DeleteOutlined onClick={() => handleDeleteUser(record.key)} />
+          </a>
+        </Space>
+      ),
+    },
+  ];
 
   const userData: DataType[] = useMemo(() => {
     return (userListResponse ?? []).map((user) => ({
