@@ -21,7 +21,7 @@ type Center = {
   lng: number;
 };
 
-const MAP_KEY = "AIzaSyAsk8uaPyiTz3PV3E_k7i3ZhnsGUmUEJRU";
+const MAP_KEY = "AIzaSyCQv7PR6dM3BHDs7KH4aN3FH26rcFdF8yg";
 const COORDINATES_URL = "https://maps.googleapis.com/maps/api/geocode/json";
 
 export default function Map() {
