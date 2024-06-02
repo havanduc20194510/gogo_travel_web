@@ -8,6 +8,9 @@ import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
+import { useRouter } from 'next/navigation'
+import List from "./Place/List";
+
 const mapContainerStyle = {
   height: "100vh",
   width: "100%",
@@ -18,7 +21,7 @@ type Center = {
   lng: number;
 };
 
-const MAP_KEY = "AIzaSyDm9pPMTMrXoIof6QiL2OuBaMeRRfVDdCQ";
+const MAP_KEY = "AIzaSyCQv7PR6dM3BHDs7KH4aN3FH26rcFdF8yg";
 const COORDINATES_URL = "https://maps.googleapis.com/maps/api/geocode/json";
 
 export default function Map() {
@@ -27,6 +30,8 @@ export default function Map() {
   const address = searchParams.get("address") ?? undefined;
 
   const [loading, setLoading] = useState(false);
+  const [bounds, setBounds] = useState<any>({});
+
 
   const getCurrentLocation = useCallback(() => {
     if (navigator.geolocation) {
@@ -58,13 +63,17 @@ export default function Map() {
       if (response.data.status === "OK") {
         const location = response.data.results[0].geometry.location;
         setCenter(location);
+        const bounds_addr = response.data.results[0].geometry.bounds;
+        setBounds(bounds_addr);
       } else {
         throw new Error("Geocoding failed: " + response.data.status);
       }
     } catch (error) {
       // Do nothing
+      console.log(error);
     }
   }, [address]);
+
 
   const getLocation = useCallback(async () => {
     try {
@@ -82,6 +91,7 @@ export default function Map() {
   useEffect(() => {
     getLocation();
   }, [getLocation]);
+  
 
   return (
     <div>
@@ -92,15 +102,20 @@ export default function Map() {
             <Spin tip="Loading..." />
           </div>
         ) : (
-          <LoadScript googleMapsApiKey={MAP_KEY}>
-            <GoogleMap
-              mapContainerStyle={mapContainerStyle}
-              center={center}
-              zoom={15}
-            >
-              <Marker position={center} />
-            </GoogleMap>
-          </LoadScript>
+          <div className="flex items-center justify-center h-screen mb-8">
+
+            <List bounds={bounds} isLoading={loading} />
+            <LoadScript googleMapsApiKey={MAP_KEY}>
+                <GoogleMap
+                  mapContainerStyle={mapContainerStyle}
+                  center={center}
+                  zoom={15}
+                >
+                  <Marker position={center} />
+                </GoogleMap>
+              </LoadScript>
+            
+          </div>
         )}
       </div>
       <Footer />
