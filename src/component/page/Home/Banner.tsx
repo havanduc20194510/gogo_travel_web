@@ -41,9 +41,9 @@ export default function Banner({
             Vùng đất mới con người mới
           </h1>
           <p className="text-lg text-gray-300 mb-8">
-            Đón bình minh ở một nơi xa, cảm nhận sự bình yên của đát trời.{" "}
+            Đón bình minh ở một nơi xa, cảm nhận sự bình yên của đất trời.{" "}
             <br />
-            Cuộc sống bình yên là vậy, thư giản, giao lưu và trải nghiệm
+            Cuộc sống bình yên là vậy, thư giản, giao lưu và trải nghiệm.
           </p>
           <div>
             <label
@@ -83,7 +83,7 @@ export default function Banner({
               />
               <input
                 id="search-bar"
-                placeholder="Điểm xuất phát"
+                placeholder="Khởi hành"
                 name="departureLocation"
                 className="px-6 py-2 w-full flex-1 outline-none bg-white text-black border-r border-black"
                 onChange={(event) => {

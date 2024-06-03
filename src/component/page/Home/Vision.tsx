@@ -18,9 +18,7 @@ export default function Navbar() {
             Cùng khám phá những điều tuyệt vời
           </h1>
           <p className="mb-8 md:pl-0  pl-2 pr-2 leading-relaxed dark:text-gray-300">
-            Short description here, Short description here Short description
-            here Short description here Short description here Short description
-            here.
+          Du lịch mang lại nhiều giá trị quý báu, từ mở rộng tầm nhìn và kiến thức đến cải thiện sức khỏe tinh thần và thể chất. Khám phá những nền văn hóa, lịch sử và phong tục mới giúp con người hiểu biết và đồng cảm hơn. 
           </p>
           <div className="flex flex-wrap w-full">
             <div className="p-2 sm:w-1/2 ">
@@ -30,14 +28,6 @@ export default function Navbar() {
             <div className="p-2 sm:w-1/2 w-full">
               <p className="text-xl font-bold text-emerald-800">100+</p>
               <p>Điểm đến</p>
-            </div>
-            <div className="p-2 sm:w-1/2 w-full">
-              <p className="text-xl font-bold text-emerald-800">68</p>
-              <p>Elite Transportation</p>
-            </div>
-            <div className="p-2 sm:w-1/2 w-full">
-              <p className="text-xl font-bold text-emerald-800">32M+</p>
-              <p>we help to find your dream place</p>
             </div>
           </div>
         </div>
