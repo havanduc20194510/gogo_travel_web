@@ -98,7 +98,9 @@ const PaymentCheck = () => {
               )}
             </div>
             <h1 className="text-3xl font-bold text-center mb-4">
-              {isSuccess ? "Giao dịch thành công" : "Giao dịch thất bại"}
+              {isSuccess && !error
+                ? "Giao dịch thành công"
+                : "Giao dịch thất bại"}
             </h1>
             {!!error && (
               <p className="text-red-500 font-bold">Lý do: {error}</p>
