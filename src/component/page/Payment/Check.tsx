@@ -15,34 +15,23 @@ const PaymentCheck = () => {
   const [isSuccess, setIsSuccess] = useState(true);
   const [error, setError] = useState<string>();
 
-  const [isMobile, setIsMobile] = useState(true);
-
-  useEffect(() => {
-    const updateMedia = () => {
-      setIsMobile(window.innerWidth <= 1025);
-    };
-
-    updateMedia();
-
-    window.addEventListener("resize", updateMedia);
-    return () => {
-      window.removeEventListener("resize", updateMedia);
-    };
-  }, []);
-
   const queryToObject = (): QueryParams | undefined => {
     if (typeof window !== "undefined") {
-      const url = window.location.href;
-      const urlObj = new URL(url);
+      try {
+        const url = window.location.href;
+        const urlObj = new URL(url);
 
-      const queryString = urlObj.search;
+        const queryString = urlObj.search;
 
-      const params = new URLSearchParams(queryString);
-      const queryParams: QueryParams = {};
-      params.forEach((value, key) => {
-        queryParams[key] = value;
-      });
-      return queryParams;
+        const params = new URLSearchParams(queryString);
+        const queryParams: QueryParams = {};
+        params.forEach((value, key) => {
+          queryParams[key] = value;
+        });
+        return queryParams;
+      } catch (e) {
+        return undefined;
+      }
     }
     return undefined;
   };
@@ -65,13 +54,11 @@ const PaymentCheck = () => {
     check();
   }, [check]);
 
-  if (!queryParams) {
-    return null;
-  }
-
   return (
     <>
-      {!isMobile && <Navbar />}
+      <div className="hidden sm:block">
+        <Navbar />
+      </div>
       <div className="py-20 content">
         <div className="flex items-center justify-center md:py-36 py-10 px-5 bg-gray-100">
           <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
@@ -131,7 +118,9 @@ const PaymentCheck = () => {
           </div>
         </div>
       </div>
-      {!isMobile && <Footer />}
+      <div className="hidden sm:block">
+        <Footer />
+      </div>
     </>
   );
 };
