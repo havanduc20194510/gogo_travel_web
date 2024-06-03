@@ -64,10 +64,10 @@ const PaymentCheck = () => {
           <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
             <div
               className={`flex items-center m-auto justify-center h-20 w-20 rounded-full mb-6 ${
-                isSuccess ? "bg-green-100" : "bg-red-100"
+                isSuccess && !error ? "bg-green-100" : "bg-red-100"
               }`}
             >
-              {isSuccess ? (
+              {isSuccess && !error ? (
                 <svg
                   className="h-12 w-12 text-green-600"
                   fill="none"
