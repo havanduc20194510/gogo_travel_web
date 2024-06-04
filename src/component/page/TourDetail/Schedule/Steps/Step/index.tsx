@@ -6,14 +6,15 @@ import ScheduleTable from "./ScheduleTable";
 
 type Props = {
   schedule?: Schedule;
+  index: number;
 };
 
-export default function Step({ schedule }: Props) {
+export default function Step({ schedule, index }: Props) {
   return (
     <div className="flex">
       <div className="mr-4 flex flex-col items-center">
         <div className="flex h-10 w-10 leading-10	 items-center justify-center text-white rounded-xl bg-amber-600 ">
-          {schedule?.id}
+          {index + 1}
         </div>
         <div className="h-full border-dashed border border-amber-600" />
       </div>
