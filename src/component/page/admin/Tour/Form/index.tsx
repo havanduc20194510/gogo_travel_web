@@ -120,7 +120,7 @@ const TourForm: React.FC = () => {
         }
 
         await uploadTourImage(res.data.tourId, fileList);
-        router.push("/admin");
+        router.push("/admin/tour");
       } catch {
         //Do nothing
       } finally {
