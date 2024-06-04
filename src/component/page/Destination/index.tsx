@@ -12,7 +12,7 @@ export default function Destination() {
   const [loading, setLoading] = useState(false);
   const [placeList, setPlaceList] = useState<Place[]>();
   const [page, setPage] = useState(1);
-  const pageSize = 10;
+  const pageSize = 12;
   const [totalPage, setTotalPage] = useState<number>(0);
   const [formData, setFormData] = useState<SearchPlaceRequest>({
     name: "",

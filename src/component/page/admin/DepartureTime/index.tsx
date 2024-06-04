@@ -36,8 +36,10 @@ export const DepartureTimePage = () => {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await getDepartureTimesByTourId(tourId);
-      setData(response.data);
+      if (!!tourId) {
+        const response = await getDepartureTimesByTourId(tourId);
+        setData(response.data);
+      }
     } catch (error) {
       message.error("Không thể lấy dữ liệu");
     } finally {

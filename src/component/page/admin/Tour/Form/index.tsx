@@ -73,7 +73,7 @@ const TourForm: React.FC = () => {
   const loadTour = useCallback(async () => {
     setLoading(true);
     try {
-      if (id) {
+      if (!!id) {
         const response = await getTour(id);
         setTourResponse(response);
       }
@@ -113,14 +113,14 @@ const TourForm: React.FC = () => {
 
       try {
         let res;
-        if (id) {
+        if (!!id) {
           res = await updateTour(id, values);
         } else {
           res = await addTour(values);
         }
 
         await uploadTourImage(res.data.tourId, fileList);
-        router.push("/admin");
+        router.push("/admin/tour");
       } catch {
         //Do nothing
       } finally {
