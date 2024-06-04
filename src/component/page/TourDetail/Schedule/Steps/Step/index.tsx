@@ -34,7 +34,6 @@ export default function Step({ schedule }: Props) {
                   <th className="border bg-slate-200 px-4 py-2">Description</th>
                   <th className="border bg-slate-200 px-4 py-2">Coin</th>
                   <th className="border bg-slate-200 px-4 py-2">Reward</th>
-                  <th className="border bg-slate-200 px-4 py-2">Deadline</th>
                   <th className="border bg-slate-200 px-4 py-2">Type</th>
                 </tr>
               </thead>
