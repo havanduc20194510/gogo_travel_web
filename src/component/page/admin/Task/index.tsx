@@ -36,7 +36,7 @@ const TaskList = () => {
         message.success("Xác nhận task thành công");
         await getTask();
       } catch (error: any) {
-        message.error("Xác nhận task lỗi");
+        message.error(error.response.data.message ?? "");
       }
     },
     [getTask]
