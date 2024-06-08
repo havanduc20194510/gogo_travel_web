@@ -1,6 +1,7 @@
 import {
   GetMonthlyTotalResponse,
   GetTaskStatusStatisticsResponse,
+  GetTotalGuessStatisticsResponse,
 } from "@/models/chart/chart";
 import httpCLient from "@/utils/httpClient";
 
@@ -13,3 +14,7 @@ export const getTaskStatusStatistics =
   (): Promise<GetTaskStatusStatisticsResponse> => {
     return httpCLient.get(`/user-task/get-task-status-statistics`);
   };
+
+export const getTotalGuessStatistics = (): Promise<GetTotalGuessStatisticsResponse> => {
+  return httpCLient.get(`/booking/get-total-guests`);
+};
