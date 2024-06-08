@@ -38,7 +38,7 @@ export default function DestinationItem({ place }: Props) {
             </div>
           </div>
         </div>
-        <View totalView={place.totalView} />
+        {/* <View totalView={place.totalView} /> */}
       </div>
     </Link>
   );

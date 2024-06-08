@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -11,6 +11,7 @@ import {
   Legend,
   Filler,
 } from "chart.js";
+import { getMonthlyTotal } from "@/service/chart";
 
 ChartJS.register(
   CategoryScale,
@@ -24,7 +25,20 @@ ChartJS.register(
 );
 
 const SalesChart: React.FC = () => {
-  const data2024 = [0, 0, 0, 0, 238370000, 17480000, 0, 0, 0, 0, 0, 0];
+  const [currentData, setCurrentData] = useState<Number[]>([]);
+
+  const getMonthlyTotalData = useCallback(async () => {
+    try {
+      const res = await getMonthlyTotal();
+      setCurrentData(res.data);
+    } catch {
+      //Do nothing
+    }
+  }, []);
+
+  useEffect(() => {
+    getMonthlyTotalData();
+  }, [getMonthlyTotalData]);
 
   const labels = [
     "Tháng 1",
@@ -46,7 +60,7 @@ const SalesChart: React.FC = () => {
     datasets: [
       {
         label: "2024",
-        data: data2024,
+        data: currentData,
         borderColor: "rgba(54, 162, 235, 1)",
         backgroundColor: "rgba(54, 162, 235, 0.2)",
         fill: true,

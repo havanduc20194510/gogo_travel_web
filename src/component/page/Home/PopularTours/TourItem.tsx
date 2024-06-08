@@ -63,7 +63,7 @@ export default function TourItem({ tour, colSpan = "1" }: Props) {
           </div>
         </div>
       </div>
-      <View totalView={tour.totalView} />
+      {/* <View totalView={tour.totalView} /> */}
     </Link>
   );
 }
