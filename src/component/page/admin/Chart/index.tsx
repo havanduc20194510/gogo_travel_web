@@ -77,7 +77,7 @@ const SalesChart: React.FC = () => {
       },
       title: {
         display: true,
-        text: "Doanh thu vnđ",
+        text: "Biểu đồ tổng doanh thu vnđ",
       },
     },
     scales: {
@@ -95,7 +95,7 @@ const SalesChart: React.FC = () => {
     },
   };
 
-  return <Line data={chartData} options={options} />;
+  return <Line data={chartData} options={options} className="h-28"/>;
 };
 
 export default SalesChart;

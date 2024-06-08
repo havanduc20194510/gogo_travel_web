@@ -61,7 +61,7 @@ const TaskCompletionChart: React.FC = () => {
   };
 
   return (
-    <div style={{ width: "100%", height: "600px", margin: "0 auto" }}>
+    <div style={{ width: "90%", height: "400px", margin: "0 auto" }}>
       <h1 className="my-10 text-center font-bold text-2xl text-[#5a5959]">
         Biểu đồ tỉ lệ hoàn thành task
       </h1>

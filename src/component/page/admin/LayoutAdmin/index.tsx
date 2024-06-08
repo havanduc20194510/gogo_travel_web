@@ -40,7 +40,7 @@ export const LayoutAdmin: React.FC<Props> = ({ children }) => {
     {
       key: "/admin/task",
       icon: React.createElement(AccountBookOutlined),
-      label: "Task",
+      label: "Quản lý Task",
     },
   ];
 
@@ -48,27 +48,27 @@ export const LayoutAdmin: React.FC<Props> = ({ children }) => {
     {
       key: "/admin",
       icon: React.createElement(CarOutlined),
-      label: "Biểu đồ",
+      label: "Biểu đồ thống kê",
     },
     {
       key: tourKey,
       icon: React.createElement(CarOutlined),
-      label: "Tour",
+      label: "Quản lý tour",
     },
     {
       key: "/admin/user",
       icon: React.createElement(UserOutlined),
-      label: "User",
+      label: "Quản lý người dùng",
     },
     {
       key: "/admin/booking",
       icon: React.createElement(AccountBookOutlined),
-      label: "Booking",
+      label: "Quản lý Booking",
     },
     {
       key: "/admin/task",
       icon: React.createElement(AccountBookOutlined),
-      label: "Task",
+      label: "Quản lý Task",
     },
   ];
 
@@ -95,7 +95,7 @@ export const LayoutAdmin: React.FC<Props> = ({ children }) => {
                 borderRadius: borderRadiusLG,
               }}
             >
-              <Sider style={{ background: colorBgContainer }} width={200}>
+              <Sider style={{ background: colorBgContainer }} width={200} className="min-h-screen">
                 <Menu
                   defaultSelectedKeys={[pathname]}
                   mode="inline"
