@@ -82,11 +82,10 @@ const BookingForm: FC<Props> = ({ tour }) => {
         <div className="md:flex">
           <div className="w-full px-6 py-8 md:p-8">
             <h2 className="text-2xl text-center font-bold text-gray-800">
-              Book This Tour
+              Đặt tour
             </h2>
             <p className="my-4 text-center text-gray-600">
-              Ex optio sequi et quos praesentium in nostrum labore nam rerum
-              iusto aut magni nesciunt? Quo quidem neque iste expedita est dolo.
+              Đặt tour để trải nghiệm hành trình du lịch tuyệt vời.
             </p>
             <Form
               name="basic"
@@ -157,7 +156,7 @@ const BookingForm: FC<Props> = ({ tour }) => {
                   <input
                     type="number"
                     className="w-full text-lg pl-10 pr-3 py-6 border focus:outline-none rounded shadow"
-                    placeholder="Number of adults"
+                    placeholder="Số người lớn"
                   />
                   <span className="absolute inset-y-0 left-0 flex items-center justify-center ml-3">
                     <img width={20} height={20} src="/icons/user.svg" alt="" />
@@ -170,7 +169,7 @@ const BookingForm: FC<Props> = ({ tour }) => {
                   <input
                     type="number"
                     className="w-full text-lg pl-10 pr-3 py-6 border focus:outline-none rounded shadow"
-                    placeholder="Number of children"
+                    placeholder="Số trẻ em"
                   />
                   <span className="absolute inset-y-0 left-0 flex items-center justify-center ml-3">
                     <img width={20} height={20} src="/icons/user.svg" alt="" />
@@ -182,7 +181,7 @@ const BookingForm: FC<Props> = ({ tour }) => {
                   <input
                     type="number"
                     className="w-full text-lg pl-10 pr-3 py-6 border focus:outline-none rounded shadow"
-                    placeholder="Number of babies"
+                    placeholder="Số em bé"
                   />
                   <span className="absolute inset-y-0 left-0 flex items-center justify-center ml-3">
                     <img width={20} height={20} src="/icons/user.svg" alt="" />
