@@ -3,9 +3,9 @@
 import React, { FC, useState } from "react";
 import { LayoutAdmin } from "@/component/page/admin/LayoutAdmin";
 import SalesChart from "@/component/page/admin/Chart/BookingChart";
-import TaskCompletionChart from "@/component/page/admin/Chart/TaskChart";
-import GuestChart from "@/component/page/admin/Chart/TotalGuestChart";
+import TaskChart from "@/component/page/admin/Chart/TaskChart";
 import TopPlaceChart from "@/component/page/admin/Chart/TopPlaceChart";
+import TotalGuestChart from "@/component/page/admin/Chart/TotalGuestChart";
 
 
 
@@ -41,8 +41,8 @@ const Home: FC = () => {
         </button>
       </div>
       {activeChart === "booking" && <SalesChart />}
-      {activeChart === "task" && <TaskCompletionChart />}
-      {activeChart === "guest" && <GuestChart />}
+      {activeChart === "task" && <TaskChart />}
+      {activeChart === "guest" && <TotalGuestChart />}
       {activeChart === "place" && <TopPlaceChart />}
     </LayoutAdmin>
   );

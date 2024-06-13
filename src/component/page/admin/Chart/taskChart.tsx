@@ -11,7 +11,7 @@ import {
 import { getTaskStatusStatistics } from "@/service/chart";
 Chart.register(ArcElement, Tooltip, Legend);
 
-const TaskCompletionChart: React.FC = () => {
+const TaskChart: React.FC = () => {
   const [currentData, setCurrentData] = useState<ChartData<"doughnut">>();
   const getMonthlyTotalData = useCallback(async () => {
     try {
@@ -69,4 +69,4 @@ const TaskCompletionChart: React.FC = () => {
   );
 };
 
-export default TaskCompletionChart;
+export default TaskChart;
