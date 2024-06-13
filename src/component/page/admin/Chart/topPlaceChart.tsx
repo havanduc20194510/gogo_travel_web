@@ -10,22 +10,22 @@ import {
   Filler,
   Title,
 } from "chart.js/auto";
-import { getTotalGuessStatistics } from "@/service/chart";
+import { getTopPlaceStatistics } from "@/service/chart";
 Chart.register(ArcElement, Tooltip, Legend, Filler, Title);
 
-const GuessChart: React.FC = () => {
+const TopPlaceChart: React.FC = () => {
   const [currentData, setCurrentData] = useState<ChartData<"bar">>();
-  const getTotalGuessData = useCallback(async () => {
+  const getTopPlaceData = useCallback(async () => {
     try {
-      const res = await getTotalGuessStatistics();
+      const res = await getTopPlaceStatistics();
       setCurrentData({
         labels: res.data.labels,
         datasets: [
           {
-            label: "Tổng lượng khách trong tháng",
+            label: "Top địa điểm nhiều lượt xem nhất",
             data: res.data.data,
-            backgroundColor: ["#caba10"],
-            hoverBackgroundColor: ["#FFCE56"],
+            backgroundColor: ["#0c9873"],
+            hoverBackgroundColor: ["#0c9873"],
             maxBarThickness: 60,
           },
         ],
@@ -36,8 +36,8 @@ const GuessChart: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    getTotalGuessData();
-  }, [getTotalGuessData]);
+    getTopPlaceData();
+  }, [getTopPlaceData]);
 
   return (
     <div>
@@ -55,4 +55,4 @@ const GuessChart: React.FC = () => {
     </div>
   );
 };
-export default GuessChart;
+export default TopPlaceChart;

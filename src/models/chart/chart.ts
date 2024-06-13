@@ -26,3 +26,14 @@ export interface TotalGuessStatisticsData {
   labels: string[];
   data: number[];
 }
+
+export interface GetTopPlaceStatisticsResponse {
+  code: number;
+  message: string;
+  data: TopPlaceStatisticsData;
+}
+
+export interface TopPlaceStatisticsData {
+  labels: string[];
+  data: number[];
+}
