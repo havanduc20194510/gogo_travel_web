@@ -13,7 +13,7 @@ import {
 import { getTotalGuessStatistics } from "@/service/chart";
 Chart.register(ArcElement, Tooltip, Legend, Filler, Title);
 
-const GuessChart: React.FC = () => {
+const GuestChart: React.FC = () => {
   const [currentData, setCurrentData] = useState<ChartData<"bar">>();
   const getTotalGuessData = useCallback(async () => {
     try {
@@ -55,4 +55,4 @@ const GuessChart: React.FC = () => {
     </div>
   );
 };
-export default GuessChart;
+export default GuestChart;

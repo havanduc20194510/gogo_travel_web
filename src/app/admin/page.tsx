@@ -4,8 +4,10 @@ import React, { FC, useState } from "react";
 import { LayoutAdmin } from "@/component/page/admin/LayoutAdmin";
 import SalesChart from "@/component/page/admin/Chart/bookingChart";
 import TaskCompletionChart from "@/component/page/admin/Chart/taskChart";
-import GuestChart from "@/component/page/admin/Chart/totalGuessChart";
+import GuestChart from "@/component/page/admin/Chart/totalGuestChart";
 import TopPlaceChart from "@/component/page/admin/Chart/topPlaceChart";
+
+
 
 const Home: FC = () => {
   const [activeChart, setActiveChart] = useState<"booking" | "task" | "guest" | "place">("booking");
