@@ -2,10 +2,10 @@
 
 import React, { FC, useState } from "react";
 import { LayoutAdmin } from "@/component/page/admin/LayoutAdmin";
-import SalesChart from "@/component/page/admin/Chart/bookingChart";
-import TaskCompletionChart from "@/component/page/admin/Chart/taskChart";
-import GuestChart from "@/component/page/admin/Chart/totalGuestChart";
-import TopPlaceChart from "@/component/page/admin/Chart/topPlaceChart";
+import SalesChart from "@/component/page/admin/Chart/BookingChart";
+import TaskCompletionChart from "@/component/page/admin/Chart/TaskChart";
+import GuestChart from "@/component/page/admin/Chart/TotalGuestChart";
+import TopPlaceChart from "@/component/page/admin/Chart/TopPlaceChart";
 
 
 
