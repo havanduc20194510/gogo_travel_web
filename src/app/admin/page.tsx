@@ -2,7 +2,7 @@
 
 import React, { FC, useState } from "react";
 import { LayoutAdmin } from "@/component/page/admin/LayoutAdmin";
-import MonthlyChart from "@/component/page/admin/Chart/bookingChart";
+import SalesChart from "@/component/page/admin/Chart/bookingChart";
 import TaskCompletionChart from "@/component/page/admin/Chart/taskChart";
 import GuestChart from "@/component/page/admin/Chart/totalGuessChart";
 import TopPlaceChart from "@/component/page/admin/Chart/topPlaceChart";
@@ -38,7 +38,7 @@ const Home: FC = () => {
           Thống kê top địa điểm hot
         </button>
       </div>
-      {activeChart === "booking" && <MonthlyChart />}
+      {activeChart === "booking" && <SalesChart />}
       {activeChart === "task" && <TaskCompletionChart />}
       {activeChart === "guest" && <GuestChart />}
       {activeChart === "place" && <TopPlaceChart />}

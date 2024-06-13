@@ -9,7 +9,6 @@ import {
   ChartOptions,
 } from "chart.js/auto";
 import { getTaskStatusStatistics } from "@/service/chart";
-import { TaskStatusStatisticsData } from "@/models/chart/chart";
 Chart.register(ArcElement, Tooltip, Legend);
 
 const TaskCompletionChart: React.FC = () => {
