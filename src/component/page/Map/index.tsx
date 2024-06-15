@@ -7,8 +7,7 @@ import { Spin } from "antd";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 import List from "./Place/List";
 
 const mapContainerStyle = {
@@ -31,7 +30,6 @@ export default function Map() {
 
   const [loading, setLoading] = useState(false);
   const [bounds, setBounds] = useState<any>({});
-
 
   const getCurrentLocation = useCallback(() => {
     if (navigator.geolocation) {
@@ -74,7 +72,6 @@ export default function Map() {
     }
   }, [address]);
 
-
   const getLocation = useCallback(async () => {
     try {
       setLoading(true);
@@ -91,7 +88,6 @@ export default function Map() {
   useEffect(() => {
     getLocation();
   }, [getLocation]);
-  
 
   return (
     <div>
@@ -103,22 +99,35 @@ export default function Map() {
           </div>
         ) : (
           <div className="flex items-center justify-center h-screen mb-8">
-
             <List bounds={bounds} isLoading={loading} />
             <LoadScript googleMapsApiKey={MAP_KEY}>
-                <GoogleMap
-                  mapContainerStyle={mapContainerStyle}
-                  center={center}
-                  zoom={15}
-                >
-                  <Marker position={center} />
-                </GoogleMap>
-              </LoadScript>
-            
+              <GoogleMap
+                mapContainerStyle={mapContainerStyle}
+                center={center}
+                zoom={15}
+              >
+                <Marker position={center} />
+              </GoogleMap>
+            </LoadScript>
           </div>
         )}
       </div>
       <Footer />
+      <a 
+        href={`https://www.google.com/maps/search/?api=1&query=${center?.lat},${center?.lng}`} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="fixed bottom-5 right-16 z-50"
+      >
+        <div className="group relative">
+          <div className="bg-blue-500 text-white rounded-full w-14 h-14 flex items-center justify-center text-2xl hover:bg-blue-600">
+            🔍
+          </div>
+          <span className="absolute bottom-full right-1/2 transform translate-x-1/2 mb-2 w-32 p-2 text-xs text-center text-white bg-black rounded-md opacity-0 group-hover:opacity-100 transition-opacity">
+            Open with Google Maps
+          </span>
+        </div>
+      </a>
     </div>
   );
 }
