@@ -4,7 +4,9 @@ import React, { ReactNode, Suspense } from "react";
 import {
   UserOutlined,
   CarOutlined,
+  BarChartOutlined,
   AccountBookOutlined,
+  FileDoneOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
 import Link from "next/link";
@@ -47,7 +49,7 @@ export const LayoutAdmin: React.FC<Props> = ({ children }) => {
   const menuList = [
     {
       key: "/admin",
-      icon: React.createElement(CarOutlined),
+      icon: React.createElement(BarChartOutlined),
       label: "Biểu đồ thống kê",
     },
     {
@@ -67,7 +69,7 @@ export const LayoutAdmin: React.FC<Props> = ({ children }) => {
     },
     {
       key: "/admin/task",
-      icon: React.createElement(AccountBookOutlined),
+      icon: React.createElement(FileDoneOutlined),
       label: "Quản lý Task",
     },
   ];
@@ -95,7 +97,11 @@ export const LayoutAdmin: React.FC<Props> = ({ children }) => {
                 borderRadius: borderRadiusLG,
               }}
             >
-              <Sider style={{ background: colorBgContainer }} width={200} className="min-h-screen">
+              <Sider
+                style={{ background: colorBgContainer }}
+                width={200}
+                className="min-h-screen"
+              >
                 <Menu
                   defaultSelectedKeys={[pathname]}
                   mode="inline"
@@ -105,6 +111,7 @@ export const LayoutAdmin: React.FC<Props> = ({ children }) => {
                   {(isGameManage ? gameMenuList : menuList).map((menu) => {
                     return (
                       <Menu.Item key={menu?.key}>
+                        <span className="mr-2">{menu.icon}</span>
                         <Link href={menu.key}>{menu.label}</Link>
                       </Menu.Item>
                     );

@@ -112,7 +112,8 @@ const PaymentCheck = () => {
               Số tiền: {formatPrice(Number(queryParams?.vnp_Amount) / 100)}
             </p>
             <button
-              className="w-full py-3 px-4 rounded bg-blue-500 text-white font-semibold hover:bg-blue-600 transition duration-300"
+              className="hidden md:block w-full py-3 px-4 rounded bg-blue-500 text-white font-semibold hover
+  transition duration-300"
               onClick={() => (window.location.href = "/")}
             >
               Quay lại trang chủ
