@@ -7,6 +7,8 @@ import Form from "../Form";
 import { PriceTable } from "./PriceTable";
 import { AverageRating } from "@/models/review/get";
 import { Rate } from "antd";
+import { getFromLocalStorage } from "@/utils/localStorage";
+import { User } from "@/models/booking/get";
 
 type Props = {
   tour?: Tour;
@@ -14,9 +16,12 @@ type Props = {
 };
 
 export default function Plan({ tour, averageRating }: Props) {
+  const user: User | undefined = getFromLocalStorage("user");
+
   if (!tour) {
     return null;
   }
+
   return (
     <div className="grid grid-cols-5 gap-4">
       <div className="col-span-3">
@@ -58,10 +63,12 @@ export default function Plan({ tour, averageRating }: Props) {
         <h1 className="text-xl font-bold my-5">Lưu ý</h1>
         <p>{tour.note}</p>
       </div>
-      <div className="col-span-2">
-        <Form tour={tour} />
-        <img src="/bg.png" alt="" />
-      </div>
+      {user?.roles?.includes("USER") && (
+        <div className="col-span-2">
+          <Form tour={tour} />
+          <img src="/bg.png" alt="" />
+        </div>
+      )}
     </div>
   );
 }
