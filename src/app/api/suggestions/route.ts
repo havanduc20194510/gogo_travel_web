@@ -43,10 +43,10 @@ const GET = async (request: Request) => {
     // Tạo text prompt từ các tham số
     let textPrompt = `Gợi ý top 4 địa điểm vui chơi ở ${location} vào thời gian ${time}`;
     if (activity) textPrompt += ` có hoạt động ${activity}.`;
-    textPrompt += ' Format dưới dạng tên địa điểm - mô tả nổi bật của địa điểm. Không có dấu ** xuất hiện';
+    textPrompt += ' Format dưới dạng tên địa điểm - mô tả nổi bật của địa điểm. Không hiện dấu **.';
 
     // Khởi tạo đối tượng OpenAI với API key
-    const openai = new OpenAI({apiKey:"sk-travel-key-1-A6GehGc1loD24A0AEplDT3BlbkFJjEXEAzoAcEMLin9KgoEk"});
+    const openai = new OpenAI({apiKey:"sk-travel-key-2-zp1ysfhXKh4rKU6rQAjHT3BlbkFJ2eihuidHvY80lTVNc0AZ"});
 
     try {
       // Gửi yêu cầu tới OpenAI API để tạo nội dung
