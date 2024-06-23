@@ -46,7 +46,7 @@ const GET = async (request: Request) => {
     textPrompt += ' Format dưới dạng tên địa điểm - mô tả nổi bật của địa điểm. Không hiện dấu **.';
 
     // Khởi tạo đối tượng OpenAI với API key
-    const openai = new OpenAI({apiKey:"sk-travel-key-2-zp1ysfhXKh4rKU6rQAjHT3BlbkFJ2eihuidHvY80lTVNc0AZ"});
+    const openai = new OpenAI({apiKey:"sk-travel-key-1-oEr0BuwzPbdptrAp7eGZT3BlbkFJ9Ljv6LwUlufscIov5YAK"});
 
     try {
       // Gửi yêu cầu tới OpenAI API để tạo nội dung
