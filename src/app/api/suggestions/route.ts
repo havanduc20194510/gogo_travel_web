@@ -45,12 +45,12 @@ const GET = async (request: Request) => {
     textPrompt += 'Format dưới dạng Location - Description.';
 
     // Khởi tạo đối tượng OpenAI với API key
-    const openai = new OpenAI({apiKey:"sk-my-test-key-2-VxlL3VkCbxd7IYa2HbNFT3BlbkFJ7Y2MVktNNCcMo5Khxv9q"});
+    const openai = new OpenAI({apiKey:"sk-proj-Byid3NoTEI1w75JcAt1ET3BlbkFJzfe968KkOzIaVqcWK223"});
 
   try {
     // Gửi yêu cầu tới OpenAI API để tạo nội dung
     const response = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo',
+      model: 'gpt-4o',
       messages: [{ role: 'user', content: textPrompt }],
       temperature: 0,
       max_tokens: 2000,
