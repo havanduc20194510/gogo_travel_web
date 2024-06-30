@@ -3,9 +3,9 @@
 import React, { FC, useState } from "react";
 import { LayoutAdmin } from "@/component/page/admin/LayoutAdmin";
 import SalesChart from "@/component/page/admin/Chart/BookingChart";
-import TaskChart from "@/component/page/admin/Chart/TaskChart";
-import TopPlaceChart from "@/component/page/admin/Chart/TopPlaceChart";
-import TotalGuestChart from "@/component/page/admin/Chart/TotalGuestChart";
+import TaskChart from "@/component/page/admin/Chart/taskChart";
+import TopPlaceChart from "@/component/page/admin/Chart/topPlaceChart";
+import TotalGuestChart from "@/component/page/admin/Chart/totalGuestChart";
 
 const Home: FC = () => {
   const [activeChart, setActiveChart] = useState<
