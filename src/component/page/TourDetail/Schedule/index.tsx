@@ -6,12 +6,20 @@ import Form from "../Form";
 import Steps from "./Steps";
 import { getFromLocalStorage } from "@/utils/localStorage";
 import { User } from "@/models/booking/get";
+import ReviewList from "../Review/ReviewList";
+import ReviewForm from "../Review/ReviewForm";
+import { Review } from "@/models/review/get";
 
 type Props = {
   tour?: Tour;
+  onReviewSubmit: (review: {
+    content: string;
+    rating: number;
+  }) => Promise<void>;
+  reviews: Review[];
 };
 
-export default function Schedule({ tour }: Props) {
+export default function Schedule({ tour, reviews, onReviewSubmit }: Props) {
   const user: User | undefined = getFromLocalStorage("user");
 
   if (!tour) {
@@ -23,16 +31,28 @@ export default function Schedule({ tour }: Props) {
   }
 
   return (
-    <div className="grid grid-cols-5 gap-4">
-      <div className="col-span-3">
-        <Steps tour={tour} />
-      </div>
-      {user?.roles?.includes("USER") && (
-        <div className="col-span-2">
-          <Form tour={tour} />
-          <img src="/bg.png" alt="" />
+    <>
+      <div
+        className={`grid ${
+          user?.roles?.includes("USER") ? "grid-cols-5" : "grid-cols-1"
+        }  gap-4`}
+      >
+        <div
+          className={`${
+            user?.roles?.includes("USER") ? "col-span-3" : "col-span-5"
+          }`}
+        >
+          <Steps tour={tour} />
         </div>
-      )}
-    </div>
+        {user?.roles?.includes("USER") && (
+          <div className="col-span-2">
+            <Form tour={tour} />
+            <img src="/bg.png" alt="" />
+          </div>
+        )}
+      </div>
+      <ReviewList reviews={reviews} />
+      <ReviewForm onSubmit={onReviewSubmit} />
+    </>
   );
 }

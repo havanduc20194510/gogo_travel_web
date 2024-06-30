@@ -85,12 +85,25 @@ export default function TourDetail() {
   const tabs = [
     {
       title: "Chương trình tour",
-      content: <Plan tour={tourResponse?.data} averageRating={averageRating} />,
+      content: (
+        <Plan
+          tour={tourResponse?.data}
+          averageRating={averageRating}
+          reviews={reviews}
+          onReviewSubmit={handleReviewSubmit}
+        />
+      ),
       iconUrl: "/icons/info.svg",
     },
     {
       title: "Lịch trình",
-      content: <Schedule tour={tourResponse?.data} />,
+      content: (
+        <Schedule
+          tour={tourResponse?.data}
+          reviews={reviews}
+          onReviewSubmit={handleReviewSubmit}
+        />
+      ),
       iconUrl: "/icons/calendar.svg",
     },
   ];
@@ -105,8 +118,6 @@ export default function TourDetail() {
       ) : (
         <div className="content">
           <TabContent tabs={tabs} />
-          <ReviewList reviews={reviews} />
-          <ReviewForm onSubmit={handleReviewSubmit} />
         </div>
       )}
     </AuthRequire>

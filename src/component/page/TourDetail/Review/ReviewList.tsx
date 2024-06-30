@@ -4,7 +4,7 @@ import React from "react";
 
 const ReviewList = ({ reviews }: { reviews: Review[] }) => {
   return (
-    <div className="p-4">
+    <div className="pt-4">
       <h2 className="text-2xl font-bold mb-4">Đánh giá</h2>
       {reviews.length > 0 ? (
         reviews.map((review, index) => (

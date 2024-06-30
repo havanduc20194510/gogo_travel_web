@@ -21,7 +21,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ onSubmit }) => {
   }, [content, onSubmit, rating]);
 
   return (
-    <div className="p-4">
+    <div className="pt-4">
       <h2 className="text-2xl font-bold mb-4">Viết review</h2>
       <div className="space-y-4">
         <div>
