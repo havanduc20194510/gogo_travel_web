@@ -9,7 +9,7 @@ const Detail = ({ place }) => {
       <div className="flex justify-between items-start">
         <div className="flex-1 px-2">
             <h2 className="capitalize text-lg font-medium truncate">
-              {place.name}
+              {place.name.slice(0,30) + '...'}
             </h2>
             <span className="text-sm font-medium text-gray-500">
               {place.price}

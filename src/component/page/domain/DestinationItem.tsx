@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { View } from "@/component/ui/View";
 import { Place } from "@/models/place/get";
 import Link from "next/link";
 

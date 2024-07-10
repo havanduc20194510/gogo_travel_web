@@ -8,6 +8,7 @@ import { getTourAverageRating } from "@/service/review";
 import { formatPrice } from "@/utils/price";
 import Link from "next/link";
 import { useState, useCallback, useEffect } from "react";
+import ColorStar from "../../TourDetail/Review/ColorStar";
 
 type Props = {
   tour: Tour;
@@ -48,18 +49,13 @@ export default function TourItem({ tour, colSpan = "1" }: Props) {
             {formatPrice(tour.adultPrice)}
           </span>
           <div className="flex items-center">
-            {!!averageRating?.averageRating &&
-              Array.from({ length: averageRating?.averageRating ?? 0 }).map(
-                (_, index) => (
-                  <img
-                    key={index}
-                    width={20}
-                    height={20}
-                    src="/icons/star.svg"
-                    alt=""
-                  />
-                )
-              )}
+            {!!averageRating?.averageRating && (
+              <ColorStar
+                rating={averageRating?.averageRating}
+                activeClassname="fill-yellow-400 text-yellow-400 h-5 w-5"
+                nonActiveClassname="fill-gray-300 text-gray-300 h-5 w-5"
+              />
+            )}
           </div>
         </div>
       </div>

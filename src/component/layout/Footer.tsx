@@ -22,31 +22,27 @@ export default function Footer() {
         </div>
         <div className="flex flex-col gap-2 text-sm">
           <p className="text-base font-bold tracking-wide ">links</p>
-          <a href="#">Discover</a>
-          <a href="#">Special Deals</a>
-          <a href="#">Services</a>
-          <a href="#">Community</a>
-          <a href="#">About Us</a>
+          <a href="#">Tổng quan</a>
+          <a href="#">Giới thiệu</a>
+          <a href="#">Các dịch vụ</a>
+          <a href="#">Mạng xã hội</a>
         </div>
         <div className="flex flex-col gap-2 text-sm">
-          <p className="text-base font-bold tracking-wide ">Services</p>
-          <a href="#">About Us</a>
-          <a href="#">Blog & Articles</a>
-          <a href="#">Term and Condition</a>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Contact Us</a>
+          <p className="text-base font-bold tracking-wide ">Dịch vụ</p>
+          <a href="#">Về chúng tôi</a>
+          <a href="#">Blog du lịch</a>
+          <a href="#">Liên hệ ngay</a>
         </div>
         <div className="flex flex-col gap-2 text-sm">
-          <p className="text-base font-bold tracking-wide ">Contact</p>
-          <a href="#">Address: Jl.Codelaras No.205A</a>
-          <a href="#">General Knowledge</a>
-          <a href="#">MBA</a>
-          <a href="#">Human Resource Management</a>
+          <p className="text-base font-bold tracking-wide ">Liên hệ</p>
+          <a href="#">Địa chỉ: Hai Bà Trưng - Hà Nội</a>
+          <a href="#">Điện thoại: 0123456789</a>
+          <a href="#">Email: gogotravel@gmail.com</a>
         </div>
       </div>
       <div className="flex flex-col-reverse justify-between pt-5 pb-10 border-t lg:flex-row">
         <p className="text-sm">
-          © Copyright 2023 Company. All rights reserved.
+          © Copyright 2024.
         </p>
         <ul className="flex flex-col mb-3 space-y-2 lg:mb-0 sm:space-y-0 sm:space-x-5 sm:flex-row">
           <li>

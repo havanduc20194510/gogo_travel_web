@@ -3,10 +3,6 @@ import axios from "axios";
 const url = "https://travel-advisor.p.rapidapi.com/restaurants/list-in-boundary";
 
 export const getPlacesData = async (type: any, sw: any, ne: any) => {
-  console.log("type", type);
-  console.log("sw", sw);
-  console.log("ne", ne);
-
   try {
     const response = await axios.get(
       `https://travel-advisor.p.rapidapi.com/${type}/list-in-boundary`,
@@ -27,13 +23,13 @@ export const getPlacesData = async (type: any, sw: any, ne: any) => {
     );
 
     const data = response.data.data;
-    console.log("data:", data);
 
     // Filter out places that do not have a name
     const filteredData = data.filter((place: any) => place.name);
 
     return filteredData;
+    
   } catch (error) {
-    console.log(`Fetch data Error : ${error}`);
+    console.log(`Get near place error : ${error}`);
   }
 };

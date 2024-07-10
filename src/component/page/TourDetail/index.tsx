@@ -59,10 +59,6 @@ export default function TourDetail() {
     loadTour();
   }, [loadTour]);
 
-  useEffect(() => {
-    increaseView(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handleReviewSubmit = useCallback(
     async (review: { content: string; rating: number }) => {

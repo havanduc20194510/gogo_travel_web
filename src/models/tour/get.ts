@@ -50,7 +50,6 @@ export type Tour = {
   hotelStar: number;
   status: string;
   note: string;
-  totalView: number;
   tourType: TaskTypeOrTourType;
   images?: Image[];
   departureTimes?: DepartureTimes[];

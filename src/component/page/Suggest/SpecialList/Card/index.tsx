@@ -17,19 +17,11 @@ export default function Card({ place }: Props) {
         alt="Home in Countryside"
       />
       <div className="p-6">
-        <h4 className="my-2 font-semibold text-lg leading-tight truncate">
+        <h4 className="my-2 font-semibold text-lg leading-tight">
           {place.location}
         </h4>
         <div className="flex items-center gap-1 mb-2 text-sm">
           <span>{place.description}</span>
-        </div>
-        <div className="flex justify-end mt-2">
-          <Link
-            className="text-blue-600 italic"
-            href={`/map?address=${place.location}`}
-          >
-            Xem vị trí
-          </Link>
         </div>
       </div>
     </div>
