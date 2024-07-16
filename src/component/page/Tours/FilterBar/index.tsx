@@ -33,7 +33,7 @@ export default function FilterBar({ onSubmit }: Props) {
         type="button"
         onClick={() => onSubmit(filterValue)}
       >
-        Tìm kiếm
+        Lọc
       </button>
     </div>
   );
